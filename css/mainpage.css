@@ -1,0 +1,28 @@
+
+#obs-headercont{
+   margin-top: 3vh;
+   margin-bottom: -5vh;
+}
+
+#obs-nav{
+   
+   margin-top: 7.5vh;
+   overflow-x: scroll;
+   display: flex;
+   background-color: var(--base-color);
+   width: 100vw;
+   height: 20vh;
+   border-top: 2px solid var(--text-color);
+   border-bottom: 2px solid var(--text-color);
+
+}
+
+.carrousel-card{
+   flex: 0 0 35%
+}
+
+#obs-nav img{
+      margin-top: 12.5%;
+      border-radius: 50%;
+      box-shadow: 0px 0px 5px 2px var(--text-color);
+}

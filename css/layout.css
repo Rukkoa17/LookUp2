@@ -1,0 +1,20 @@
+/*Layout for almost every page of the site.*/
+
+
+
+.header-cont{
+   margin-top: 2vh;
+   display: flex;
+   justify-content: center;
+}
+
+#main-header{
+   font-family: var(--font-style);
+}
+
+hr {
+   color: var(--text-color);
+   width: 80vw;
+   margin: 0 auto;
+   margin-top: 2vh;
+}
