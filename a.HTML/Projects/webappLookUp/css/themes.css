@@ -1,0 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
+
+:root {
+   --base-color : rgb(0, 0, 0);
+   --base-colorvar : rgba(20, 20, 20, 0.7);
+   --elem-colorvar : rgb(199, 194, 194);
+   --text-color: white;
+   --font-style: "Mansalva", sans-serif;
+}
