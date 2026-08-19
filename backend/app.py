@@ -16,11 +16,23 @@ def test():
         "message": "Working"
     })
 
-@app.route("/api/config-test")
-def config_test():
+@app.route("/api/astroapi")
+def astro():
+
+    astroapi_key = os.getenv("ASTROAPI_KEY")
+
     return jsonify({
-        "key_loaded": bool(os.getenv("ASTROAPI_KEY"))
+        "key_exists": bool(astroapi_key)
     })
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route("/api/weather")
+def weather():
+
+    weather_key = os.getenv("WEATHER_API_KEY")
+
+    return jsonify({
+        "key_exists": bool(weather_key)
+    })
