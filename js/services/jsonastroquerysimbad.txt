@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Arcturus",
+    "main-id": "* alf Boo",
+    "ra": 213.915300294925,
+    "dec": 19.1824091615312,
+    "type": "stars",
+    "magnitude V": -0.05,
+    "magnitude B": 1.18
+  },
+  {
+    "name": "Canopus",
+    "main-id": "* alf Car",
+    "ra": 95.98795782918306,
+    "dec": -52.69566138386201,
+    "type": "stars",
+    "magnitude V": -0.74,
+    "magnitude B": -0.59
+  },
+  {
+    "name": "Orion Nebula",
+    "main-id": "M  42",
+    "ra": 83.8201,
+    "dec": -5.3876,
+    "type": "nebulae",
+    "magnitude V": null,
+    "magnitude B": null
+  },
+  {
+    "name": "Procyon",
+    "main-id": "* alf CMi",
+    "ra": 114.82549790798149,
+    "dec": 5.224987557059477,
+    "type": "stars",
+    "magnitude V": 0.37,
+    "magnitude B": 0.79
+  },
+  {
+    "name": "Rigel",
+    "main-id": "* bet Ori",
+    "ra": 78.63446706693006,
+    "dec": -8.201638364722209,
+    "type": "stars",
+    "magnitude V": 0.13,
+    "magnitude B": 0.1
+  },
+  {
+    "name": "Sirius",
+    "main-id": "* alf CMa",
+    "ra": 101.28715533333335,
+    "dec": -16.71611586111111,
+    "type": "stars",
+    "magnitude V": -1.46,
+    "magnitude B": -1.46
+  },
+  {
+    "name": "Vega",
+    "main-id": "* alf Lyr",
+    "ra": 279.234734787025,
+    "dec": 38.783688956244,
+    "type": "stars",
+    "magnitude V": 0.03,
+    "magnitude B": 0.03
+  }
+]

@@ -22,25 +22,78 @@
          <h1 id ="main-header" >Look Up</h1> <!--Change with the "Look Up" Drawing-->
          <!--img ; Single Logo that pops with animation when scroll down-->
       </header>
-      <hr>  
 
-      <header id="obs-headercont" class="header-cont">
-         <h2 id="obs-header">Tonight: </h2>
+      <header id="obs-headercont">
+         <div id="obs-options-cont">
+            <svg id="obs-eye-option" class="obs-svg-btn obs-btn-selected"
+            xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+
+            <svg id="obs-bino-option" class="obs-svg-btn"
+            xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-binoculars-icon lucide-binoculars"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M 22 16 L 2 16"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/></svg>
+
+            <svg id="obs-telescope-option" class="obs-svg-btn"
+            xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-telescope-icon lucide-telescope"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"/><path d="m13.56 11.747 4.332-.924"/><path d="m16 21-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z"/><path d="m6.158 8.633 1.114 4.456"/><path d="m8 21 3.105-6.21"/><circle cx="12" cy="13" r="2"/></svg>
+         </div>    
       </header>
-      <nav id="obs-nav" class="x-nav">
+
+      <nav id="obs-navbar">
+         <input id="navbar-input" class="textinput"
+         type="text" 
+         placeholder="Looking for:"
+         maxlength="20">
+         <nav id="obs-navbar-wanted">
+            <h4 id="obs-navbar-visibles" class="obs-nav-bar-wantbtn">Visibles</h4>
+            <h4 id="obs-navbar-showall" class="obs-nav-bar-wantbtn">Show All</h4>
+         </nav>
+      </nav>
+
+
+      <nav id="obs-nav" class="eyes">
+         <!--Mutltiples .js files does the filling here by getting the celestials objects then creating for them a div with an img.-->
          <div class="carrousel-card">
-            <img src="./Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" rel="orion" width="90%" > 
          </div>
          <div class="carrousel-card">
-            <img src="./Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" rel="orion" width="90%" > 
          </div>
-         <div class="carrousel-card">
-            <img src="./Orion_Nebula_-_Hubble_2006_mosaic_18000.jpg" rel="orion" width="90%" > 
-         </div>
-         
+      </nav>
+
+      <div id="obs-nav-infos">
+         <!--mainpageutility.js does this inner part.-->
+      </div>
+
+      <div id="weather-cont"> 
+         <h2 id="weather-cont-title" class="mid-title">Observability</h2>
+
+      </div>
+
+      </main>
+
+      <nav id="nav-bar">
+
+         <svg class="nav-bar-svg-btn nav-btn-selected" 
+         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+
+         <svg class="nav-bar-svg-btn"
+         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-telescope-icon lucide-telescope"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"/><path d="m13.56 11.747 4.332-.924"/><path d="m16 21-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z"/><path d="m6.158 8.633 1.114 4.456"/><path d="m8 21 3.105-6.21"/><circle cx="12" cy="13" r="2"/></svg>
+
+         <svg class="nav-bar-svg-btn"
+         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-question-mark-icon lucide-badge-question-mark"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+
+         <svg class="nav-bar-svg-btn"
+         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog-icon lucide-cog"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></svg>
 
       </nav>
 
    </main>
    
+   <script type="text/javascript" src="./js/loading.js" defer></script>
+   <script type="text/javascript" src="./js/services/infos.js" defer></script>
+   <script type="text/javascript" src="./js/services/observability.js" defer></script>
+   <script type="text/javascript" src="./js/services/datas.js" defer></script> <!--Load up datas-->
+   <script type="text/javascript" src="./js/services/EyesAstroapi.js" defer></script> <!--Load up datas for planets-->
+   <script type="text/javascript" src="./js/services/jsastroquery.js" defer></script> 
+   <script type="text/javascript" src="./js/display.js" defer></script>  
+   <script type="text/javascript" src="./js/mainpageutility.js"></script>   
+   
 </body>
+</html>
+   

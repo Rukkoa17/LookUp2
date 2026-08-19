@@ -10,6 +10,7 @@
 
 #main-header{
    font-family: var(--font-style);
+   font-size: 2.5em;  
 }
 
 hr {

@@ -1,28 +1,279 @@
 
 #obs-headercont{
-   margin-top: 3vh;
-   margin-bottom: -5vh;
-}
-
-#obs-nav{
-   
-   margin-top: 7.5vh;
-   overflow-x: scroll;
+   margin-top: 5%;
    display: flex;
+   justify-content: center;
+   user-select: none;
+}
+
+.obs-svg-btn{
+   width: 21px;
+   height: 21px;
+   stroke: var(--elem-colorvar);
+   cursor: pointer;
+   user-select: none;
+}
+
+.obs-btn-selected{
+   stroke: var(--third-color);
+   filter:
+      drop-shadow(0 0 12px var(--third-color))
+      drop-shadow(0 0 15px rgb(238, 180, 255))
+}
+
+#obs-options-cont{
+   width: 80%;
+   display: flex;
+   justify-content: center;
+   gap: 30%;
+   background-color: var(--base-colorvar);
+   padding: 1% 5% 1% 5%;
+   border-radius: 15px;
+   box-shadow: 0 0 3px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+}
+
+
+.obs-svg-btn:hover{
+   transform: scale(1.1);
+    stroke: var(--third-color);
+    filter:
+        drop-shadow(0 0 5px var(--third-color))
+        drop-shadow(0 0 10px rgb(238, 180, 255))
+}
+
+
+#obs-navbar{
+   margin-top: 7.5%;
+   display: flex;
+   flex-direction: column;
+   user-select: none;
+   
+}
+
+#navbar-input{
+   height: 5vh;
+   width: 90%;
+   border-radius: 15px 15px 0 0;
    background-color: var(--base-color);
-   width: 100vw;
-   height: 20vh;
-   border-top: 2px solid var(--text-color);
-   border-bottom: 2px solid var(--text-color);
+   border: 1px solid var(--text-color);
+   color: var(--text-color);
+   text-align: center;
+   font-size: large;
+   align-self: center;
+   font-family: "Mansalva";
 
 }
+
+#obs-navbar-wanted{
+   display: flex;
+   justify-content: center ;
+   gap:25%;
+   padding: 1.5% 0 1.5% 0;
+   height: 3vh;
+   width: 90%;
+   border-radius: 0 0 15px 15px;
+   background-color: var(--base-color);
+   border: 1px solid var(--text-color);
+   border-top: 0;
+   color: var(--text-color);
+   text-align: center;
+   font-size: small;
+   align-self: center;
+}
+
+#obs-navbar-wanted h4{
+   align-self: center;
+   font-family: "Mansalva";
+}
+
+#obs-navbar-wanted h4:hover{
+   transform: scale(1.1);
+   filter:
+      drop-shadow(0 0 5px var(--third-color))
+}
+
+.wanted-btn-selected{
+   transform: scale(1.2);
+   filter: 
+      drop-shadow(0 0 15px var(--text-color))
+      drop-shadow(0 0 5px var(--third-color))
+
+}
+
+#obs-nav.eyes{
+   margin-top: 5%;
+   overflow-x: auto;
+   scroll-behavior: smooth;
+   display: flex;
+   gap: 3%;
+   background-color: var(--base-color);
+   padding: 3% 0 3% 0;
+   width: 100%;
+   height: 20vh;
+
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* IE/Edge */
+}
+
+#obs-nav.eyes::-webkit-scrollbar {
+   display: none;      
+}
+
+#obs-nav.bino{
+
+}
+
+#obs-nav.telescope{
+
+}
+
+
+#obs-nav-infos{
+   margin: 3vh auto 0 auto;
+   text-align: center;
+   width: 100%;
+   user-select: none;
+}
+
+#obs-nav-infos h3{
+   color : var(--text-color);
+   font-family: "Mansalva", sans-serif;
+   font-size: 1.5em;
+   user-select: none;
+}
+
 
 .carrousel-card{
-   flex: 0 0 35%
+   flex: 0 0 40%;
+   aspect-ratio: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   user-select: none;
 }
 
-#obs-nav img{
-      margin-top: 12.5%;
-      border-radius: 50%;
-      box-shadow: 0px 0px 5px 2px var(--text-color);
+.carr-object{
+    width: 70%;
+    height: 70%;
+
+    object-fit: cover;
+
+    cursor: pointer;
+    border-radius: 50%;
+
+    filter:
+        drop-shadow(0 0 2px var(--third-color))
+        drop-shadow(0 0 6px rgb(247, 247, 247));
+
+   user-select: none;
+}
+
+.carr-object:hover{
+   transform: scale(1.06);
+}
+
+.carr-object-selected{
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    filter:
+        drop-shadow(0 0 2px var(--third-color))
+        drop-shadow(0 0 6px rgb(247, 247, 247));
+}
+
+.carr-object-selected:hover{
+   transform: scale(1);
+}
+
+
+.status-light{
+   margin-right: auto;
+   margin-left: auto;
+   margin-top: 0.25em;
+   height: 0.75em;
+   width: 0.75em;
+   background: var(--light-color);
+   border-radius: 50%;
+   border: 1px solid var(--text-color);
+   flex: 0 0 1;
+   box-shadow:
+      0 0 13px 4px var(--light-color);
+   user-select: none;
+}
+
+
+#weather-cont{
+   margin-top: 22.5%;
+   margin-left: auto;
+   margin-right: auto;
+   width: 90vw;
+   height: 25vh;
+   border-radius: 10px;
+   display: flex;
+   flex-direction: column;
+
+   box-shadow: 0 0 3px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+
+}
+
+#weather-cont:hover{
+   transform: scale(1.02);
+}
+
+
+.mid-title{
+   align-self: center;
+   margin-top: 2%;
+   font-family: "Mansalva";
+   user-select: none;
+
+}
+
+#nav-bar{
+   position : fixed;
+   margin-left: 5%;
+   margin-bottom: 5%;
+   bottom: 0px;
+   width: 90%;
+   height: 6.5vh;
+   border-radius:10vh ;
+   background-color: var(--base-colorvar);
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: center;
+   gap:1.5%;
+   box-shadow: 0 0 6px rgb(213, 122, 255),0 0 15px rgb(213, 122, 255);;
+}
+
+#nav-bar svg{
+   align-self: center;
+   transition: transform .2s, filter .2s;
+}
+
+.nav-bar-svg-btn{
+   width: 20%;
+   height: 65%;
+   stroke: var(--elem-colorvar);
+}
+
+.nav-btn-selected{
+   stroke: var(--third-color);
+   filter:
+      drop-shadow(0 0 20px var(--third-color))
+      drop-shadow(0 0 15px rgb(238, 180, 255))
+
+}
+
+#nav-bar svg:hover{
+   transform: scale(1.1);
+   cursor: pointer;
+   stroke: var(--third-color);
+   filter:
+      drop-shadow(0 0 12px var(--third-color))
+      drop-shadow(0 0 15px rgb(238, 180, 255))
+      drop-shadow(0 0 20px rgb(239, 229, 241));
 }
