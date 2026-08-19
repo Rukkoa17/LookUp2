@@ -1,6 +1,6 @@
 //Ask for gps postion from the start
 
-fetch("http://127.0.0.1:5000/api/test")
+fetch("https://lookup2-gpj8.onrender.com/api/test")
     .then(response => response.json())
     .then(data => {
         console.log(data);

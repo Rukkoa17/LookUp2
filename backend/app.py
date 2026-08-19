@@ -19,7 +19,7 @@ def test():
 @app.route("/api/config-test")
 def config_test():
     return jsonify({
-        "key_loaded": bool(os.getenv("ASTRONOMY_API_KEY"))
+        "key_loaded": bool(os.getenv("ASTROAPI_KEY"))
     })
 
 if __name__ == "__main__":

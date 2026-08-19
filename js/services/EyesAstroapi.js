@@ -10,7 +10,7 @@ window.addEventListener("glocaready" , ()=>{
          `&from_date=${date}&to_date=${date}&time=${time}`,
          {
         headers: {
-          "Authorization": "Basic " + btoa("11bcc377-f009-454a-9d04-2c6df9e9ecd6:43af20480582a4a90cc67032a86f8d66198bceb4c72e5866aaeaeb9fc12e7e28c308be7396f74ca0f701f2c7850fca8577cd0dbc73101affec1d3f8a2da65e0673691892d675f3bf1307e6bceda85d8f45efa77ca7a75ce02954e2db473397c79e10fd7ea8e2240416c2055b9ae4cef7")
+          "Authorization": "Basic " + btoa()
             }
          }                        
       )                     
