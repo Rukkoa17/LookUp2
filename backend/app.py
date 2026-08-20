@@ -34,9 +34,13 @@ def astro():
     date = request.args.get("date")
     time = request.args.get("time")
 
-    response = requests.get(
+    response = requests.post(
         "https://api.astronomyapi.com/api/v2/bodies/positions",
-        params={
+        headers={
+            "Authorization": "Basic " + auth,
+            "Content-Type": "application/json"
+        },
+        json={
             "bodies": "mercury,venus,mars,jupiter,saturn,uranus,neptune,moon",
             "latitude": latitude,
             "longitude": longitude,
@@ -44,13 +48,11 @@ def astro():
             "from_date": date,
             "to_date": date,
             "time": time
-        },
-        headers={
-            "Authorization": "Basic " + auth
         }
     )
 
     return jsonify(response.json())
+
 
 if __name__ == "__main__":
     app.run(debug=True)
