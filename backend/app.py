@@ -22,12 +22,12 @@ def astro():
     astro_key = os.getenv("ASTROAPI_KEY")
 
     if not astro_key:
-        return jsonify({"error : Astronomy API key is missing"})
+        return jsonify({"error : Astronomy API key is missing"}) , 500
 
     #normally would use btoa() in JS but here I have to encode it then.
     auth = base64.b64encode(
-        astro_key.encode()
-    ).decode()
+        astro_key.encode("utf-8")
+    ).decode("utf-8")
 
     latitude = request.args.get("latitude")
     longitude = request.args.get("longitude")
@@ -37,7 +37,7 @@ def astro():
     response = requests.post(
         "https://api.astronomyapi.com/api/v2/bodies/positions",
         headers={
-            "Authorization": "Basic " + auth,
+            "Authorization": f"Basic {auth}",
             "Content-Type": "application/json"
         },
         json={
