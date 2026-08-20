@@ -25,9 +25,9 @@ def astro():
         return jsonify({"error : Astronomy API key is missing"}) , 500
 
 
-    print("KEY EXISTS:", bool(astro_key))
-    print("HAS COLON:", ":" in astro_key if astro_key else False)
-    print("KEY LENGTH:", len(astro_key) if astro_key else 0)
+    print("KEY EXISTS:", bool(astro_key), file=sys.stderr, flush=True)
+    print("HAS COLON:", ":" in astro_key if astro_key else False, file=sys.stderr, flush=True)
+    print("KEY LENGTH:", len(astro_key) if astro_key else 0, file=sys.stderr, flush=True)
 
     #normally would use btoa() in JS but here I have to encode it then.
     auth = base64.b64encode(
