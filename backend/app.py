@@ -41,13 +41,12 @@ def astro():
     date = request.args.get("date")
     time = request.args.get("time")
 
-    response = requests.post(
+    response = requests.get(
         "https://api.astronomyapi.com/api/v2/bodies/positions",
         headers={
-            "Authorization": f"Basic {auth}",
-            "Content-Type": "application/json"
+            "Authorization": f"Basic {auth}"
         },
-        json={
+        params={
             "bodies": "mercury,venus,mars,jupiter,saturn,uranus,neptune,moon",
             "latitude": latitude,
             "longitude": longitude,
