@@ -1,13 +1,12 @@
 //Change for "conditionsready" ?? In way to filter what would be invisible because of weather
 window.addEventListener("glocaready" , async ()=>{
-
    try {
 
    await fetch(
          "https://lookup2-gpj8.onrender.com/api/astro" +
          `?bodies=mercury,venus,mars,jupiter,saturn,uranus,neptune,moon` +
          `&latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&elevation=0` +
-         `&from_date=${date}&to_date=${date}&time=${time}`                     
+         `&from_date=${date}&to_date=${date}&time=${time}`,    
       )
 
    .then(response => response.json())
