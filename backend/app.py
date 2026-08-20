@@ -25,9 +25,6 @@ def astro():
     if not astro_key:
         return jsonify({"error : Astronomy API key is missing"}) , 500
 
-
-    print("KEY REPR:", repr(astro_key), file=sys.stderr, flush=True)
-
     if astro_key:
         astro_key = astro_key.strip()
 

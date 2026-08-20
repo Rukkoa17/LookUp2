@@ -52,6 +52,8 @@ window.addEventListener("glocaready" , async ()=>{
             
          }
          window.dispatchEvent(new Event("planetsready"));
+         planetstatus = true
+         clearloading()
          }
       ) 
    } catch (error) {

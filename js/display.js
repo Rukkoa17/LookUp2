@@ -9,21 +9,12 @@ const wanted_btn_showall = document.querySelector('#obs-navbar-showall')
 let showing = "visible" //variable parameter for what type of thing the user wants to see. (visible/all)
 let reset = 0 
 
-let planetsready = false;
-let restofdatasready = false;
-
-window.addEventListener("planetsready" , ()=> {
-   planetsready = true;
-   verification_if_ready()
-})
-
-window.addEventListener("otherready" , () => {
-   restofdatasready = true;
+window.addEventListener("loadingclear" , () => {
    verification_if_ready()
 })
 
 function verification_if_ready(){
-   if (planetsready && restofdatasready ){
+   if (planetstatus && objectsstatus ){
       async function display_carrousel(){
       if (reset != 0){
          nav_cont.innerHTML = '';

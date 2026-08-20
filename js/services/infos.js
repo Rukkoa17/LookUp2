@@ -1,34 +1,15 @@
+//Loading
+let planetstatus = false;
+let objectsstatus = false;
 
-//Backend Render api keys request
-async function serverresquest(){
+const loading = document.querySelector("#server-status")
+loading.textContent = "Loading ..."
 
-   const loading = document.querySelector("#server-status")
-   loading.textContent = "Loading ..."
-
-   try {
-   const astroresponse = await fetch("https://lookup2-gpj8.onrender.com/api/astro");
-   const weatherresponse = await fetch("https://lookup2-gpj8.onrender.com/api/weather");
-   
-   if (!astroresponse.ok || !weatherresponse.ok){
-      throw new Error("Issue with backend.")
+function clearloading () {
+   if (planetstatus && objectsstatus){
+      loading.remove()
+      window.dispatchEvent(new Event("loadingclear"))
    }
-   
-   const astrokey = await astroresponse.json()
-   const weatherkey = await weatherresponse.json()
-   console.log(weatherkey)
-
-   loading.innerHTML = ""
-   
-   }
-
-   catch (error) {
-      status.textContent = "● Offline";
-      console.error(error);
-   }
-
-
-
-
 }
 
 //Ask for gps postion from the start

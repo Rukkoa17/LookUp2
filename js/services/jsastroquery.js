@@ -76,4 +76,6 @@ window.addEventListener("glocaready" , ()=>{
       }}
    )
    window.dispatchEvent(new Event("otherready"));  
+   objectsstatus = true
+   clearloading()
 })
