@@ -1,19 +1,14 @@
-
-
 //Change for "conditionsready" ?? In way to filter what would be invisible because of weather
-window.addEventListener("glocaready" , ()=>{
+window.addEventListener("glocaready" , async ()=>{
 
-   fetch(
-         "https://api.astronomyapi.com/api/v2/bodies/positions" +
+   try {
+
+   await fetch(
+         "https://lookup2-gpj8.onrender.com/api/astro" +
          `?bodies=mercury,venus,mars,jupiter,saturn,uranus,neptune,moon` +
          `&latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&elevation=0` +
-         `&from_date=${date}&to_date=${date}&time=${time}`,
-         {
-        headers: {
-          "Authorization": "Basic " + btoa()
-            }
-         }                        
-      )                     
+         `&from_date=${date}&to_date=${date}&time=${time}`                     
+      )
 
    .then(response => response.json())
    .then(data => { 
@@ -59,4 +54,7 @@ window.addEventListener("glocaready" , ()=>{
          window.dispatchEvent(new Event("planetsready"));
          }
       ) 
+   } catch (error) {
+      console.error("There is an issue with the backend..." , error)
+   }
 });
