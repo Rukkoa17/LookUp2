@@ -38,7 +38,8 @@ def astro():
 
     latitude = request.args.get("latitude")
     longitude = request.args.get("longitude")
-    date = request.args.get("date")
+    from_date = request.args.get("from_date")
+    to_date = request.args.get("to_date")
     time = request.args.get("time")
 
     response = requests.get(
@@ -51,8 +52,8 @@ def astro():
             "latitude": latitude,
             "longitude": longitude,
             "elevation": 0,
-            "from_date": date,
-            "to_date": date,
+            "from_date": from_date,
+            "to_date": to_date,
             "time": time
         }
     )
