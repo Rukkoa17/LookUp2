@@ -62,21 +62,21 @@ const c = new THREE.Mesh(cg , cm)
 c.position.set(0, 10 , -150)
 scene.add(c)
 
-// window.addEventListener("deviceorientationabsolute", (event) => {
+window.addEventListener("deviceorientationabsolute", (event) => {
 
-//    let alpha = THREE.MathUtils.degToRad(event.alpha)
-//    let beta = THREE.MathUtils.degToRad(event.beta)
-//    let gamma = THREE.MathUtils.degToRad(event.gamma)
+   let alpha = THREE.MathUtils.degToRad(event.alpha)
+   let beta = THREE.MathUtils.degToRad(event.beta)
+   let gamma = THREE.MathUtils.degToRad(event.gamma)
 
    
-//    const euler = new THREE.Euler(beta , alpha , gamma , 'ZYX')
-//    const quater = new THREE.Quaternion()
-//    quater.setFromEuler(euler)
+   const euler = new THREE.Euler(beta , alpha , gamma , 'ZYX')
+   const quater = new THREE.Quaternion()
+   quater.setFromEuler(euler)
    
-//    c.quaternion.copy(quater)  
+   c.quaternion.copy(quater)  
     
 
-// })
+})
 
 
 //RayCasting method to click | look at and pop up
