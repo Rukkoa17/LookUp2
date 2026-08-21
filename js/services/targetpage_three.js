@@ -2,21 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 //-----Position of wanted object
 
-console.log("THREE:", THREE);
-
-console.log(objectid)
-
-let azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
-let altdata = newcelestial_objects[objecttype][objectid].infos.altitude
-
 const az = THREE.MathUtils.degToRad(azdata);
 const alt = THREE.MathUtils.degToRad(altdata);
 
 const xpos = 5 * Math.cos(alt) * Math.sin(az) * 100;
 const ypos = 5 * Math.sin(alt) * 100;
 const zpos = -5 * Math.cos(alt) * Math.cos(az) * 100;
-
-console.log([xpos , ypos , zpos])
 
 //----Scene
 const scene = new THREE.Scene();
@@ -75,33 +66,30 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const quater = new THREE.Quaternion()
    quater.setFromEuler(euler)
    
-   c.quaternion.copy(quater)  
+   camera.quaternion.copy(quater)  
+   
+   //RayCasting method to click | look at and pop up
+   const raycaster = new THREE.Raycaster( ); 
+   
+   raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
+   
+   let intersect = raycaster.intersectObject(star , false) 
+   
+   console.log(intersect.name)
+   
+   if(intersect.length > 0){
+      info_panel.classList.add("open")
+   }
     
 
 })
 
-
-//RayCasting method to click | look at and pop up
-const raycaster = new THREE.Raycaster( ); 
-const mouse = new THREE.Vector2( );
-
-document.body.addEventListener("click", (e) => {
-   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-   raycaster.setFromCamera(mouse,camera)
-
-   let intersect = raycaster.intersectObject(star , false) 
-
-   console.log(intersect)
-
-   if(intersect.length > 0){
-      console.log("hit")
+document.querySelector("#bg").addEventListener("click" , () => {
+   if(info_panel.classList.contains("open")){
+      info_panel.classList.remove("open")
    }
-   else{
-      console.log("mh")
-   }
-
 })
+
 
 //Orbit Controls (deviceorientation)
 const controls = new OrbitControls(camera , renderer.domElement)

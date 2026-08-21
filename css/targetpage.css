@@ -25,3 +25,57 @@ main{
       drop-shadow(0 0 15px rgb(238, 180, 255));
    border-radius: 50%;
 }
+
+#object-infos-tab{
+   opacity: 0; /*by default settings of closed panel , adding .open class then*/
+   z-index: -1;
+   overflow-y: scroll;
+
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* IE/Edge */
+
+   position: absolute;
+   bottom: 0;
+   background-color: var(--base-color);
+   border-top: 2px solid var(--third-color);
+      filter:  
+      drop-shadow(0 0 6px var(--third-color))
+      drop-shadow(0 0 7.5px rgb(238, 180, 255));
+   height: 30vh;
+}
+
+#object-infos-tab.open{
+   pointer-events: all;
+   opacity: 1;
+   z-index: 1;
+}
+
+
+#object-infos-tab::-webkit-scrollbar{
+   display:none;
+}
+
+#object-titleandimage{
+   display: flex;
+   
+}
+
+#object-title-section{
+   font-family: Mansalva;
+   font-size: 2em;
+   margin : 4vh 0 0 5vw;
+   flex: 0 0;
+}
+
+#object-coords-section{
+   display: flex;
+   flex-direction: column;
+   gap: 1vh;
+   margin: -6vh 0 7vh 5vw;
+}
+
+#object-image-section{
+   margin-top: 2.5vh;
+   width: 40%;
+   margin-left: auto;
+}
