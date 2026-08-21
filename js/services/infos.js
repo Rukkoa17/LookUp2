@@ -12,7 +12,7 @@ function clearloading () {
    }
 }
 
-//Ask for gps postion from the start
+//Ask for gps postion from the start     
 window.userLocation = {
     latitude: null,
     longitude: null

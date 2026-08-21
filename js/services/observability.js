@@ -1,6 +1,6 @@
 //Here will be in this order : Weather API / Moon Phase / Light pollution API. All will result in a % for user OBSERVABILITY.
 
-const ky = "33c197cc674cc1ee4cda646ca977afdb"
+// const ky that was my api key here was delete , so previous exposed version doesn't work no more.
 
 window.addEventListener("glocaready", () => {
 
