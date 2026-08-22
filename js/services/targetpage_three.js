@@ -84,6 +84,21 @@ window.addEventListener("deviceorientationabsolute", (event) => {
 
 })
 
+//DELETE AFTER JUST FOR TESTS
+// window.addEventListener("click" , () => {
+//    const raycaster = new THREE.Raycaster( ); 
+   
+//    raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
+   
+//    let intersect = raycaster.intersectObject(star , false) 
+   
+//    console.log(intersect.name)
+   
+//    if(intersect.length > 0){
+//       info_panel.classList.add("open")
+//    } 
+// })
+
 document.querySelector("#bg").addEventListener("click" , () => {
    if(info_panel.classList.contains("open")){
       info_panel.classList.remove("open")
@@ -102,7 +117,7 @@ scene.add(axesHelper);
 //Animation
 function animate () {
    requestAnimationFrame(animate)
-   controls.update()
+   // controls.update()
    renderer.render(scene , camera)
    
 }

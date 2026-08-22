@@ -4,7 +4,7 @@ const parameters = new URLSearchParams(window.location.search);
 const info_panel = document.querySelector('#object-infos-tab')
 let objecttype = parameters.get("objecttype")
 let objectid = parameters.get("objectid")
-let objectimg = celestial_objects[objecttype][objectid].img
+let objectimg = newcelestial_objects[objecttype][objectid].img
 let azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
 let altdata = newcelestial_objects[objecttype][objectid].infos.altitude
 
@@ -13,7 +13,7 @@ if (objectid.includes(" ")){
 }
 
 //In order to not create many variables I chose to use the "path" of the div to select differnt parts of the panel
-info_panel.firstElementChild.firstElementChild.textContent = objectid // title
+info_panel.firstElementChild.firstElementChild.textContent = objectid[0].toUpperCase() + objectid.slice(1) // title with first letter Uppercase.
 info_panel.firstElementChild.lastElementChild.src = "." + objectimg // image
-info_panel.lastElementChild.firstElementChild.textContent += Math.round(azdata * 100) / 100 + " / " + Math.round(altdata * 100) / 100 //Round * 100 / 100 is there to round + 2 decimals after ,
-info_panel.lastElementChild.lastElementChild.textContent += " " + objecttype// type info
+info_panel.lastElementChild.firstElementChild.textContent += Math.round(azdata * 100) / 100 + "° / " + Math.round(altdata * 100) / 100 + "°" //Round * 100 / 100 is there to round + 2 decimals after ,
+info_panel.lastElementChild.lastElementChild.textContent += " " + objecttype.slice(0 , -1)// type info
