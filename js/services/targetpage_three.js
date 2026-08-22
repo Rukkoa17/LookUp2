@@ -69,11 +69,13 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const correctionquater = new THREE.Quaternion()
    correctionquater.setFromAxisAngle(new THREE.Vector3(1 , 0 , 0),Math.PI/2 )
    
+   let finalquater = undefined
+
    if (fin){
-      const finalquater = quater.clone().multiply(correctionquater)
+      finalquater = quater.clone().multiply(correctionquater)
    }
    else{
-      const finalquater = correctionquater.clone().multiply(quater) 
+      finalquater = correctionquater.clone().multiply(quater) 
    }
 
    camera.quaternion.copy(finalquater)  
@@ -93,10 +95,6 @@ window.addEventListener("deviceorientationabsolute", (event) => {
     
 
 })
-
-let al = 120
-let be = 40 
-let ga = 0
 
 let fin = false
 
