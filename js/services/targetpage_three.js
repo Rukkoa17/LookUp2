@@ -65,8 +65,18 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const euler = new THREE.Euler(beta , alpha , gamma , 'ZYX')
    const quater = new THREE.Quaternion()
    quater.setFromEuler(euler)
+
+   const correctionquater = new THREE.Quaternion()
+   correctionquater.setFromAxisAngle(new THREE.Vector3(1 , 0 , 0),Math.PI/2 )
    
-   camera.quaternion.copy(quater)  
+   if (fin){
+      const finalquater = quater.clone().multiply(correctionquater)
+   }
+   else{
+      const finalquater = correctionquater.clone().multiply(quater) 
+   }
+
+   camera.quaternion.copy(finalquater)  
    
    //RayCasting method to click | look at and pop up
    const raycaster = new THREE.Raycaster( ); 
@@ -83,6 +93,22 @@ window.addEventListener("deviceorientationabsolute", (event) => {
     
 
 })
+
+let al = 120
+let be = 40 
+let ga = 0
+
+let fin = false
+
+window.addEventListener("click" , () => {
+   if (fin){
+      fin = false
+   }
+   else {
+      fin = true
+   }
+} )
+
 
 //DELETE AFTER JUST FOR TESTS
 // window.addEventListener("click" , () => {
