@@ -62,7 +62,7 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    let gamma = THREE.MathUtils.degToRad(event.gamma)
 
    
-   const euler = new THREE.Euler(beta , alpha , gamma , 'ZYX')
+   const euler = new THREE.Euler(beta + Math.PI / 2, alpha , gamma , 'ZYX')
    const quater = new THREE.Quaternion()
    quater.setFromEuler(euler)
 
@@ -77,38 +77,57 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    else{
       finalquater = correctionquater.clone().multiply(quater) 
    }
+   
+   camera.quaternion.copy(quater)  
+   
+   const camera_direction = new THREE.Vector3()
+   camera.getWorldDirection(camera_direction)
 
-   camera.quaternion.copy(finalquater)  
-   
-   //RayCasting method to click | look at and pop up
-   const raycaster = new THREE.Raycaster( ); 
-   
-   raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
-   
-   let intersect = raycaster.intersectObject(star , false) 
-   
-   console.log(intersect.name)
-   
-   if(intersect.length > 0){
+   const star_direction = new THREE.Vector3()
+   star.getWorldDirection(star_direction)
+
+   star_direction.sub(camera.position).normalize();
+
+   const angle = camera_direction.angleTo(star_direction)
+   const angledeg = THREE.MathUtils.radToDeg(angle)
+
+   const max_anglediff = 4 //Zone radius for the scope hitting the object or not.   
+   console.log(angledeg)
+
+   if (angledeg <= max_anglediff){
       info_panel.classList.add("open")
    }
-    
 
-})
+   //Pop up Panel with aiming 
+   
+   // //RayCasting method to click | look at and pop up
+   // const raycaster = new THREE.Raycaster( ); 
+   
+   // raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
+   
+   // let intersect = raycaster.intersectObject(star , false) 
+   
+   // console.log(intersect.name)
+   
+   // if(intersect.length > 0){
+      //    info_panel.classList.add("open")
+      // }
+      
+      
+   })
+   
+   let fin = false
+   
+   window.addEventListener("click" , () => {
 
-let fin = false
+      if (fin){
+         fin = false
+      }
+      else {
+         fin = true
+      }
+   } )
 
-window.addEventListener("click" , () => {
-   if (fin){
-      fin = false
-   }
-   else {
-      fin = true
-   }
-} )
-
-
-//DELETE AFTER JUST FOR TESTS
 // window.addEventListener("click" , () => {
 //    const raycaster = new THREE.Raycaster( ); 
    
@@ -131,8 +150,8 @@ document.querySelector("#bg").addEventListener("click" , () => {
 
 
 //Orbit Controls (deviceorientation)
-const controls = new OrbitControls(camera , renderer.domElement)
-controls.target.set(0, 10, -1)
+// const controls = new OrbitControls(camera , renderer.domElement)
+// controls.target.set(0, 10, -1)
 
 //To delete when done
 const axesHelper = new THREE.AxesHelper(1000);

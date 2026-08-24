@@ -8,7 +8,7 @@ let celestial_objects = {
       moon :{
          name : "Moon",
          histype: "planets",
-         img: "./assets/carrousel-obj/planets/mooncarr.jpg",
+         img: "./assets/carrousel-obj/planets//wbpplanets/mooncarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -21,7 +21,7 @@ let celestial_objects = {
       mercury : {
          name: "Mercury",
          histype: "planets",
-         img: "./assets/carrousel-obj/planets/mercurycarr.jpg",
+         img: "./assets/carrousel-obj/planets/wbpplanets/mercurycarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -34,7 +34,7 @@ let celestial_objects = {
       venus : {
          name : "Venus",
          histype: "planets",
-         img: "./assets/carrousel-obj/planets/venuscarr.jpg",
+         img: "./assets/carrousel-obj/planets/wbpplanets/venuscarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -47,7 +47,7 @@ let celestial_objects = {
       mars : {
          name : "Mars",
          histype: "planets",
-         img: "./assets/carrousel-obj/planets/marscarr.jpg",
+         img: "./assets/carrousel-obj/planets/wbpplanets/marscarr.webp",
          creditentials: "NASA/JPL/MSSS",
 
          infos : {
@@ -59,8 +59,9 @@ let celestial_objects = {
       },
 
       jupiter : {
-         name : "",
-         img: "",
+         name : "Jupiter",
+         histype: "planets",
+         img : "./assets/carrousel-obj/planets/wbpplanets/jupitercarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -71,8 +72,9 @@ let celestial_objects = {
       },
 
       saturn : {
-         name : "",
-         img: "",
+         name : "Saturn",
+         histype: "planets",
+         img: "./assets/carrousel-obj/planets/wbpplanets/saturncarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -83,8 +85,9 @@ let celestial_objects = {
       },
 
       uranus : {
-         name : "",
-         img: "",
+         name : "Uranus",
+         histype: "planets",
+         img: "./assets/carrousel-obj/planets/wbpplanets/uranuscarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
@@ -95,8 +98,9 @@ let celestial_objects = {
       },
 
       neptune : {
-         name : "",
-         img: "",
+         name : "Neptune",
+         histype: "planets",
+         img: "./assets/carrousel-obj/planets/wbpplanets/neptunecarr.webp",
 
          infos : {
             azimuth : undefined, //undefined until the API help us define it , else error on compass page.
