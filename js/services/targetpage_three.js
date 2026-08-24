@@ -62,12 +62,12 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    let gamma = THREE.MathUtils.degToRad(event.gamma)
 
    
-   const euler = new THREE.Euler(beta + Math.PI / 2, alpha , gamma , 'ZYX')
+   const euler = new THREE.Euler(beta, alpha , gamma , 'ZYX')
    const quater = new THREE.Quaternion()
    quater.setFromEuler(euler)
 
    const correctionquater = new THREE.Quaternion()
-   correctionquater.setFromAxisAngle(new THREE.Vector3(1 , 0 , 0),Math.PI/2 )
+   correctionquater.setFromAxisAngle(new THREE.Vector3(1 , 0 , 0))
    
    let finalquater = undefined
 
@@ -78,7 +78,7 @@ window.addEventListener("deviceorientationabsolute", (event) => {
       finalquater = correctionquater.clone().multiply(quater) 
    }
    
-   camera.quaternion.copy(quater)  
+   camera.quaternion.copy(finalquater)  
    
    const camera_direction = new THREE.Vector3()
    camera.getWorldDirection(camera_direction)
