@@ -71,7 +71,7 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   let rawComp = e.webkitCompassHeading ?? (360 - event.alpha);
+   let rawComp = event.webkitCompassHeading ?? (360 - event.alpha);
    let comp = rawComp % 360
    
    const compassdir = document.getElementById("direction-comp")
@@ -105,31 +105,6 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    }
 
 });
- 
-//to put in device orientation event 
-window.addEventListener("click" , () => {
-   
-
-   const stardir  = new THREE.Vector3;
-   star.getWorldPosition(stardir)
-   
-   const camera_direction = new THREE.Vector3()
-   camera.getWorldDirection(camera_direction)
-   
-   stardir.sub(camera.position).normalize()
-
-   const angle = camera_direction.angleTo(stardir)
-   const angledeg = THREE.MathUtils.radToDeg(angle)
-
-   console.log(angledeg)
-
-   // console.log(stardir.sub(camera_direction))
-
-   // const vec = new THREE.ve
-
-   // console.log(stardir)
-
-})   
 
 document.querySelector("#bg").addEventListener("click" , () => {
    if(info_panel.classList.contains("open")){
