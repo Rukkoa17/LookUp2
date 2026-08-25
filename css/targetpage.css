@@ -3,6 +3,7 @@ canvas{
    display: flex;
    top: 0;
    left : 0;
+   overflow-y: hidden;
 }
 
 main{
@@ -15,15 +16,33 @@ main{
    pointer-events: none;
 }
 
+#direction-comp{
+   position: absolute;
+   top : 2vh ; 
+   height: 12vh;
+   
+}
+
 #target-scope{
-   height: 25%;
-   width: 50%;
+   height: 25vh;
+   width: 50vw;
    background-color: none;
    border: 3px solid var(--third-color);
    filter:  
       drop-shadow(0 0 12px var(--third-color))
       drop-shadow(0 0 15px rgb(238, 180, 255));
    border-radius: 50%;
+}
+
+#target-arrow{
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%, -50%);
+   border-radius: 50%;
+   height: 3vh;
+   width: 6vw;
+   border : 2px solid red
 }
 
 #object-infos-tab{
@@ -36,6 +55,7 @@ main{
 
    position: absolute;
    bottom: 0;
+   left: 0;
    background-color: var(--base-color);
    border-top: 2px solid var(--third-color);
       filter:  

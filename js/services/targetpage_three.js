@@ -26,7 +26,7 @@ renderer.setSize(window.innerWidth , window.innerHeight);
 
 //----3DObjects
 const geometry = new THREE.SphereGeometry(1000 , 32 , 16 ) // hehe , sphere
-const material = new THREE.MeshBasicMaterial({color: 0x00007 , side : THREE.BackSide});
+const material = new THREE.MeshBasicMaterial({color: 0x0004 , side : THREE.BackSide});
 const sphere = new THREE.Mesh(geometry , material)
 scene.add(sphere)
 
@@ -37,8 +37,8 @@ plane.position.setY(-10)
 scene.add(plane)
 
 //Selected Celestial Object
-const star_geo = new THREE.SphereGeometry(5 , 32 , 16)  
-const star_mat = new THREE.MeshBasicMaterial({color : new THREE.Color("#e01db9")}) 
+const star_geo = new THREE.SphereGeometry(4 , 32 , 16)  
+const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}) 
 const star = new THREE.Mesh(star_geo , star_mat)
 star.name = ("object : " + objectid)
 star.position.set(xpos,ypos,zpos)
@@ -66,10 +66,13 @@ const qua_camera = new THREE.Quaternion().setFromAxisAngle(
 
 
 window.addEventListener("deviceorientationabsolute", (event) => {
-
+   
    const alpha = THREE.MathUtils.degToRad(event.alpha || 0);
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
+   
+   const compassdir = document.getElementById("direction-comp")
+   compassdir.style.transform = `rotate(${alpha}deg)`;
 
    euler.set(beta , alpha , -gamma , "YXZ");
 
@@ -79,25 +82,51 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    
    camera.quaternion.copy(quater)  
    
-});
-
+   //Opening the object panel if phone aimed at
    const camera_direction = new THREE.Vector3()
    camera.getWorldDirection(camera_direction)
-
+   
    const star_direction = new THREE.Vector3()
    star.getWorldPosition(star_direction)
-
+   
    star_direction.sub(camera.position).normalize();
-
+   
    const angle = camera_direction.angleTo(star_direction)
    const angledeg = THREE.MathUtils.radToDeg(angle)
-
-   const max_anglediff = 4 //Zone radius for the scope hitting the object or not.   
+   
+   const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
    console.log(angledeg)
-
+   
    if (angledeg <= max_anglediff){
       info_panel.classList.add("open")
    }
+
+});
+ 
+//to put in device orientation event 
+window.addEventListener("click" , () => {
+   
+
+   const stardir  = new THREE.Vector3;
+   star.getWorldPosition(stardir)
+   
+   const camera_direction = new THREE.Vector3()
+   camera.getWorldDirection(camera_direction)
+   
+   stardir.sub(camera.position).normalize()
+
+   const angle = camera_direction.angleTo(stardir)
+   const angledeg = THREE.MathUtils.radToDeg(angle)
+
+   console.log(angledeg)
+
+   // console.log(stardir.sub(camera_direction))
+
+   // const vec = new THREE.ve
+
+   // console.log(stardir)
+
+})   
 
 document.querySelector("#bg").addEventListener("click" , () => {
    if(info_panel.classList.contains("open")){
@@ -108,6 +137,11 @@ document.querySelector("#bg").addEventListener("click" , () => {
 //To delete when done
 const axesHelper = new THREE.AxesHelper(1000);
 scene.add(axesHelper);
+
+// const control = new OrbitControls(camera , renderer.domElement)
+// control.target.set(0 , 10 , 0)
+
+
 
 //Animation
 function animate () {
