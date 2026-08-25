@@ -53,38 +53,39 @@ const cg = new THREE.BoxGeometry(20 , 20 , 20)
 const cm = new THREE.MeshBasicMaterial({color : 0x99ffff})
 const c = new THREE.Mesh(cg , cm)
 c.position.set(0, 10 , -150)
-scene.add(c)
+scene.add(c)  
+
+const euler = new THREE.Euler()
+const quater = new THREE.Quaternion()
+
+//Cameracorrection to look 90° up more
+const qua_camera = new THREE.Quaternion().setFromAxisAngle(
+    new THREE.Vector3(1, 0, 0),
+    -Math.PI / 2
+);
+
 
 window.addEventListener("deviceorientationabsolute", (event) => {
 
-   let alpha = THREE.MathUtils.degToRad(event.alpha)
-   let beta = THREE.MathUtils.degToRad(event.beta)
-   let gamma = THREE.MathUtils.degToRad(event.gamma)
+   const alpha = THREE.MathUtils.degToRad(event.alpha || 0);
+   const beta  = THREE.MathUtils.degToRad(event.beta || 0);
+   const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   
-   const euler = new THREE.Euler(beta, alpha , gamma , 'ZYX')
-   const quater = new THREE.Quaternion()
-   quater.setFromEuler(euler)
+   euler.set(beta , alpha , -gamma , "YXZ");
 
-   const correctionquater = new THREE.Quaternion()
-   correctionquater.setFromAxisAngle(new THREE.Vector3(1 , 0 , 0))
-   
-   let finalquater = undefined
+   quater.setFromEuler(euler);
 
-   if (fin){
-      finalquater = quater.clone().multiply(correctionquater)
-   }
-   else{
-      finalquater = correctionquater.clone().multiply(quater) 
-   }
+   quater.multiply(qua_camera);
    
-   camera.quaternion.copy(finalquater)  
+   camera.quaternion.copy(quater)  
    
+});
+
    const camera_direction = new THREE.Vector3()
    camera.getWorldDirection(camera_direction)
 
    const star_direction = new THREE.Vector3()
-   star.getWorldDirection(star_direction)
+   star.getWorldPosition(star_direction)
 
    star_direction.sub(camera.position).normalize();
 
@@ -98,60 +99,11 @@ window.addEventListener("deviceorientationabsolute", (event) => {
       info_panel.classList.add("open")
    }
 
-   //Pop up Panel with aiming 
-   
-   // //RayCasting method to click | look at and pop up
-   // const raycaster = new THREE.Raycaster( ); 
-   
-   // raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
-   
-   // let intersect = raycaster.intersectObject(star , false) 
-   
-   // console.log(intersect.name)
-   
-   // if(intersect.length > 0){
-      //    info_panel.classList.add("open")
-      // }
-      
-      
-   })
-   
-   let fin = false
-   
-   window.addEventListener("click" , () => {
-
-      if (fin){
-         fin = false
-      }
-      else {
-         fin = true
-      }
-   } )
-
-// window.addEventListener("click" , () => {
-//    const raycaster = new THREE.Raycaster( ); 
-   
-//    raycaster.setFromCamera(new THREE.Vector2(0 , 0),camera) //Vector2(0,0) is there so the "mouse" position is here the center of the scope.
-   
-//    let intersect = raycaster.intersectObject(star , false) 
-   
-//    console.log(intersect.name)
-   
-//    if(intersect.length > 0){
-//       info_panel.classList.add("open")
-//    } 
-// })
-
 document.querySelector("#bg").addEventListener("click" , () => {
    if(info_panel.classList.contains("open")){
       info_panel.classList.remove("open")
    }
 })
-
-
-//Orbit Controls (deviceorientation)
-// const controls = new OrbitControls(camera , renderer.domElement)
-// controls.target.set(0, 10, -1)
 
 //To delete when done
 const axesHelper = new THREE.AxesHelper(1000);
