@@ -70,9 +70,11 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const alpha = THREE.MathUtils.degToRad(event.alpha || 0);
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
+
+   const rotatealpha = event.alpha || 0;
    
    const compassdir = document.getElementById("direction-comp")
-   compassdir.style.transform = `rotate(${alpha}deg)`;
+   compassdir.style.transform = `rotate(${rotatealpha}deg)`;
 
    euler.set(beta , alpha , -gamma , "YXZ");
 
