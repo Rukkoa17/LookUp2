@@ -71,7 +71,7 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   let rawComp = e.webkitCompassHeading ?? (360 - e.alpha);
+   let rawComp = e.webkitCompassHeading ?? (360 - event.alpha);
    let comp = rawComp % 360
    
    const compassdir = document.getElementById("direction-comp")
