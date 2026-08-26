@@ -2,12 +2,18 @@ import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 //-----Position of wanted object
 
-const az = THREE.MathUtils.degToRad(azdata);
-const alt = THREE.MathUtils.degToRad(altdata);
+const azselectedobj = THREE.MathUtils.degToRad(azdata);
+const altselectedobj = THREE.MathUtils.degToRad(altdata);
 
-const xpos = 5 * Math.cos(alt) * Math.sin(az) * 100;
-const ypos = 5 * Math.sin(alt) * 100;
-const zpos = -5 * Math.cos(alt) * Math.cos(az) * 100;
+function azalt_to_pos(az , alt){
+   const xpos = 5 * Math.cos(alt) * Math.sin(az) * 100;
+   const ypos = 5 * Math.sin(alt) * 100;
+   const zpos = -5 * Math.cos(alt) * Math.cos(az) * 100;
+
+   return [xpos , ypos , zpos]
+}
+
+const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj) 
 
 //----Scene
 const scene = new THREE.Scene();
@@ -31,29 +37,85 @@ const sphere = new THREE.Mesh(geometry , material)
 scene.add(sphere)
 
 const pla_geo = new THREE.BoxGeometry(2000 , 1 , 2000)
-const pla_mat = new THREE.MeshBasicMaterial({color : 0xffffff, transparent : true , opacity : 0.3})
+const pla_mat = new THREE.MeshBasicMaterial({color : 0x000020, transparent : true , opacity : 0.7})
 const plane = new THREE.Mesh(pla_geo , pla_mat)
 plane.position.setY(-10)
 scene.add(plane)
 
 //Selected Celestial Object
-const star_geo = new THREE.SphereGeometry(4 , 32 , 16)  
-const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}) 
-const star = new THREE.Mesh(star_geo , star_mat)
-star.name = ("object : " + objectid)
-star.position.set(xpos,ypos,zpos)
-scene.add(star)
+const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
+const firstobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
+const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}); 
+const firstobject = new THREE.Mesh(star_geo , firstobject_mat);
+firstobject.name = ("object : " + objectid);
 
-//Info Panel for the Object
+//Made this into a function solution for the objects add section
+firstobject.position.set(selectedobj_pos[0] , selectedobj_pos[1] , selectedobj_pos[2]);
+
+scene.add(firstobject);
+
+//TextSprite creation function for Others Objects
+function createTextTexture(text){
+   const canvas = document.createElement('canvas');
+   const context = canvas.getContext('2d');
+
+   context.font = '64px Arial';
+   const textWidth = context.measureText(text).width;
+
+   //Adjust width relative to the lenght of the object name
+   canvas.width = textWidth + 256;
+   canvas.height = 128;
+
+   // context.fillStyle = 'red';
+   // context.fillRect(0, 0, canvas.width, canvas.height);
+
+   // Text style
+   context.font = '64px Mansalva';
+   context.fillStyle = 'white';
+   context.textAlign = 'center';
+   context.textBaseline = 'middle';
+   context.fillText(text, canvas.width / 2, canvas.height / 2);
+
+   return new THREE.CanvasTexture(canvas);
+}
+
+
+//Others Objects Add
+for (let type in newcelestial_objects){
+   for (let obj in newcelestial_objects[type]){
+      const objstar = new THREE.Mesh(star_geo , star_mat);
+      objstar.name = newcelestial_objects[type][obj].name;
+
+      const az = THREE.MathUtils.degToRad(newcelestial_objects[type][obj].infos.azimuth);
+      const alt = THREE.MathUtils.degToRad(newcelestial_objects[type][obj].infos.altitude);
+
+      const starpos = azalt_to_pos(az , alt);
+
+      objstar.position.set(starpos[0],starpos[1],starpos[2])
+      
+      scene.add(objstar)
+      
+      const texture = createTextTexture(objstar.name);
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+      const textSprite = new THREE.Sprite(spriteMaterial);
+
+      textSprite.scale.set(128 , 32 ); 
+
+      textSprite.position.set(
+         objstar.position.x + 17, 
+         objstar.position.y + 14, 
+         objstar.position.z
+      );
+
+      scene.add(textSprite)
+
+      console.log(textSprite)
+   }
+}
+
 
 
 //DeviceOrientation and Quaternions
-
-const cg = new THREE.BoxGeometry(20 , 20 , 20)
-const cm = new THREE.MeshBasicMaterial({color : 0x99ffff})
-const c = new THREE.Mesh(cg , cm)
-c.position.set(0, 10 , -150)
-scene.add(c)  
 
 const euler = new THREE.Euler()
 const quater = new THREE.Quaternion()
@@ -64,6 +126,8 @@ const qua_camera = new THREE.Quaternion().setFromAxisAngle(
     -Math.PI / 2
 );
 
+//Scope
+const target_point = document.querySelector("#target_point")
 
 window.addEventListener("deviceorientationabsolute", (event) => {
    
@@ -90,18 +154,24 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    camera.getWorldDirection(camera_direction)
    
    const star_direction = new THREE.Vector3()
-   star.getWorldPosition(star_direction)
+   firstobject.getWorldPosition(star_direction)
    
    star_direction.sub(camera.position).normalize();
    
    const angle = camera_direction.angleTo(star_direction)
    const angledeg = THREE.MathUtils.radToDeg(angle)
    
-   const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
-   console.log(angledeg)
-   
-   if (angledeg <= max_anglediff){
-      info_panel.classList.add("open")
+   const targetpoint_angle = 10
+   const max_anglediff = 1 //Zone radius for the scope hitting the object or not.   
+
+   if (angledeg <= targetpoint_angle){
+      target_point.style.opacity = 1;
+      if (angledeg <= max_anglediff){
+         info_panel.classList.add("open")
+      }
+      else {
+         target_point.style.opacity = 0;
+      }
    }
 
 });
@@ -116,6 +186,7 @@ document.querySelector("#bg").addEventListener("click" , () => {
 const axesHelper = new THREE.AxesHelper(1000);
 scene.add(axesHelper);
 
+//Here for testing purposes
 // const control = new OrbitControls(camera , renderer.domElement)
 // control.target.set(0 , 10 , 0)
 

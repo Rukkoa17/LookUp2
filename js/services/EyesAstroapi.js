@@ -57,6 +57,7 @@ window.addEventListener("glocaready" , async ()=>{
          }
       ) 
    } catch (error) {
+      loading.textContent = "Error , please retry... "
       console.error("There is an issue with the backend..." , error)
    }
 });

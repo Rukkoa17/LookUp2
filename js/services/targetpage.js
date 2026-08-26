@@ -17,3 +17,7 @@ info_panel.firstElementChild.firstElementChild.textContent = objectid[0].toUpper
 info_panel.firstElementChild.lastElementChild.src = "." + objectimg // image
 info_panel.lastElementChild.firstElementChild.textContent += Math.round(azdata * 100) / 100 + "° / " + Math.round(altdata * 100) / 100 + "°" //Round * 100 / 100 is there to round + 2 decimals after ,
 info_panel.lastElementChild.lastElementChild.textContent += " " + objecttype.slice(0 , -1)// type info
+
+delete newcelestial_objects[objecttype][objectid]
+
+window.dispatchEvent(new Event("targetpageok"));

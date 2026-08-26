@@ -34,15 +34,18 @@ main{
    border-radius: 50%;
 }
 
-#target-arrow{
+#target-point{
    position:absolute;
+   opacity: 0; /*changed in target_three.js*/
    top:50%;
    left:50%;
    transform:translate(-50%, -50%);
    border-radius: 50%;
    height: 3vh;
    width: 6vw;
-   border : 2px solid red
+   border : 1.5px dashed var(--third-color);
+   filter:
+      drop-shadow(0 0 6px var(--third-color))
 }
 
 #object-infos-tab{
