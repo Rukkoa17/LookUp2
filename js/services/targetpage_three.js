@@ -47,15 +47,30 @@ const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
 const firstobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
 const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}); 
 const firstobject = new THREE.Mesh(star_geo , firstobject_mat);
-firstobject.name = ("object : " + objectid);
+firstobject.name = objectid[0].toUpperCase() + objectid.slice(1);
 
 //Made this into a function solution for the objects add section
 firstobject.position.set(selectedobj_pos[0] , selectedobj_pos[1] , selectedobj_pos[2]);
 
 scene.add(firstobject);
 
+//Text Sprite for firstobject , also I will later on prevent this code being stated twice.
+const texture = createTextTexture(firstobject.name , '#e558d2');
+const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+const textSprite = new THREE.Sprite(spriteMaterial);
+
+textSprite.scale.set(128 , 32 ); 
+
+textSprite.position.set(
+   firstobject.position.x + 17, 
+   firstobject.position.y + 14, 
+   firstobject.position.z
+);
+
+scene.add(textSprite)
+
 //TextSprite creation function for Others Objects
-function createTextTexture(text){
+function createTextTexture(text , color){
    const canvas = document.createElement('canvas');
    const context = canvas.getContext('2d');
 
@@ -71,7 +86,7 @@ function createTextTexture(text){
 
    // Text style
    context.font = '64px Mansalva';
-   context.fillStyle = 'white';
+   context.fillStyle = color ;
    context.textAlign = 'center';
    context.textBaseline = 'middle';
    context.fillText(text, canvas.width / 2, canvas.height / 2);
@@ -81,6 +96,9 @@ function createTextTexture(text){
 
 
 //Others Objects Add
+
+let other_obj_mesh = []
+
 for (let type in newcelestial_objects){
    for (let obj in newcelestial_objects[type]){
       const objstar = new THREE.Mesh(star_geo , star_mat);
@@ -95,7 +113,9 @@ for (let type in newcelestial_objects){
       
       scene.add(objstar)
       
-      const texture = createTextTexture(objstar.name);
+      other_obj_mesh.push(objstar)
+
+      const texture = createTextTexture(objstar.name , 'white');
       const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
       const textSprite = new THREE.Sprite(spriteMaterial);
 
@@ -109,10 +129,8 @@ for (let type in newcelestial_objects){
 
       scene.add(textSprite)
 
-      console.log(textSprite)
    }
 }
-
 
 
 //DeviceOrientation and Quaternions
@@ -127,7 +145,7 @@ const qua_camera = new THREE.Quaternion().setFromAxisAngle(
 );
 
 //Scope
-const target_point = document.querySelector("#target_point")
+const target_point = document.querySelector("#target-point")
 
 window.addEventListener("deviceorientationabsolute", (event) => {
    
@@ -161,25 +179,46 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const angle = camera_direction.angleTo(star_direction)
    const angledeg = THREE.MathUtils.radToDeg(angle)
    
-   const targetpoint_angle = 10
-   const max_anglediff = 1 //Zone radius for the scope hitting the object or not.   
+   const targetpoint_angle = 6.5
+   const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
 
    if (angledeg <= targetpoint_angle){
       target_point.style.opacity = 1;
       if (angledeg <= max_anglediff){
          info_panel.classList.add("open")
       }
-      else {
-         target_point.style.opacity = 0;
-      }
+   }
+   else {
+      target_point.style.opacity = 0;
    }
 
 });
 
-document.querySelector("#bg").addEventListener("click" , () => {
+const raycaster = new THREE.Raycaster( ); 
+const mouse = new THREE.Vector2( );
+
+document.querySelector("#bg").addEventListener("click" , (e) => {
    if(info_panel.classList.contains("open")){
       info_panel.classList.remove("open")
    }
+   
+   //Other Objects info pannels with CLICK
+   const ray = new THREE.Raycaster( new THREE.Vector3(0 , 0 , 0) , camera)
+   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+   raycaster.setFromCamera(mouse,camera)
+   
+   let intersect = raycaster.intersectObjects(other_obj_mesh) 
+   
+   try {
+      console.log(intersect[0].object.name)
+   }
+
+   catch(error){
+      
+   }
+
+
 })
 
 //To delete when done
@@ -187,8 +226,8 @@ const axesHelper = new THREE.AxesHelper(1000);
 scene.add(axesHelper);
 
 //Here for testing purposes
-// const control = new OrbitControls(camera , renderer.domElement)
-// control.target.set(0 , 10 , 0)
+const control = new OrbitControls(camera , renderer.domElement)
+control.target.set(0 , 10 , 0)
 
 
 
