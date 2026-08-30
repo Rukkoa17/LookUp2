@@ -11,7 +11,6 @@ window.addEventListener("glocaready" , async ()=>{
 
    .then(response => response.json())
    .then(data => { 
-         console.log(data)
          for (let i = 1 ; i < 10 ; i++){
             let nameWithApi = data.data.table.rows[i].entry.id;
             let azimWithApi = parseFloat(data.data.table.rows[i].cells[0].position.horizontal.azimuth.degrees)

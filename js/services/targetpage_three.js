@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { objectScale } from 'three/src/nodes/accessors/Object3DNode.js';
 //-----Position of wanted object
 
 const azselectedobj = THREE.MathUtils.degToRad(azdata);
@@ -55,7 +56,7 @@ firstobject.position.set(selectedobj_pos[0] , selectedobj_pos[1] , selectedobj_p
 scene.add(firstobject);
 
 //Text Sprite for firstobject , also I will later on prevent this code being stated twice.
-const texture = createTextTexture(firstobject.name , '#e558d2');
+const texture = createTextTexture(firstobject.name , '#e558d2' , 256 , 128 ,64 , "Mansalva");
 const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
 const textSprite = new THREE.Sprite(spriteMaterial);
 
@@ -63,14 +64,14 @@ textSprite.scale.set(128 , 32 );
 
 textSprite.position.set(
    firstobject.position.x + 17, 
-   firstobject.position.y + 14, 
+   firstobject.position.y + 20, 
    firstobject.position.z
 );
 
 scene.add(textSprite)
 
 //TextSprite creation function for Others Objects
-function createTextTexture(text , color){
+function createTextTexture(text , color , width , height , textsize , font){
    const canvas = document.createElement('canvas');
    const context = canvas.getContext('2d');
 
@@ -78,14 +79,14 @@ function createTextTexture(text , color){
    const textWidth = context.measureText(text).width;
 
    //Adjust width relative to the lenght of the object name
-   canvas.width = textWidth + 256;
-   canvas.height = 128;
+   canvas.width = textWidth + width;
+   canvas.height = height;
 
    // context.fillStyle = 'red';
    // context.fillRect(0, 0, canvas.width, canvas.height);
 
    // Text style
-   context.font = '64px Mansalva';
+   context.font = `${textsize}px ${font}`;
    context.fillStyle = color ;
    context.textAlign = 'center';
    context.textBaseline = 'middle';
@@ -98,11 +99,13 @@ function createTextTexture(text , color){
 //Others Objects Add
 
 let other_obj_mesh = []
+let other_obj_sprites = []
 
 for (let type in newcelestial_objects){
    for (let obj in newcelestial_objects[type]){
       const objstar = new THREE.Mesh(star_geo , star_mat);
       objstar.name = newcelestial_objects[type][obj].name;
+      objstar.thetype = type
 
       const az = THREE.MathUtils.degToRad(newcelestial_objects[type][obj].infos.azimuth);
       const alt = THREE.MathUtils.degToRad(newcelestial_objects[type][obj].infos.altitude);
@@ -115,9 +118,10 @@ for (let type in newcelestial_objects){
       
       other_obj_mesh.push(objstar)
 
-      const texture = createTextTexture(objstar.name , 'white');
+      const texture = createTextTexture(objstar.name , 'white' , 256 , 128 , 64 , "Mansalva");
       const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
       const textSprite = new THREE.Sprite(spriteMaterial);
+      textSprite.name = objstar.name
 
       textSprite.scale.set(128 , 32 ); 
 
@@ -129,9 +133,10 @@ for (let type in newcelestial_objects){
 
       scene.add(textSprite)
 
+      other_obj_sprites.push(textSprite)
+      
    }
 }
-
 
 //DeviceOrientation and Quaternions
 
@@ -153,7 +158,7 @@ window.addEventListener("deviceorientationabsolute", (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   let rawComp = event.webkitCompassHeading ?? (360 - event.alpha);
+   let rawComp = event.webkitCompassHeading ?? (360 - event.beta);
    let comp = rawComp % 360
    
    const compassdir = document.getElementById("direction-comp")
@@ -197,26 +202,77 @@ window.addEventListener("deviceorientationabsolute", (event) => {
 const raycaster = new THREE.Raycaster( ); 
 const mouse = new THREE.Vector2( );
 
+let others_sprites_list = []; //List to make a way to only have one other infos at the same time.
+
 document.querySelector("#bg").addEventListener("click" , (e) => {
    if(info_panel.classList.contains("open")){
       info_panel.classList.remove("open")
    }
-   
-   //Other Objects info pannels with CLICK
-   const ray = new THREE.Raycaster( new THREE.Vector3(0 , 0 , 0) , camera)
-   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-   raycaster.setFromCamera(mouse,camera)
-   
-   let intersect = raycaster.intersectObjects(other_obj_mesh) 
-   
+
    try {
-      console.log(intersect[0].object.name)
+
+      if(others_sprites_list.length > 0){
+         let todel = others_sprites_list.pop()
+         others_sprites_list.pop()
+         scene.remove(todel)
+      }
+      
+   
+      //Other Objects info pannels with CLICK
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse,camera)
+   
+         let intersect = raycaster.intersectObjects(other_obj_mesh);
+   
+         const hitten_obj_pos = new THREE.Vector3();
+         intersect[0].object.getWorldPosition(hitten_obj_pos)      
+         camera.lookAt(hitten_obj_pos)
+         target_point.style.opacity = 1;
+   
+         let hitten_obj_type = intersect[0].object.thetype;
+         let hitten_obj_id = intersect[0].object.name;
+         let hitten_obj_sprite = undefined;
+            
+         if (hitten_obj_id.includes(" ")){
+            hitten_obj_id = hitten_obj_id.replaceAll(" " , "_")
+         }
+   
+         let hitten_obj_az = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.azimuth;
+         let hitten_obj_alt = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.altitude;
+         let hitten_obj_coords = Math.round(hitten_obj_az * 100) / 100 + "° / " + Math.round(hitten_obj_alt * 100) / 100 + "°";
+         
+         
+         for (const i in other_obj_sprites){
+            if (other_obj_sprites[i].name.includes(" ")){
+               other_obj_sprites[i].name = other_obj_sprites[i].name.replaceAll(" " , "_");
+            }
+            if (hitten_obj_id == other_obj_sprites[i].name){
+               hitten_obj_sprite = other_obj_sprites[i]
+            }
+         }
+      
+         const texture = createTextTexture(`az/alt : ${hitten_obj_coords}` , "white" , 64 , 32 , 18 ,"Arial");
+         const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+         const textSprite = new THREE.Sprite(spriteMaterial);
+         others_sprites_list.push(textSprite);   
+      
+         textSprite.scale.set(512 ,32); 
+      
+         textSprite.position.set(
+            hitten_obj_sprite.position.x, 
+            hitten_obj_sprite.position.y - 50, 
+            hitten_obj_sprite.position.z  );
+      
+         scene.add(textSprite)
+   
    }
 
    catch(error){
-      
+      //Minimize error pop ups non related to the wanted objects.
    }
+
+   
 
 
 })
