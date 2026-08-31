@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { objectScale } from 'three/src/nodes/accessors/Object3DNode.js';
 //-----Position of wanted object
 
 const azselectedobj = THREE.MathUtils.degToRad(azdata);
@@ -19,9 +18,41 @@ const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj)
 //----Scene
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75 , window.innerWidth / window.innerHeight, 0.1 , 1000)
+const camera = new THREE.PerspectiveCamera(35 , window.innerWidth / window.innerHeight, 0.1 , 1000)
 camera.position.set(0 , 10 , 0)
 camera.rotation.x = -Math.PI / 2
+
+let prevdist = null;
+
+document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
+
+   if (touch.fingers.length !== 2){
+      prevdist = null;
+      return; 
+   } 
+
+   finger1 = touch.fingers[0];
+   finger2 = touch.fingers[1];
+
+   difx = finger1.position.x - finger2.position.x
+   dify = finger1.position.y - finger2.position.y
+
+   const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+
+   if (prevdist !== null){
+
+      const diff = distance - prevdist;
+
+      camera.fov -= diff * 0.05;
+      camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+
+      camera.updateProjectionMatrix();
+
+   }
+   
+   prevdist = distance
+
+})
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -30,6 +61,10 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth , window.innerHeight);
+
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
 //----3DObjects
 const geometry = new THREE.SphereGeometry(1000 , 32 , 16 ) // hehe , sphere
@@ -95,7 +130,6 @@ function createTextTexture(text , color , width , height , textsize , font){
    return new THREE.CanvasTexture(canvas);
 }
 
-
 //Others Objects Add
 
 let other_obj_mesh = []
@@ -152,7 +186,12 @@ const qua_camera = new THREE.Quaternion().setFromAxisAngle(
 //Scope
 const target_point = document.querySelector("#target-point")
 
-window.addEventListener("deviceorientationabsolute", (event) => {
+//IOS deviceorientation fall-back
+const eventName = "ondeviceorientationabsolute" in window
+   ? "deviceorientationabsolute"
+   : "deviceorientation";
+
+window.addEventListener(eventName, (event) => {
    
    const alpha = THREE.MathUtils.degToRad(event.alpha || 0);
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
@@ -217,7 +256,6 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
          scene.remove(todel)
       }
       
-   
       //Other Objects info pannels with CLICK
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -272,9 +310,6 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       //Minimize error pop ups non related to the wanted objects.
    }
 
-   
-
-
 })
 
 //To delete when done
@@ -284,8 +319,6 @@ scene.add(axesHelper);
 //Here for testing purposes
 const control = new OrbitControls(camera , renderer.domElement)
 control.target.set(0 , 10 , 0)
-
-
 
 //Animation
 function animate () {
