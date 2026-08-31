@@ -18,7 +18,7 @@ const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj)
 //----Scene
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(35 , window.innerWidth / window.innerHeight, 0.1 , 1000)
+const camera = new THREE.PerspectiveCamera(75 , window.innerWidth / window.innerHeight, 0.1 , 1000)
 camera.position.set(0 , 10 , 0)
 camera.rotation.x = -Math.PI / 2
 
@@ -316,9 +316,9 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 const axesHelper = new THREE.AxesHelper(1000);
 scene.add(axesHelper);
 
-//Here for testing purposes
-const control = new OrbitControls(camera , renderer.domElement)
-control.target.set(0 , 10 , 0)
+// //Here for testing purposes
+// const control = new OrbitControls(camera , renderer.domElement)
+// control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
@@ -329,4 +329,3 @@ function animate () {
 }
 
 animate()
-
