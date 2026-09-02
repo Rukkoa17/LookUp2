@@ -1,19 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-//-----Position of wanted object
-
-const azselectedobj = THREE.MathUtils.degToRad(azdata);
-const altselectedobj = THREE.MathUtils.degToRad(altdata);
-
-function azalt_to_pos(az , alt){
-   const xpos = 5 * Math.cos(alt) * Math.sin(az) * 100;
-   const ypos = 5 * Math.sin(alt) * 100;
-   const zpos = -5 * Math.cos(alt) * Math.cos(az) * 100;
-
-   return [xpos , ypos , zpos]
-}
-
-const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj) 
 
 //----Scene
 const scene = new THREE.Scene();
@@ -22,48 +8,51 @@ const camera = new THREE.PerspectiveCamera(75 , window.innerWidth / window.inner
 camera.position.set(0 , 10 , 0)
 camera.rotation.x = -Math.PI / 2
 
-let prevdist = null;
+// Pinch Zoom feature for LATER MEN......
+// let prevdist = null;
 
-document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
-
-   if (touch.fingers.length !== 2){
-      prevdist = null;
-      return; 
-   } 
-
-   finger1 = touch.fingers[0];
-   finger2 = touch.fingers[1];
-
-   difx = finger1.position.x - finger2.position.x
-   dify = finger1.position.y - finger2.position.y
-
-   const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
-
-   if (prevdist !== null){
-
-      const diff = distance - prevdist;
-
-      camera.fov -= diff * 0.05;
-      camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
-
-      camera.updateProjectionMatrix();
-
-   }
+// document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
+   //    console.log("start")
    
-   prevdist = distance
-
-})
-
-
-const renderer = new THREE.WebGLRenderer({
-   canvas: document.querySelector("#bg"),
+   //    if (touch.fingers.length !== 2){
+      //       prevdist = null;
+      //       console.log("yes")
+      //       return; 
+      //    } 
+      
+      //    finger1 = touch.fingers[0];
+      //    finger2 = touch.fingers[1];
+      
+      //    difx = finger1.position.x - finger2.position.x
+      //    dify = finger1.position.y - finger2.position.y
+      
+      //    const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+      
+      //    if (prevdist !== null){
+         
+      //       const diff = distance - prevdist;
+      
+      //       camera.fov -= diff * 0.05;
+      //       camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+      
+      //       camera.updateProjectionMatrix();
+      
+      //    }
+      
+      //    prevdist = distance
+      
+      // })
+      
+      
+      const renderer = new THREE.WebGLRenderer({
+         canvas: document.querySelector("#bg"),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth , window.innerHeight);
 
 window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
+   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
 //----3DObjects
@@ -78,32 +67,59 @@ const plane = new THREE.Mesh(pla_geo , pla_mat)
 plane.position.setY(-10)
 scene.add(plane)
 
-//Selected Celestial Object
+//Needs for other stars
+
 const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
-const firstobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
+const targettedobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
 const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}); 
-const firstobject = new THREE.Mesh(star_geo , firstobject_mat);
-firstobject.name = objectid[0].toUpperCase() + objectid.slice(1);
 
-//Made this into a function solution for the objects add section
-firstobject.position.set(selectedobj_pos[0] , selectedobj_pos[1] , selectedobj_pos[2]);
+function azalt_to_pos(az , alt){
+   const xpos = 5 * Math.cos(alt) * Math.sin(az) * 100;
+   const ypos = 5 * Math.sin(alt) * 100;
+   const zpos = -5 * Math.cos(alt) * Math.cos(az) * 100;
+   
+   return [xpos , ypos , zpos]
+}
 
-scene.add(firstobject);
+//-----Position of wanted object if present
 
-//Text Sprite for firstobject , also I will later on prevent this code being stated twice.
-const texture = createTextTexture(firstobject.name , '#e558d2' , 256 , 128 ,64 , "Mansalva");
-const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-const textSprite = new THREE.Sprite(spriteMaterial);
+let target_obj = null
 
-textSprite.scale.set(128 , 32 ); 
+if (objectid != null ){
 
-textSprite.position.set(
-   firstobject.position.x + 17, 
-   firstobject.position.y + 20, 
-   firstobject.position.z
-);
+   const azselectedobj = THREE.MathUtils.degToRad(azdata);
+   const altselectedobj = THREE.MathUtils.degToRad(altdata);
+   
+   
+   const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj) 
+   
+   //Selected Celestial Object
+   const firstobject = new THREE.Mesh(star_geo , targettedobject_mat);
+   firstobject.name = objectid[0].toUpperCase() + objectid.slice(1);
+   
+   //Made this into a function solution for the objects add section
+   firstobject.position.set(selectedobj_pos[0] , selectedobj_pos[1] , selectedobj_pos[2]);
+   
+   target_obj = firstobject
 
-scene.add(textSprite)
+   scene.add(firstobject);
+   
+   //Text Sprite for firstobject , also I will later on prevent this code being stated twice.
+   const texture = createTextTexture(firstobject.name , '#e558d2' , 256 , 128 ,64 , "Mansalva");
+   const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+   const textSprite = new THREE.Sprite(spriteMaterial);
+   
+   
+   textSprite.scale.set(128 , 32 ); 
+   
+   textSprite.position.set(
+      firstobject.position.x + 17, 
+      firstobject.position.y + 20, 
+      firstobject.position.z
+   );
+   
+   scene.add(textSprite)
+}
 
 //TextSprite creation function for Others Objects
 function createTextTexture(text , color , width , height , textsize , font){
@@ -191,6 +207,7 @@ const eventName = "ondeviceorientationabsolute" in window
    ? "deviceorientationabsolute"
    : "deviceorientation";
 
+
 window.addEventListener(eventName, (event) => {
    
    const alpha = THREE.MathUtils.degToRad(event.alpha || 0);
@@ -199,9 +216,12 @@ window.addEventListener(eventName, (event) => {
 
    let rawComp = event.webkitCompassHeading ?? (360 - event.beta);
    let comp = rawComp % 360
-   
-   const compassdir = document.getElementById("direction-comp")
-   compassdir.style.transform = `rotate(${comp}deg)`;
+
+   num_comp.innerHTML = `${comp}°`
+
+   //We'll see later if I'm adding this or not
+   // const compassdir = document.getElementById("direction-comp")
+   // compassdir.style.transform = `rotate(${comp}deg)`;
 
    euler.set(beta , alpha , -gamma , "YXZ");
 
@@ -216,7 +236,7 @@ window.addEventListener(eventName, (event) => {
    camera.getWorldDirection(camera_direction)
    
    const star_direction = new THREE.Vector3()
-   firstobject.getWorldPosition(star_direction)
+   target_obj.getWorldPosition(star_direction)
    
    star_direction.sub(camera.position).normalize();
    
@@ -265,8 +285,7 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
    
          const hitten_obj_pos = new THREE.Vector3();
          intersect[0].object.getWorldPosition(hitten_obj_pos)      
-         camera.lookAt(hitten_obj_pos)
-         target_point.style.opacity = 1;
+         target_point.style.opacity = 0.2;
    
          let hitten_obj_type = intersect[0].object.thetype;
          let hitten_obj_id = intersect[0].object.name;
@@ -311,6 +330,13 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
    }
 
 })
+
+//Feature for guiding the looking out for an specific object.
+   // const star_direction = new THREE.Vector3()
+   // target_obj.getWorldPosition(star_direction)
+
+
+
 
 //To delete when done
 const axesHelper = new THREE.AxesHelper(1000);

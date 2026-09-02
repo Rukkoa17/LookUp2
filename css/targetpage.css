@@ -16,11 +16,30 @@ main{
    pointer-events: none;
 }
 
-#direction-comp{
+.return-home-btn{
+   position: absolute;
+   top: 4vh;
+   left : 2vh;
+   pointer-events: fill;
+   cursor: pointer;
+   filter:  
+      drop-shadow(0 0 1px var(--third-color))
+      drop-shadow(0 0 0.9px rgb(238, 180, 255));
+}
+
+/* #direction-comp{
    position: absolute;
    top : 2vh ; 
    height: 12vh;
    
+} */
+
+#number-comp{
+   position: absolute;
+   top : 1.5vh ; 
+   font-family: "Mansalva";
+   font-weight: 100;
+   font-size: 6vh;   
 }
 
 #target-scope{

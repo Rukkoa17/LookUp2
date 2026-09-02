@@ -6,7 +6,8 @@
     "dec": 19.1824091615312,
     "type": "stars",
     "magnitude V": -0.05,
-    "magnitude B": 1.18
+    "magnitude B": 1.18,
+    "diameter": null
   },
   {
     "name": "Canopus",
@@ -15,7 +16,8 @@
     "dec": -52.69566138386201,
     "type": "stars",
     "magnitude V": -0.74,
-    "magnitude B": -0.59
+    "magnitude B": -0.59,
+    "diameter": null
   },
   {
     "name": "Orion Nebula",
@@ -24,7 +26,8 @@
     "dec": -5.3876,
     "type": "nebulae",
     "magnitude V": null,
-    "magnitude B": null
+    "magnitude B": null,
+    "diameter": null
   },
   {
     "name": "Procyon",
@@ -33,7 +36,8 @@
     "dec": 5.224987557059477,
     "type": "stars",
     "magnitude V": 0.37,
-    "magnitude B": 0.79
+    "magnitude B": 0.79,
+    "diameter": null
   },
   {
     "name": "Rigel",
@@ -42,7 +46,8 @@
     "dec": -8.201638364722209,
     "type": "stars",
     "magnitude V": 0.13,
-    "magnitude B": 0.1
+    "magnitude B": 0.1,
+    "diameter": null
   },
   {
     "name": "Sirius",
@@ -51,7 +56,8 @@
     "dec": -16.71611586111111,
     "type": "stars",
     "magnitude V": -1.46,
-    "magnitude B": -1.46
+    "magnitude B": -1.46,
+    "diameter": null
   },
   {
     "name": "Vega",
@@ -60,6 +66,7 @@
     "dec": 38.783688956244,
     "type": "stars",
     "magnitude V": 0.03,
-    "magnitude B": 0.03
+    "magnitude B": 0.03,
+    "diameter": null
   }
 ]

@@ -16,8 +16,6 @@ window.addEventListener("glocaready" , ()=>{
             let current_magV = text[object]["magnitude V"];
             let current_magB = text[object]["magnitude B"]
             
-            let fromcatalogueobj = celestial_objects[current_type][current_name];
-
             // Ok so for now I will run this function only one time (maybe later i'll put something to update it every 2/3min)
             // But I will later on in the target mode of an object , make a way to refresh the position each second  
             
@@ -62,7 +60,8 @@ window.addEventListener("glocaready" , ()=>{
                let azdeg = az * 180 / Math.PI
                azdeg += 180 // Don't ask me why , just this was the solution that I found while comparing datas with Stellarium.
 
-               return [azdeg , altdeg]
+               return [azdeg , altdeg , current_name , jd , lat , lon , jul_date]
+
             }
             
             let finalpos = ra_deg_to_az_lat(current_ra , current_dec , userLocation.latitude , userLocation.longitude , jd)

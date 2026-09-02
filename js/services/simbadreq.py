@@ -38,10 +38,12 @@ SELECT
     basic.otype,
     allfluxes.V,
     allfluxes.B,
-    allfluxes.G
+    allfluxes.G,
+    mesDiameter.*                             
 FROM basic
 JOIN ident ON basic.oid = ident.oidref
 LEFT JOIN allfluxes ON basic.oid = allfluxes.oidref
+LEFT JOIN mesDiameter ON basic.oid = mesDiameter.oidref
 WHERE ident.id IN ({names_sql})
 """
 
@@ -76,7 +78,8 @@ for row in results['data']:
             "dec": row[3],
             "type": [],
             "magnitude V": row[5],
-            "magnitude B": row[6]
+            "magnitude B": row[6],
+            "diameter": row[7]
         }
 
     #Used Chatgpt here to go faster about converging the otypes into simple type

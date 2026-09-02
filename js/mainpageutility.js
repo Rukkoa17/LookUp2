@@ -83,8 +83,6 @@ window.addEventListener("displaydone" , ()=>{
    })
 
 
-
-   
    astral_objects.forEach(card => {
       card.addEventListener("click", ()=>{
          const x =
@@ -102,7 +100,8 @@ window.addEventListener("displaydone" , ()=>{
       let textholder = document.createElement("h3");
       let status_light = document.createElement("div");
       let type = card.category
-      let thename = card.title.toLowerCase().replaceAll(" ", "")
+      let thename = card.title.toLowerCase().replaceAll(" ", "_")
+      console.log(thename)
       status_light.classList.add("status-light" , `${celestial_objects[type][thename].infos.visibility}`)
 
       let newtext = document.createTextNode(card.title);
