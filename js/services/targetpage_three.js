@@ -256,7 +256,7 @@ window.addEventListener(eventName, (event) => {
 
    const guiding_arrow = document.querySelector("#guiding-arrow");
 
-   guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-19vh)`
+   guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-130px)`
 
    //Tasks realted with the fact of the scope being near the target.
 
