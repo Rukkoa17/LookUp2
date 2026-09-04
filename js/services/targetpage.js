@@ -17,9 +17,10 @@ if (2 > parameters){
 else {
    objecttype = parameters.get("objecttype")
    objectid = parameters.get("objectid")
-   let objectimg = newcelestial_objects[objecttype][objectid].img
-   let azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
-   let altdata = newcelestial_objects[objecttype][objectid].infos.altitude
+   objectimg = newcelestial_objects[objecttype][objectid].img
+   azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
+   altdata = newcelestial_objects[objecttype][objectid].infos.altitude
+
    
    if (objectid.includes(" ")){
       objectid = objectid.replaceAll(" " , "_")

@@ -53,6 +53,7 @@ main{
    border-radius: 50%;
 }
 
+
 #target-point{
    position:absolute;
    opacity: 0; /*changed in target_three.js*/
@@ -127,4 +128,12 @@ main{
       drop-shadow(0 0 2px var(--text-color))
       drop-shadow(0 0 3px var(--third-color));
    border-radius: 50%;
+}
+
+#guiding-arrow{
+   position:absolute;
+   top:46.85vh;
+   left:44vw;
+   border: 2px solid red;
+   transform: rotate(0deg) translateY(-19vh);
 }

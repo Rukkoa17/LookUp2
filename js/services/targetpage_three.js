@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { dFdx } from 'three/src/nodes/math/MathNode.js';
 
 //----Scene
 const scene = new THREE.Scene();
@@ -234,21 +235,43 @@ window.addEventListener(eventName, (event) => {
    //Opening the object panel if phone aimed at
    const camera_direction = new THREE.Vector3()
    camera.getWorldDirection(camera_direction)
-   
+
+   // //Feature for guiding the looking out for an specific object.
    const star_direction = new THREE.Vector3()
-   target_obj.getWorldPosition(star_direction)
+   star_direction.subVectors(target_obj.position , camera.position).normalize()
+
+   const cam_direction = new THREE.Vector3()
+   camera.getWorldDirection(cam_direction)
+
+   const cross = new THREE.Vector3(); //Chatgpt helped with this , the goal here is to know if the helping arrow needs to be on the left or the right / top bottom.
+   cross.crossVectors(cam_direction, star_direction);
+      
+   const locstardirection = star_direction.clone().applyQuaternion(camera.quaternion.clone().invert());
+   //invert() to get to good left & right logic.
    
-   star_direction.sub(camera.position).normalize();
+   const anglerad = Math.atan2(
+      locstardirection.x,
+      locstardirection.y
+   );
    
-   const angle = camera_direction.angleTo(star_direction)
-   const angledeg = THREE.MathUtils.radToDeg(angle)
+   const angledeg = THREE.MathUtils.radToDeg(anglerad);
+
+   const guiding_arrow = document.querySelector("#guiding-arrow");
+
+   guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-19vh)`
+
+   //Tasks realted with the fact of the scope being near the target.
+
+   const anglestardir_rad = camera_direction.angleTo(star_direction)
+   const anglestardir_deg = THREE.MathUtils.radToDeg(anglestardir_rad)
    
    const targetpoint_angle = 6.5
    const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
 
    if (angledeg <= targetpoint_angle){
       target_point.style.opacity = 1;
-      if (angledeg <= max_anglediff){
+      guiding_arrow.style.opacity = 0;
+      if (anglestardir_deg <= max_anglediff){
          info_panel.classList.add("open")
       }
    }
@@ -331,20 +354,13 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 
 })
 
-//Feature for guiding the looking out for an specific object.
-   // const star_direction = new THREE.Vector3()
-   // target_obj.getWorldPosition(star_direction)
-
-
-
-
 //To delete when done
 const axesHelper = new THREE.AxesHelper(1000);
 scene.add(axesHelper);
 
 // //Here for testing purposes
-// const control = new OrbitControls(camera , renderer.domElement)
-// control.target.set(0 , 10 , 0)
+const control = new OrbitControls(camera , renderer.domElement)
+control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
