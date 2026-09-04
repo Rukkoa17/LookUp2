@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { dFdx } from 'three/src/nodes/math/MathNode.js';
 
 //----Scene
 const scene = new THREE.Scene();
