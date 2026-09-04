@@ -134,5 +134,7 @@ main{
    position:absolute;
    top:46.85vh;
    left:44vw;
-   transform: rotate(0deg) translateY();
+   /* This transform is what permits the "orbiting" , playing with the transform origin staying at the center (three js script)*/
+   transform: rotate(0deg) translateY(); 
+
 }
