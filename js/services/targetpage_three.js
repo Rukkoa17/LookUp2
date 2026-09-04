@@ -90,7 +90,6 @@ if (objectid != null ){
    const azselectedobj = THREE.MathUtils.degToRad(azdata);
    const altselectedobj = THREE.MathUtils.degToRad(altdata);
    
-   
    const selectedobj_pos = azalt_to_pos(azselectedobj , altselectedobj) 
    
    //Selected Celestial Object
@@ -214,7 +213,7 @@ window.addEventListener(eventName, (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   let rawComp = event.webkitCompassHeading ?? (360 - event.beta);
+   let rawComp = event.webkitCompassHeading ?? (360 - event.alpha);
    let comp = rawComp % 360
 
    num_comp.innerHTML = `${comp}°`
@@ -264,7 +263,7 @@ window.addEventListener(eventName, (event) => {
    const anglestardir_rad = camera_direction.angleTo(star_direction)
    const anglestardir_deg = THREE.MathUtils.radToDeg(anglestardir_rad)
    
-   const targetpoint_angle = 6.5
+   const targetpoint_angle = 5
    const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
 
    if (angledeg <= targetpoint_angle){
@@ -276,6 +275,7 @@ window.addEventListener(eventName, (event) => {
    }
    else {
       target_point.style.opacity = 0;
+      guiding_arrow.style.opacity = 1;
    }
 
 });
