@@ -83,7 +83,7 @@ for row in results['data']:
         }
 
     #Used Chatgpt here to go faster about converging the otypes into simple type
-    if row[4] in ["*", "dS*", "s*r", "s*b", "SB*", "PM*", "Be*", "bC*", "RG*", "sg*", "cC*"]:
+    if row[4] in ["*", "dS*", "s*r", "s*b", "SB*", "PM*", "Be*", "bC*", "RG*", "sg*", "cC*" , "LP?"]:
         theobjects[thename]["type"] = "stars"
 
     elif row[4] in ["OpC", "GlC", "Cl*", "ClG"]:
@@ -94,8 +94,6 @@ for row in results['data']:
 
     elif row[4] in ["G", "LIN", "AGN", "Sy1", "Sy2"]:
         theobjects[thename]["type"] = "galaxies"
-        
-
 
 data = list(theobjects.values())
 

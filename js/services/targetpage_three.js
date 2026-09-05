@@ -213,11 +213,18 @@ window.addEventListener(eventName, (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   //https://stackoverflow.com/questions/60624644/deviceorientation-compass-android , thanks.
-   let compass = -(event.alpha + event.beta * event.gamma / 90);
-   compass -= Math.floor(compass / 360) * 360; // Wrap into range [0,360].
+   //Compass heading (sorry couldn't figure out why wouldn't the previous work even if the issue was identified , gpt...)
+   //I'll keep in mind this tech for maybe future needs because I find it really good !
+   const camera_direction = new THREE.Vector3()
+   camera.getWorldDirection(camera_direction)
 
-   num_comp.innerHTML = `${compass}°`
+   let compass = Math.atan2(camera_direction.x, -camera_direction.z);
+   compass = THREE.MathUtils.radToDeg(compass);
+
+   if (compass < 0) compass += 360;
+
+   const num_comp = document.querySelector("#number-comp")
+   num_comp.innerHTML = `${compass.toFixed(1)}°`; //toFixed() is a trick I didn't knew , fix number of decimals.
 
    //We'll see later if I'm adding this or not
    // const compassdir = document.getElementById("direction-comp")
@@ -231,11 +238,7 @@ window.addEventListener(eventName, (event) => {
    
    camera.quaternion.copy(quater)  
    
-   //Opening the object panel if phone aimed at
-   const camera_direction = new THREE.Vector3()
-   camera.getWorldDirection(camera_direction)
-
-   // //Feature for guiding the looking out for an specific object.
+   //Feature for guiding the looking out for an specific object.
    const star_direction = new THREE.Vector3()
    star_direction.subVectors(target_obj.position , camera.position).normalize()
 
@@ -254,11 +257,12 @@ window.addEventListener(eventName, (event) => {
    );
    
    const angledeg = THREE.MathUtils.radToDeg(anglerad);
-
+   
    const guiding_arrow = document.querySelector("#guiding-arrow");
-
+   
    guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-130px)`
-
+   
+   //Opening the object panel if phone aimed at the object.
    //Tasks realted with the fact of the scope being near the target.
 
    const anglestardir_rad = camera_direction.angleTo(star_direction)

@@ -159,12 +159,9 @@ let celestial_objects = {
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
       vega: { //#
-         
          name:"Vega",
          histype:"stars",
          img:"./assets/carrousel-obj/stars/vega.png",
@@ -177,8 +174,6 @@ let celestial_objects = {
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
       /*capella: {
@@ -193,8 +188,6 @@ let celestial_objects = {
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
       */
 
@@ -211,8 +204,6 @@ let celestial_objects = {
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
       procyon: { //#
@@ -222,79 +213,155 @@ let celestial_objects = {
          creditentials:"Murgor Multoface",
          
          infos: {
+            difficulty : 1,
             azimuth : undefined, 
             altitude : undefined,
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
-      /*a: {
-         name:
-         histype:
-         img:
-         creditentials:
+      betelgeuse: { //#
+         name:"Betelgeuse",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/betelgeuse.png",
          
          infos: {
+            difficulty : 1,
             azimuth : undefined, 
             altitude : undefined,
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
-      a: {
-         name:
-         histype:
-         img:
-         creditentials:
+      altair: { //#
+         name:"Altair",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/altair.jpg",
          
          infos: {
+            difficulty : 1,
             azimuth : undefined, 
             altitude : undefined,
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
-      a: {
-         name:
-         histype:
-         img:
-         creditentials:
+      aldebaran: { //#
+         name:"Aldebaran",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/aldebaran.png",
          
          infos: {
+            difficulty : 1,
             azimuth : undefined, 
             altitude : undefined,
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
 
-      a: {
-         name:
-         histype:
-         img:
-         creditentials:
+      antares: { //#
+         name:"Antares",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/antares.png",
+         creditentials:"Star imagery generated with SpaceEngine — Cosmographic Software.",
          
          infos: {
+            difficulty : 1,
             azimuth : undefined, 
             altitude : undefined,
             magnitude : undefined,
             visibility : undefined
          }
-
-
       },
-*/
+
+      spica: { //#
+         name:"Spica",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/spica.png",
+         creditentials:"Star imagery generated with SpaceEngine — Cosmographic Software.",
+         
+         infos: {
+            difficulty : 1,
+            azimuth : undefined, 
+            altitude : undefined,
+            magnitude : undefined,
+            visibility : undefined
+         }
+      },
+
+      pollux: { //#
+         name:"Pollux",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/pollux.jpg",
+         
+         infos: {
+            diffiuclty:1,
+            azimuth : undefined, 
+            altitude : undefined,
+            magnitude : undefined,
+            visibility : undefined
+         }
+      },
+
+      deneb: { //#
+         name:"Deneb",
+         histype:"stars",
+         img:"./assets/carrousel-obj/stars/deneb.png",
+         
+         infos: {
+            diffiuclty : 1,
+            azimuth : undefined, 
+            altitude : undefined,
+            magnitude : undefined,
+            visibility : undefined
+         }
+      },
+
+      // a: {
+      //    name:
+      //    histype:
+      //    img:
+      //    creditentials:
+         
+      //    infos: {
+      //       azimuth : undefined, 
+      //       altitude : undefined,
+      //       magnitude : undefined,
+      //       visibility : undefined
+      //    }
+      // },
+
+      // a: {
+      //    name:
+      //    histype:
+      //    img:
+      //    creditentials:
+         
+      //    infos: {
+      //       azimuth : undefined, 
+      //       altitude : undefined,
+      //       magnitude : undefined,
+      //       visibility : undefined
+      //    }
+      // },
+
+      // a: {
+      //    name:
+      //    histype:
+      //    img:
+      //    creditentials:
+         
+      //    infos: {
+      //       azimuth : undefined, 
+      //       altitude : undefined,
+      //       magnitude : undefined,
+      //       visibility : undefined
+      //    }
+      // },
    },
 
 
