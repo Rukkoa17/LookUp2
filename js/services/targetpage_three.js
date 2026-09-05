@@ -214,7 +214,7 @@ window.addEventListener(eventName, (event) => {
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
    //https://stackoverflow.com/questions/60624644/deviceorientation-compass-android , thanks.
-   let compass = -(e.alpha + e.beta * e.gamma / 90);
+   let compass = -(event.alpha + event.beta * event.gamma / 90);
    compass -= Math.floor(compass / 360) * 360; // Wrap into range [0,360].
 
    num_comp.innerHTML = `${compass}°`
