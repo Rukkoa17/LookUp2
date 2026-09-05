@@ -213,10 +213,11 @@ window.addEventListener(eventName, (event) => {
    const beta  = THREE.MathUtils.degToRad(event.beta || 0);
    const gamma = THREE.MathUtils.degToRad(event.gamma || 0);
 
-   let rawComp = event.webkitCompassHeading ?? (360 - event.alpha);
-   let comp = rawComp % 360
+   //https://stackoverflow.com/questions/60624644/deviceorientation-compass-android , thanks.
+   let compass = -(e.alpha + e.beta * e.gamma / 90);
+   compass -= Math.floor(compass / 360) * 360; // Wrap into range [0,360].
 
-   num_comp.innerHTML = `${comp}°`
+   num_comp.innerHTML = `${compass}°`
 
    //We'll see later if I'm adding this or not
    // const compassdir = document.getElementById("direction-comp")
@@ -266,7 +267,7 @@ window.addEventListener(eventName, (event) => {
    const targetpoint_angle = 5
    const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
 
-   if (angledeg <= targetpoint_angle){
+   if (anglestardir_deg <= targetpoint_angle){
       target_point.style.opacity = 1;
       guiding_arrow.style.opacity = 0;
       if (anglestardir_deg <= max_anglediff){
