@@ -35,6 +35,19 @@ else {
    delete newcelestial_objects[objecttype][objectid]
 }
 
+//Add the selected main color to all the concerned elements of the page.
+const scope = document.querySelector("#target-scope");
+const targetpoint = document.querySelector("#target-point");
+const guiding_arrow = document.querySelector("#guiding-arrow")
+
+const elemlist = [scope , targetpoint , guiding_arrow];
+const maincolor = sessionStorage.getItem("maincolor");
+
+elemlist.forEach(elem => {
+   elem.classList.add(maincolor)
+})
+
 
 
 window.dispatchEvent(new Event("targetpageok"));
+

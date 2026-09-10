@@ -221,7 +221,7 @@ window.addEventListener(eventName, (event) => {
    let compass = Math.atan2(camera_direction.x, -camera_direction.z);
    compass = THREE.MathUtils.radToDeg(compass);
 
-   if (compass < 0) compass += 360;
+   if (compass < 0) compass += 360
 
    const num_comp = document.querySelector("#number-comp")
    num_comp.innerHTML = `${compass.toFixed(1)}°`; //toFixed() is a trick I didn't knew , fix number of decimals.

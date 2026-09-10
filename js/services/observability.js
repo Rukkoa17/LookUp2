@@ -7,6 +7,7 @@ window.addEventListener("glocaready", () => {
     async function getconditions(){
 
          let weatherstate = await rateweather();
+         console.log(weatherstate)
          let weather_rating = weatherstate.rating;
          console.log(weather_rating);
 
@@ -16,10 +17,10 @@ window.addEventListener("glocaready", () => {
     }
 
 
-    async function rateweather(param){
+    async function rateweather(){
 
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${userLocation.latitude}&lon=${userLocation.longitude}&appid=${ky}&units=metric`
+            `https://lookup2-gpj8.onrender.com/api/astro?lat=${userLocation.latitude}&lon=${userLocation.longitude}`
         );
 
         const data = await response.json();
@@ -72,7 +73,7 @@ window.addEventListener("glocaready", () => {
         }
         else {
             weatherData.rating -= 10;
-}
+        }
 
 
         return weatherData

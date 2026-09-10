@@ -5,12 +5,10 @@
    --base-color : rgb(0, 0, 0);
    --base-colorvar : rgba(24, 23, 23, 0.781);
    --elem-colorvar : rgb(201, 197, 197);
-   --third-color: rgb(238, 180, 255);
+   --third-color: rgb(238, 180, 255); 
    --text-color: white;
    --font-style: "Mansalva", sans-serif;
 }
-
-
 
 .red {
    --light-color : rgb(255 , 0 , 0);
@@ -22,4 +20,38 @@
 
 .yellow {
    --light-color : rgb(255 , 255 , 0);
+}
+
+/* main colors that are used in relation with settings for the "main" color of the webapp */
+
+.mainpink {
+   --third-color: rgb(238, 180, 255);  
+   --shadowbox : 0 0 4.5px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+   --largershadowbox : 0 0 10px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+}
+
+.mainblue{
+   --third-color: rgb(42, 137, 232);
+   --shadowbox : 0 0 4.5px rgb(29, 108, 212),0 0 10px rgb(0, 128, 255);
+   --largershadowbox : 0 0 10px rgb(29, 108, 212),0 0 10px rgb(0, 128, 255);
+
+}
+
+.mainred{
+   --third-color: rgb(255, 27, 27);
+   --shadowbox : 0 0 4.5px rgb(218, 0, 0),0 0 10px rgb(177, 0, 0);
+   --largershadowbox : 0 0 10px rgb(218, 0, 0),0 0 10px rgb(177, 0, 0);
+}
+
+.maingreen{
+   --third-color: rgb(19, 164, 19);
+   --shadowbox : 0 0 4.5px rgb(36, 175, 5),0 0 10px rgb(0, 216, 4);
+   --largershadowbox : 0 0 10px rgb(36, 175, 5),0 0 10px rgb(0, 216, 4);
+
+}
+
+.mainwhite{
+   --third-color: rgba(255, 255, 255, 0.816);
+   --shadowbox : 0 0 4.5px rgba(255, 255, 255, 0.918),0 0 10px rgb(254, 249, 249);
+   --largershadowbox : 0 0 10px rgba(255, 255, 255, 0.918),0 0 10px rgb(254, 249, 249);
 }

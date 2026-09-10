@@ -30,7 +30,7 @@
    background-color: var(--base-colorvar);
    padding: 1% 5% 1% 5%;
    border-radius: 15px;
-   box-shadow: 0 0 3px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+   box-shadow: var(--shadowbox);
 }
 
 
@@ -224,7 +224,7 @@
    display: flex;
    flex-direction: column;
 
-   box-shadow: 0 0 3px rgb(213, 122, 255),0 0 10px rgb(213, 122, 255);
+   box-shadow: var(--shadowbox);
 
 }
 
@@ -242,6 +242,7 @@
 }
 
 #nav-bar{
+   z-index: 3;
    position : fixed;
    margin-left: 5%;
    margin-bottom: 5%;
@@ -254,7 +255,7 @@
    flex-wrap: nowrap;
    justify-content: center;
    gap:1.5%;
-   box-shadow: 0 0 6px rgb(213, 122, 255),0 0 15px rgb(213, 122, 255);;
+   box-shadow: var(--largershadowbox);
 }
 
 #nav-bar svg{
@@ -284,4 +285,75 @@
       drop-shadow(0 0 12px var(--third-color))
       drop-shadow(0 0 15px rgb(238, 180, 255))
       drop-shadow(0 0 20px rgb(239, 229, 241));
+}
+
+/* hide is used only for one elem */
+.hide{
+   display: none;
+}
+
+.hidden{
+   display: none;
+}
+
+#settings-panel.open{
+   z-index: 2;
+   position: fixed;
+   overflow-x: hidden;
+   bottom: 0;
+   width: 100vw;
+   height: 87.5vh;
+   background-color: var(--base-color);
+   transform-origin: bottom;
+   display:flex;
+   flex-direction: column;
+   border-top: 1px solid var(--third-color);
+   
+
+   /* animation: ease-in-out 1s top ; */
+}
+
+#settings-title{
+   font-size: 1.7em;
+   margin: 6vh auto 1vh auto;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#settings-hr{
+   margin-bottom: 7.5vh;
+}
+
+#color-caption{
+   font-size: 1.3em;
+   margin-left: 6vw;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#check-boxes-cont{
+   margin: 4.5vh auto 3vh auto;
+   display: flex;
+   gap: 8vw;
+}
+
+.color-box{
+   /* remove the tick of vanilla css checkbox */
+   appearance: none;
+   -webkit-appearance: none; /* For Safari support */
+   height: 1.75em;
+   width: 1.75em;
+   background-color: var(--third-color);
+   border : 1.75px solid var(--text-color);
+   border-radius: 7.5%;
+   cursor: pointer;
+}
+
+.color-box:hover{
+   transform: scale(1.1);
+}
+
+.color-box.selected{
+   filter:
+      drop-shadow(0 0 5px var(--third-color))
+      drop-shadow(0 0 8px rgb(247, 247, 247));
+   accent-color: rgba(0 , 0 , 0 , 0);
 }

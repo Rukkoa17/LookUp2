@@ -125,5 +125,73 @@ window.addEventListener("displaydone" , ()=>{
       wanted_btn_showall.classList.add('wanted-btn-selected')
    }
 
+      
+})
+const hiddensettings = document.querySelectorAll(".hidden")
+const settings_panel = document.querySelector("#settings-panel")
+
+function settings_tab(btnname){
+
+   if (settings_panel.classList.contains("open")){
+      settings_panel.classList.remove("open")
+      navbtnlist[0].classList.add("nav-btn-selected") //help
+      console.log(navbtnlist[0])
+      hiddensettings.forEach(hidden_elem => {
+         hidden_elem.classList.add("hidden")
+      })
+
+   }
+   else{
+      if (btnname == "set") {
+         settings_panel.classList.add("open")
+         hiddensettings.forEach(hidden_elem => {
+            hidden_elem.classList.remove("hidden")
+         })
+      }
+   }
+
+}
+
+const colorboxes = document.querySelectorAll(".color-box")
+// All affected by main color elements of the page
+const navbar = document.querySelector("#nav-bar")
+const weathercont = document.querySelector("#weather-cont")
+const obscont = document.querySelector("#obs-headercont")
+const settingspanel = document.querySelector("#settings-panel")
+const elemlist = [navbar , weathercont , obscont , settings_panel]
+
+colorboxes.forEach(box => {
+   box.addEventListener("click" , ()=> {
+
+      if (!(box.classList.contains("selected"))){
+         colorboxes.forEach(b => b.classList.remove("selected"))
+         box.classList.add("selected")
+         }
+      
+      let selectedcolor = box.classList[1]
+      
+      elemlist.forEach(elem => {
+         elem.classList.remove(elem.classList[0])
+         elem.classList.add(selectedcolor)
+      })
+         
+      sessionStorage.setItem("maincolor" , selectedcolor);
+
+   })
 })
 
+//Make the maincolor still remains between pages until session is over.
+let actualmaincolor = sessionStorage.getItem("maincolor");
+if (actualmaincolor != null){
+   elemlist.forEach(elem => {
+      elem.classList.remove(elem.classList[0])
+      elem.classList.add(actualmaincolor)
+   })  
+
+   colorboxes.forEach(box => {
+      box.classList.remove("selected")
+      if (box.classList.contains(actualmaincolor)){
+         box.classList.add("selected")
+      }
+   })
+}

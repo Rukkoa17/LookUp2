@@ -66,6 +66,17 @@ def weather():
 
     weather_key = os.getenv("WEATHER_API_KEY")
 
-    return jsonify({
-        "key_exists": bool(weather_key)
-    })
+    if not weather_key:
+        return jsonify({"error : Weather API key is missing"}) , 500
+
+    if weather_key :
+        weather_key = weather_key.strip()
+
+    latitude = request.args.get("latitude")
+    longitude = request.args.get("longitude")
+
+    response = requests.get(
+        f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={weather_key}&units=metric"
+    )
+    
+    return jsonify(response.json())
