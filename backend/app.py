@@ -61,7 +61,7 @@ def astro():
 if __name__ == "__main__":
     app.run(debug=True)
 
-@app.route("/api/weather")
+@app.route("/api/weather")  
 def weather():
 
     weather_key = os.getenv("WEATHER_API_KEY")
@@ -72,8 +72,8 @@ def weather():
     if weather_key :
         weather_key = weather_key.strip()
 
-    latitude = request.args.get("latitude")
-    longitude = request.args.get("longitude")
+    latitude = request.args.get("lat")
+    longitude = request.args.get("lon")
 
     response = requests.get(
         f"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={weather_key}&units=metric"

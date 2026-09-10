@@ -20,10 +20,12 @@ window.addEventListener("glocaready", () => {
     async function rateweather(){
 
         const response = await fetch(
-            `https://lookup2-gpj8.onrender.com/api/astro?lat=${userLocation.latitude}&lon=${userLocation.longitude}`
+            `https://lookup2-gpj8.onrender.com/api/weather?lat=${userLocation.latitude}&lon=${userLocation.longitude}`
         );
 
         const data = await response.json();
+
+        console.log(data)
 
         const weatherData = {
             clouds: data.clouds.all,
@@ -80,6 +82,7 @@ window.addEventListener("glocaready", () => {
 
     }
 
+    getconditions()
     /*Moon Phase
     async function ratemoonphase(){
 
