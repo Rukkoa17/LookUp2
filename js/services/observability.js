@@ -11,6 +11,9 @@ window.addEventListener("glocaready", () => {
          let weather_rating = weatherstate.rating;
          console.log(weather_rating);
 
+         let moon_phase = await ratemoonphase()
+         console.log(moon_phase)
+
         // let moonphasestate = await ratemoonphase();
         // console.log(moonphasestate)
 
@@ -24,8 +27,6 @@ window.addEventListener("glocaready", () => {
         );
 
         const data = await response.json();
-
-        console.log(data)
 
         const weatherData = {
             clouds: data.clouds.all,
@@ -82,24 +83,24 @@ window.addEventListener("glocaready", () => {
 
     }
 
-    getconditions()
     // Moon Phase
     async function ratemoonphase(){
-
+        
         const response = await fetch(
-            "https://api.astronomyapi.com/api/v2/studio/moon-phase?" +
+            "https://lookup2-gpj8.onrender.com/api/moonphase?" +
             `latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&elevation=0` +
             `&from_date=${date}&to_date=${date}&time=${time}`,
         )
-
+        
         const data = await response.json();
-
+        
         console.log(data)
-
-
+        
+        
     };
-
-
+    
+    
+getconditions()
 
     // getconditions();
 

@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from flask_cors import  CORS
-import sys
 import requests
 import base64
 import os
@@ -74,22 +73,11 @@ def weather():
 
     wlatitude = request.args.get("lat")
     wlongitude = request.args.get("lon")
-
-    mlatitude = request.args.get("latitude")
-    mlongitude = request.args.get("longitude")
-    from_date = request.args.get("from_date")
-    to_date = request.args.get("to_date")
-    time = request.args.get("time")
-    
     
     weather_response = requests.get(
         f"https://api.openweathermap.org/data/2.5/weather?lat={wlatitude}&lon={wlongitude}&appid={weather_key}&units=metric"
     )
     
-    moonphase_response = requests.get(
-        f"https://api.astronomyapi.com/api/v2/studio/moon-phase?&latitude={mlatitude}&longitude={mlongitude}&elevation=0&from_date=${from_date}&to_date=${to_date}&time=${time}"
-    )
-
     return jsonify(weather_response.json())
 
 @app.route("/api/moonphase")
@@ -110,7 +98,7 @@ def moonphase():
     time = request.args.get("time")
     
     moonphase_response = requests.get(
-        f"https://api.astronomyapi.com/api/v2/studio/moon-phase?&latitude={mlatitude}&longitude={mlongitude}&elevation=0&from_date=${from_date}&to_date=${to_date}&time=${time}"
+        f"https://api.astronomyapi.com/api/v2/studio/moon-phase?&latitude={mlatitude}&longitude={mlongitude}&appid={weather_key}&elevation=0&from_date=${from_date}&to_date=${to_date}&time=${time}"
     )
 
     return jsonify(moonphase_response.json())
