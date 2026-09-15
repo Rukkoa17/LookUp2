@@ -5,6 +5,19 @@ let celestial_objects = {
 
    planets:{
 
+      // sun :{
+      //    name: "Sun",
+      //    histype : "planets", //Even tho it's a star I'm calling it planets for easier late implementation , this will not be shown to the user.
+      //    img:"",   
+
+      //    infos:{
+      //       azimuth : undefined,
+      //       altitude: undefined,
+      //       magnitude : undefined,
+      //       visibility : undefined,
+      //    }
+      // },
+
       moon :{
          name : "Moon",
          histype: "planets",

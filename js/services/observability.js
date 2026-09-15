@@ -6,13 +6,15 @@ window.addEventListener("glocaready", () => {
 
     async function getconditions(){
 
-         let weatherstate = await rateweather();
-         console.log(weatherstate)
-         let weather_rating = weatherstate.rating;
-         console.log(weather_rating);
+    // Arbitrary rating that will probably change , but for now:
+    // Overall weather 40/100 | Moonphase : 20/100 | Light Pollution : 30 / 100 | Atmospheric conditions ..? 10/100
 
-         let moon_phase = await ratemoonphase()
-         console.log(moon_phase)
+        let weatherstate = await rateweather();
+        let weather_rating = weatherstate.rating;
+        console.log(weather_rating);
+
+        let moon_phase = await ratemoonphase()
+        console.log(moon_phase);
 
         // let moonphasestate = await ratemoonphase();
         // console.log(moonphasestate)
@@ -87,14 +89,20 @@ window.addEventListener("glocaready", () => {
     async function ratemoonphase(){
         
         const response = await fetch(
-            "https://lookup2-gpj8.onrender.com/api/moonphase?" +
-            `latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&elevation=0` +
-            `&from_date=${date}&to_date=${date}&time=${time}`,
+            `https://api.sunrisesunset.io/json?lat=${userLocation.latitude}&lng=${userLocation.longitude}`,
+            
         )
         
         const data = await response.json();
         
-        console.log(data)
+        const no_moon_night = data.results.moon_always_down; //Good arg for if statement.
+        const moon_illumination = data.results.moon_illumination; // Percent of the moon's disk illuminated, 0–100.
+        const moon_phase_name = data.results.moon_phase;
+        const moon_phase_rating = data.results.moon_phase_value; // Continuous phase value. 0 and 1 are new, 0.5 is full.
+
+        const moon_state = [no_moon_night , moon_illumination , moon_phase_name , moon_phase_rating ]
+
+        return moon_state
         
         
     };

@@ -4,7 +4,7 @@ window.addEventListener("glocaready" , async ()=>{
 
    await fetch(
          "https://lookup2-gpj8.onrender.com/api/astro" +
-         `?bodies=mercury,venus,mars,jupiter,saturn,uranus,neptune,moon` +
+         `?bodies=sun,mercury,venus,mars,jupiter,saturn,uranus,neptune,moon` +
          `&latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&elevation=0` +
          `&from_date=${date}&to_date=${date}&time=${time}`,    
       )

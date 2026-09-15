@@ -16,6 +16,7 @@ window.addEventListener("loadingclear" , () => {
 function verification_if_ready(){
    if (planetstatus && objectsstatus ){
       async function display_carrousel(){
+      
       if (reset != 0){
          nav_cont.innerHTML = '';
          let borderdiv = document.createElement("div");

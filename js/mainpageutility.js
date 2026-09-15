@@ -135,7 +135,6 @@ function settings_tab(btnname){
    if (settings_panel.classList.contains("open")){
       settings_panel.classList.remove("open")
       navbtnlist[0].classList.add("nav-btn-selected") //help
-      console.log(navbtnlist[0])
       hiddensettings.forEach(hidden_elem => {
          hidden_elem.classList.add("hidden")
       })

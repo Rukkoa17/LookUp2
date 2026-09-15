@@ -57,8 +57,6 @@ def astro():
     return jsonify(response.json())
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
 
 @app.route("/api/weather")  
 def weather():
@@ -80,41 +78,6 @@ def weather():
     
     return jsonify(weather_response.json())
 
-@app.route("/api/moonphase")
-def moonphase():
-
-    astro_key = os.getenv("ASTROAPI_KEY")
-
-    if not astro_key:
-        return jsonify({"error : Astronomy API key is missing"}) , 500
-
-    if astro_key:
-        astro_key = astro_key.strip()
-
-    #normally would use btoa() in JS but here I have to encode it then.
-    auth = base64.b64encode(
-        astro_key.encode("utf-8")
-    ).decode("utf-8")
-
-    mlatitude = request.args.get("latitude")
-    mlongitude = request.args.get("longitude")
-    from_date = request.args.get("from_date")
-    to_date = request.args.get("to_date")
-    time = request.args.get("time")
-    
-    moonphase_response = requests.get(
-        "https://api.astronomyapi.com/api/v2/studio/moon-phase",
-        headers={
-            "Authorization": f"Basic {auth}"
-        },
-        params={
-            "latitude": mlatitude,
-            "longitude": mlongitude,
-            "elevation": 0,
-            "from_date": from_date,
-            "to_date": to_date,
-            "time": time
-        }
-    )
-
-    return jsonify(moonphase_response.json())
+# Place at the end.
+if __name__ == "__main__":
+    app.run(debug=True)

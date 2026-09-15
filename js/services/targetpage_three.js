@@ -8,44 +8,8 @@ const camera = new THREE.PerspectiveCamera(75 , window.innerWidth / window.inner
 camera.position.set(0 , 10 , 0)
 camera.rotation.x = -Math.PI / 2
 
-// Pinch Zoom feature for LATER MEN......
-// let prevdist = null;
-
-// document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
-   //    console.log("start")
-   
-   //    if (touch.fingers.length !== 2){
-      //       prevdist = null;
-      //       console.log("yes")
-      //       return; 
-      //    } 
-      
-      //    finger1 = touch.fingers[0];
-      //    finger2 = touch.fingers[1];
-      
-      //    difx = finger1.position.x - finger2.position.x
-      //    dify = finger1.position.y - finger2.position.y
-      
-      //    const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
-      
-      //    if (prevdist !== null){
-         
-      //       const diff = distance - prevdist;
-      
-      //       camera.fov -= diff * 0.05;
-      //       camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
-      
-      //       camera.updateProjectionMatrix();
-      
-      //    }
-      
-      //    prevdist = distance
-      
-      // })
-      
-      
-      const renderer = new THREE.WebGLRenderer({
-         canvas: document.querySelector("#bg"),
+const renderer = new THREE.WebGLRenderer({
+   canvas: document.querySelector("#bg"),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -70,6 +34,7 @@ scene.add(plane)
 //Needs for other stars
 
 const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
+      
 const targettedobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
 const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}); 
 
@@ -358,9 +323,39 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 
 })
 
-//To delete when done
-const axesHelper = new THREE.AxesHelper(1000);
-scene.add(axesHelper);
+// Pinch Zoom feature for LATER MEN......
+let prevdist = null;
+
+document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
+   
+      if (touch.length !== 2){
+            prevdist = null;
+            return; 
+         } 
+      
+         finger1 = touch[0];
+         finger2 = touch[1];
+      
+         difx = finger1.position.x - finger2.position.x
+         dify = finger1.position.y - finger2.position.y
+      
+         const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+      
+         if (prevdist !== null){
+         
+            const diff = distance - prevdist;
+      
+            camera.fov -= diff * 0.05;
+            camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+      
+            camera.updateProjectionMatrix();
+      
+         }
+      
+         prevdist = distance
+      
+      })
+
 
 // //Here for testing purposes
 const control = new OrbitControls(camera , renderer.domElement)
@@ -369,9 +364,7 @@ control.target.set(0 , 10 , 0)
 //Animation
 function animate () {
    requestAnimationFrame(animate)
-   // controls.update()
    renderer.render(scene , camera)
-   
 }
 
 animate()
