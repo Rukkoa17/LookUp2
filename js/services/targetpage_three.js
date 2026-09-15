@@ -330,36 +330,39 @@ document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
    
       if (touch.length !== 2){
             prevdist = null;
+            guiding_arrow.style.color = "red"
             return; 
          } 
       
-         finger1 = touch[0];
-         finger2 = touch[1];
+      guiding_arrow.style.color = "green"
       
-         difx = finger1.position.x - finger2.position.x
-         dify = finger1.position.y - finger2.position.y
+      finger1 = touch[0];
+      finger2 = touch[1];
+   
+      difx = finger1.position.x - finger2.position.x
+      dify = finger1.position.y - finger2.position.y
+   
+      const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
       
-         const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+      if (prevdist !== null){
       
-         if (prevdist !== null){
-         
-            const diff = distance - prevdist;
-      
-            camera.fov -= diff * 0.05;
-            camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
-      
-            camera.updateProjectionMatrix();
-      
-         }
-      
-         prevdist = distance
+         const diff = distance - prevdist;
+   
+         camera.fov -= diff * 0.05;
+         camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+   
+         camera.updateProjectionMatrix();
+   
+      }
+   
+      prevdist = distance
       
       })
 
 
-// //Here for testing purposes
-const control = new OrbitControls(camera , renderer.domElement)
-control.target.set(0 , 10 , 0)
+// // //Here for testing purposes
+// const control = new OrbitControls(camera , renderer.domElement)
+// control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
