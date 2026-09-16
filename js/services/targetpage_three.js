@@ -326,39 +326,44 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 // Pinch Zoom feature for LATER MEN......
 let prevdist = null;
 
-document.querySelector("#bg").addEventListener("touchstart" , (touch) => {
+document.querySelector("#bg").addEventListener("touchmove" , (touch) => {
    
-      if (touch.length !== 2){
+      if (touch.touches.length !== 2){
             prevdist = null;
             guiding_arrow.style.color = "red"
             return; 
          } 
       
-      guiding_arrow.style.color = "green"
+      else{
+         guiding_arrow.style.color = "green"
+         
+         finger1 = touch.touches[0];
+         finger2 = touch.touches[1];
       
-      finger1 = touch[0];
-      finger2 = touch[1];
-   
-      difx = finger1.position.x - finger2.position.x
-      dify = finger1.position.y - finger2.position.y
-   
-      const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+         difx = finger1.clientX - finger2.clientX
+         dify = finger1.clientY - finger2.clientY
       
-      if (prevdist !== null){
+         const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+         
+         if (prevdist !== null){
+         
+            const diff = distance - prevdist;
       
-         const diff = distance - prevdist;
-   
-         camera.fov -= diff * 0.05;
-         camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
-   
-         camera.updateProjectionMatrix();
-   
+            camera.fov -= diff * 0.05;
+            camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+      
+            camera.updateProjectionMatrix();
+      
+         }
+      
+         prevdist = distance
       }
-   
-      prevdist = distance
       
       })
 
+document.querySelector("#bg").addEventListener("touchend" , () => {
+   prevdist = null
+})
 
 // // //Here for testing purposes
 // const control = new OrbitControls(camera , renderer.domElement)
