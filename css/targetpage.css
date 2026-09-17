@@ -29,7 +29,6 @@ main{
 
 #direction-comp{
    position: absolute;
-   right : 5vw;
    top : 2vh ; 
    height: 12vh;
    
@@ -37,10 +36,10 @@ main{
 
 #number-comp{
    position: absolute;
-   top : 1.5vh ; 
+   top : 15vh ; 
    font-family: "Mansalva";
    font-weight: 100;
-   font-size: 6vh;   
+   font-size: 2vh;   
 }
 
 #target-scope{
