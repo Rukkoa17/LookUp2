@@ -191,9 +191,9 @@ window.addEventListener(eventName, (event) => {
    const num_comp = document.querySelector("#number-comp")
    num_comp.innerHTML = `${compass.toFixed(1)}°`; //toFixed() is a trick I didn't knew , fix number of decimals.
 
-   //We'll see later if I'm adding this or not
-   // const compassdir = document.getElementById("direction-comp")
-   // compassdir.style.transform = `rotate(${comp}deg)`;
+   //Test to rotate the compass now that I have something okay with number values.
+   const direction_comp = document.getElementById("direction-comp")
+   direction_comp.style.transform = `rotate(${compass.toFixed(1)}deg)`;
 
    euler.set(beta , alpha , -gamma , "YXZ");
 

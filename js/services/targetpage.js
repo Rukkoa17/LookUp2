@@ -1,14 +1,33 @@
-const strcelestial_objects = sessionStorage.getItem("celestialdatas")
-const newcelestial_objects = JSON.parse(strcelestial_objects)
+const strcelestial_objects = sessionStorage.getItem("celestialdatas");
+const newcelestial_objects = JSON.parse(strcelestial_objects);
 const parameters = new URLSearchParams(window.location.search);
-const info_panel = document.querySelector('#object-infos-tab')
-const num_comp = document.querySelector("#number-comp")
+const info_panel = document.querySelector('#object-infos-tab');
+const num_comp = document.querySelector("#number-comp");
+const hour_display = document.querySelector("#current-hour")
 
-let objecttype = null
-let objectid = null
-let objectimg = null
-let azdata = null
-let altdata = null
+let objecttype = null;
+let objectid = null;
+let objectimg = null;
+let azdata = null;
+let altdata = null;
+
+//This is my way to handle changing the hour every minute according to the clock not a fixed time.
+let interval = null
+
+function display_hour(){
+   let user_date = new Date();
+   let user_hour = user_date.getHours();
+   let user_min = user_date.getMinutes();
+   let user_sec = user_date.getSeconds();
+
+   interval = 60000 - user_sec * 1000
+
+   hour_display.innerHTML = `${user_hour}:${user_min}`
+
+}
+
+display_hour()
+setInterval(display_hour ,interval)
 
 if (2 > parameters){
    
@@ -46,8 +65,6 @@ const maincolor = sessionStorage.getItem("maincolor");
 elemlist.forEach(elem => {
    elem.classList.add(maincolor)
 })
-
-
 
 window.dispatchEvent(new Event("targetpageok"));
 

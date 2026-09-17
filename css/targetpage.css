@@ -27,12 +27,13 @@ main{
       drop-shadow(0 0 0.9px rgb(238, 180, 255));
 }
 
-/* #direction-comp{
+#direction-comp{
    position: absolute;
+   right : 5vw;
    top : 2vh ; 
    height: 12vh;
    
-} */
+}
 
 #number-comp{
    position: absolute;
@@ -138,4 +139,10 @@ main{
    /* This transform is what permits the "orbiting" , playing with the transform origin staying at the center (three js script)*/
    transform: rotate(0deg) translateY(); 
 
+}
+
+#current-hour{
+   font-size: 1.5em;
+   position: absolute;
+   bottom: 1.5vh;
 }
