@@ -15,6 +15,8 @@ window.addEventListener("glocaready", () => {
         let moon_phase = await ratemoonphase()
         let moon_phase_rating = moon_phase.rating;
 
+        let lightpollution = await rate_lightpollution()
+        console.log(lightpollution)
 
         
         // let moonphasestate = await ratemoonphase();
@@ -145,6 +147,22 @@ window.addEventListener("glocaready", () => {
     };
     
     
+    //Light Pollution 
+    async function rate_lightpollution(){
+
+        const response = await 
+        fetch(`https://lookup2-gpj8.onrender.com/api/lightpollution?lat=${userLocation.latitude}&lon=${userLocation.longitude}`)
+
+        return response
+
+    }
+
+        
+
+
+
+
+
 getconditions()
 
     // getconditions();
@@ -157,7 +175,6 @@ getconditions()
 
 
 
-//Light Pollution 
 
 
 
