@@ -11,11 +11,12 @@ window.addEventListener("glocaready", () => {
 
         let weatherstate = await rateweather();
         let weather_rating = weatherstate.rating;
-        console.log(weather_rating);
 
         let moon_phase = await ratemoonphase()
-        console.log(moon_phase);
+        let moon_phase_rating = moon_phase.rating;
 
+
+        
         // let moonphasestate = await ratemoonphase();
         // console.log(moonphasestate)
 
@@ -100,9 +101,45 @@ window.addEventListener("glocaready", () => {
         const moon_phase_name = data.results.moon_phase;
         const moon_phase_rating = data.results.moon_phase_value; // Continuous phase value. 0 and 1 are new, 0.5 is full.
 
-        const moon_state = [no_moon_night , moon_illumination , moon_phase_name , moon_phase_rating ]
+        const moon_Data = {
+            moon_night : no_moon_night,
+            moon_illumination : moon_illumination,
+            moon_phase_name : moon_phase_name,
+            moon_phase_rating : moon_phase_rating,
+            rating : 0,
+        }
 
-        return moon_state
+        if (moon_Data.moon_night != false){
+            moon_Data.rating = 20
+            return moon_Data
+        }
+
+        else if (moon_illumination <= 10){
+            moon_Data.rating += 10
+        }
+
+        else if (moon_illumination <= 30){
+            moon_Data.rating += 7
+        }
+
+        else if (moon_illumination <= 50){
+            moon_Data.rating += 2
+        }
+
+        else if (moon_illumination <= 65){
+            moon_Data.rating -=2
+        }
+
+        else if (moon_illumination <= 75){
+            moon_Data.rating -= 5
+        }
+
+        else {
+            moon_Data.rating -= 10
+        }
+
+
+        return moon_Data
         
         
     };

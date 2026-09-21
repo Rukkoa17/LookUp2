@@ -78,6 +78,23 @@ def weather():
     
     return jsonify(weather_response.json())
 
+from pollutiontest import find_tile
+
+@app.route("/api/lightpollution")
+def lightpollution():
+
+    lat = request.args.get("lat")
+    lon = request.args.get("lon")
+
+    position = {
+        "lat" : lat,
+        "lon" : lon
+    }
+
+    area = find_tile(position)
+
+    return jsonify({"pos" : position  , "area"  : area})
+
 # Place at the end.
 if __name__ == "__main__":
     app.run(debug=True)
