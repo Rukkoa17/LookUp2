@@ -83,8 +83,8 @@ from pollutiontest import find_tile
 @app.route("/api/lightpollution")
 def lightpollution():
 
-    lat = request.args.get("lat")
-    lon = request.args.get("lon")
+    lat = float(request.args.get("lat"))
+    lon = float(request.args.get("lon"))
 
     position = {
         "lat" : lat,
