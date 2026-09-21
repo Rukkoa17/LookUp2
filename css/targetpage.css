@@ -97,7 +97,7 @@ main{
 
 #object-infos-tab::-webkit-scrollbar{
    display:none;
-}
+}  
 
 #object-titleandimage{
    display: flex;

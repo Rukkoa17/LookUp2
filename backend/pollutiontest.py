@@ -3,7 +3,9 @@ def find_tile(current_pos):
 
    current_tile = None
 
-   position = int(current_pos)
+   position = current_pos
+
+   print(position)
 
    #ref : https://djlorenz.github.io/astronomy/lp/
    areas = {
@@ -27,4 +29,3 @@ def find_tile(current_pos):
 
 
    return current_tile
-
