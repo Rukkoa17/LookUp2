@@ -11,9 +11,12 @@ window.addEventListener("glocaready", () => {
 
         let weatherstate = await rateweather();
         let weather_rating = weatherstate.rating;
+        console.log(weatherstate)
+
 
         let moon_phase = await ratemoonphase()
         let moon_phase_rating = moon_phase.rating;
+        console.log(moon_phase)
 
         let lightpollution = await rate_lightpollution()
         console.log(lightpollution)
@@ -153,7 +156,9 @@ window.addEventListener("glocaready", () => {
         const response = await 
         fetch(`https://lookup2-gpj8.onrender.com/api/lightpollution?lat=${userLocation.latitude}&lon=${userLocation.longitude}`)
 
-        return response
+        const data = await response.jsont()
+
+        return data
 
     }
 

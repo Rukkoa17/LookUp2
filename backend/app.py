@@ -8,7 +8,11 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={
+    r"/api/*": {"origins": "*"}
+})
+
 
 @app.route("/api/test")
 def test():
@@ -90,8 +94,6 @@ def lightpollution():
         "lat" : lat,
         "lon" : lon
     }
-
-    print(position)
 
     area = find_tile(position)
 

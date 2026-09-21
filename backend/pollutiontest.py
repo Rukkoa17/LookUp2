@@ -5,8 +5,6 @@ def find_tile(current_pos):
 
    position = current_pos
 
-   print(position)
-
    #ref : https://djlorenz.github.io/astronomy/lp/
    areas = {
       "north_america" : [7 , 77 , -180 , -51], # N/S coverage for index 0 & 1 , E/W coverage for index 2 & 3
