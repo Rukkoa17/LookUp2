@@ -91,6 +91,8 @@ def lightpollution():
         "lon" : lon
     }
 
+    print(position)
+
     area = find_tile(position)
 
     return jsonify({"pos" : position  , "area"  : area})
