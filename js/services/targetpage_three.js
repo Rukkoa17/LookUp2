@@ -216,50 +216,52 @@ window.addEventListener(eventName, (event) => {
    camera.quaternion.copy(quater)  
    
    //Feature for guiding the looking out for an specific object.
-   const star_direction = new THREE.Vector3()
-   star_direction.subVectors(target_obj.position , camera.position).normalize()
-
-   const cam_direction = new THREE.Vector3()
-   camera.getWorldDirection(cam_direction)
-
-   const cross = new THREE.Vector3(); //Chatgpt helped with this , the goal here is to know if the helping arrow needs to be on the left or the right / top bottom.
-   cross.crossVectors(cam_direction, star_direction);
+   if (objectid != null){
+      const star_direction = new THREE.Vector3()
+      star_direction.subVectors(target_obj.position , camera.position).normalize()
       
-   const locstardirection = star_direction.clone().applyQuaternion(camera.quaternion.clone().invert());
-   //invert() to get to good left & right logic.
-   
-   const anglerad = Math.atan2(
-      locstardirection.x,
-      locstardirection.y
-   );
-   
-   const angledeg = THREE.MathUtils.radToDeg(anglerad);
-   
-   const guiding_arrow = document.querySelector("#guiding-arrow");
-   
-   guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-130px)`
-   
-   //Opening the object panel if phone aimed at the object.
-   //Tasks realted with the fact of the scope being near the target.
-
-   const anglestardir_rad = camera_direction.angleTo(star_direction)
-   const anglestardir_deg = THREE.MathUtils.radToDeg(anglestardir_rad)
-   
-   const targetpoint_angle = 5
-   const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
-
-   if (anglestardir_deg <= targetpoint_angle){
-      target_point.style.opacity = 1;
-      guiding_arrow.style.opacity = 0;
-      if (anglestardir_deg <= max_anglediff){
-         info_panel.classList.add("open")
+      const cam_direction = new THREE.Vector3()
+      camera.getWorldDirection(cam_direction)
+      
+      const cross = new THREE.Vector3(); //Chatgpt helped with this , the goal here is to know if the helping arrow needs to be on the left or the right / top bottom.
+      cross.crossVectors(cam_direction, star_direction);
+      
+      const locstardirection = star_direction.clone().applyQuaternion(camera.quaternion.clone().invert());
+      //invert() to get to good left & right logic.
+      
+      const anglerad = Math.atan2(
+         locstardirection.x,
+         locstardirection.y
+      );
+      
+      const angledeg = THREE.MathUtils.radToDeg(anglerad);
+      
+      const guiding_arrow = document.querySelector("#guiding-arrow");
+      
+      guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-130px)`
+      
+      //Opening the object panel if phone aimed at the object.
+      //Tasks realted with the fact of the scope being near the target.
+      
+      const anglestardir_rad = camera_direction.angleTo(star_direction)
+      const anglestardir_deg = THREE.MathUtils.radToDeg(anglestardir_rad)
+      
+      const targetpoint_angle = 5
+      const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
+      
+      if (anglestardir_deg <= targetpoint_angle){
+         target_point.style.opacity = 1;
+         guiding_arrow.style.opacity = 0;
+         if (anglestardir_deg <= max_anglediff){
+            info_panel.classList.add("open")
+         }
+      }
+      else {
+         target_point.style.opacity = 0;
+         guiding_arrow.style.opacity = 1;
       }
    }
-   else {
-      target_point.style.opacity = 0;
-      guiding_arrow.style.opacity = 1;
-   }
-
+   
 });
 
 const raycaster = new THREE.Raycaster( ); 
@@ -363,19 +365,17 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       let newobj_name = intersect[0].object.name
       let newobj_type = intersect[0].object.thetype
 
+      console.log(newobj_name)
+
       targetbtn.classList.add("open")
       targetbtn.children[0].classList.remove("hidden")
 
-      //remove in order to not add up the event listener , normally this isn't needed but in cas there it is.
-      target_obj.removeEventListener("click")
-
-      targetbtn.addEventListener("click" , () => {
-         window.location.href  = "/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
-      })
+      targetbtn.onclick = () => {
+         window.location.href  = "LookUp2/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
+      }
    }
 
    catch(error){
-      console.log(error)
       //Minimize error pop ups non related to the wanted objects.
    }
 
@@ -423,9 +423,9 @@ document.querySelector("#bg").addEventListener("touchend" , () => {
    prevdist = null
 })
 
-// //Here for testing purposes
-const control = new OrbitControls(camera , renderer.domElement)
-control.target.set(0 , 10 , 0)
+// // //Here for testing purposes
+// const control = new OrbitControls(camera , renderer.domElement)
+// control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
