@@ -374,7 +374,7 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       targetbtn.children[0].classList.remove("hidden")
 
       targetbtn.onclick = () => {
-         window.location.href  = "/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
+         window.location.href  = "/LookUp2/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
       }
    }
 

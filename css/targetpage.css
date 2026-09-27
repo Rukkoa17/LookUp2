@@ -144,7 +144,7 @@ main{
 #current-hour{
    font-size: 1.5em;
    position: absolute;
-   bottom: 1.5vh;
+   bottom: 7.5vh;
 }
 
 #targetbtn.open{
