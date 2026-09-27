@@ -13,6 +13,7 @@ let navbtnlist = document.querySelectorAll(".nav-bar-svg-btn");
 
 navbtnlist.forEach(btn => {
    btn.addEventListener("click", ()=> {
+
       navbtnlist.forEach(b => b.classList.remove("nav-btn-selected"));
 
       btn.classList.add("nav-btn-selected")
@@ -101,7 +102,6 @@ window.addEventListener("displaydone" , ()=>{
       let status_light = document.createElement("div");
       let type = card.category
       let thename = card.title.toLowerCase().replaceAll(" ", "_")
-      console.log(thename)
       status_light.classList.add("status-light" , `${celestial_objects[type][thename].infos.visibility}`)
 
       let newtext = document.createTextNode(card.title);
@@ -127,26 +127,36 @@ window.addEventListener("displaydone" , ()=>{
 
       
 })
+
+//Coming section
+const coming_popup = document.querySelector("#coming-popup-cont");
+
+//Settings Tab section
 const hiddensettings = document.querySelectorAll(".hidden")
 const settings_panel = document.querySelector("#settings-panel")
 
 function settings_tab(btnname){
-
-   if (settings_panel.classList.contains("open")){
-      settings_panel.classList.remove("open")
-      navbtnlist[0].classList.add("nav-btn-selected") //help
-      hiddensettings.forEach(hidden_elem => {
-         hidden_elem.classList.add("hidden")
-      })
-
-   }
-   else{
-      if (btnname == "set") {
+   
+   if(btnname !=  "home"){
+      if(btnname == "set"){
          settings_panel.classList.add("open")
          hiddensettings.forEach(hidden_elem => {
             hidden_elem.classList.remove("hidden")
          })
+         coming_popup.classList.remove("open")
+      }  
+
+      else if(btnname == "coming"){
+         coming_popup.classList.add("open")
       }
+   }
+
+   else{
+      settings_panel.classList.remove("open")
+      hiddensettings.forEach(hidden_elem => {
+         hidden_elem.classList.add("hidden")
+      })
+      coming_popup.classList.remove("open")
    }
 
 }
@@ -157,7 +167,8 @@ const navbar = document.querySelector("#nav-bar")
 const weathercont = document.querySelector("#weather-cont")
 const obscont = document.querySelector("#obs-headercont")
 const settingspanel = document.querySelector("#settings-panel")
-const elemlist = [navbar , weathercont , obscont , settings_panel]
+const settings_border = document.querySelector("#settings-top-border")
+const elemlist = [navbar , weathercont,settings_border , obscont]      
 
 colorboxes.forEach(box => {
    box.addEventListener("click" , ()=> {
@@ -170,7 +181,9 @@ colorboxes.forEach(box => {
       let selectedcolor = box.classList[1]
       
       elemlist.forEach(elem => {
-         elem.classList.remove(elem.classList[0])
+         if (elem.id !="settings-panel"){
+            elem.classList.remove(elem.classList[0])
+         }
          elem.classList.add(selectedcolor)
       })
          

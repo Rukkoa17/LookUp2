@@ -74,9 +74,9 @@
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
 
          <svg class="nav-bar-svg-btn" onclick="window.location.href='./html/eyesobs.html'"
-         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-telescope-icon lucide-telescope"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"/><path d="m13.56 11.747 4.332-.924"/><path d="m16 21-3.105-6.21"/><path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z"/><path d="m6.158 8.633 1.114 4.456"/><path d="m8 21 3.105-6.21"/><circle cx="12" cy="13" r="2"/></svg>
-
-         <svg class="nav-bar-svg-btn"
+         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass preview-icon"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg>
+         
+         <svg class="nav-bar-svg-btn" onclick="settings_tab('coming')"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-question-mark-icon lucide-badge-question-mark"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
 
          <svg class="nav-bar-svg-btn" onclick= "settings_tab('set')"
@@ -84,7 +84,13 @@
 
       </nav>
 
+      <div id="coming-popup-cont" class="hidden">
+         <h3>New features will come !</h3>
+      </div>
+
       <div id="settings-panel" class=" hide"> <!--Adding class with onclick function of settings svg-->
+
+         <hr id="settings-top-border" class="mainpink hidden">
 
          <h4 id="settings-title" class="mid-title hidden">Settings</h4>
 
@@ -99,6 +105,14 @@
             <input type="checkbox" id="choice-box" class="color-box mainwhite hidden">
          </div>
 
+         <h5 id="color-caption" class="caption hidden">Send me a suggestion :</h5>
+         <form id="email_form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="d1e96681-8b34-417e-bed9-2221c2162cf8">
+            <input class="email-infos" type="text" maxlength="40" placeholder="Username" name="name" required>
+            <input class="email-infos" type="email" maxlength="40" placeholder="Your Email" name="email" required>
+            <textarea id="email-message" maxlength="4000" name="message" placeholder="Tell me !" required></textarea>
+            <button type="submit">Submit</button>
+         </form>
 
       </div>
    
@@ -115,4 +129,3 @@
    
 </body>
 </html>
-   

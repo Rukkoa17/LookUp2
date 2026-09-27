@@ -38,12 +38,10 @@ SELECT
     basic.otype,
     allfluxes.V,
     allfluxes.B,
-    allfluxes.G,
-    mesDiameter.*                             
+    allfluxes.G
 FROM basic
 JOIN ident ON basic.oid = ident.oidref
 LEFT JOIN allfluxes ON basic.oid = allfluxes.oidref
-LEFT JOIN mesDiameter ON basic.oid = mesDiameter.oidref
 WHERE ident.id IN ({names_sql})
 """
 
@@ -60,6 +58,8 @@ response = requests.post(
 
 response.raise_for_status()
 results = response.json()
+
+print(results)
 
 theobjects = {}
 
@@ -79,7 +79,8 @@ for row in results['data']:
             "type": [],
             "magnitude V": row[5],
             "magnitude B": row[6],
-            "diameter": row[7]
+            # "maj_axis" : row[7], Didn't succed at finding the angular size for objects , today is last day for my deadline so i'll keep this for later.
+
         }
 
     #Used Chatgpt here to go faster about converging the otypes into simple type

@@ -22,6 +22,11 @@ function display_hour(){
 
    interval = 60000 - user_sec * 1000
 
+   //Handling cases where the minutes are 01 to 09 to not display it like hr:1-9 but hr:01-09
+   if (user_min.toString().length != 2){
+      user_min = "0" + user_min
+   }
+
    hour_display.innerHTML = `${user_hour}:${user_min}`
 
 }
@@ -29,8 +34,10 @@ function display_hour(){
 display_hour()
 setInterval(display_hour ,interval)
 
+const guiding_arrow = document.querySelector("#guiding-arrow")
+
 if (2 > parameters){
-   
+   guiding_arrow.style.display = "none"   
 }
 
 else {
@@ -57,10 +64,24 @@ else {
 //Add the selected main color to all the concerned elements of the page.
 const scope = document.querySelector("#target-scope");
 const targetpoint = document.querySelector("#target-point");
-const guiding_arrow = document.querySelector("#guiding-arrow")
+const targetbtn = document.querySelector("#targetbtn")
 
-const elemlist = [scope , targetpoint , guiding_arrow];
+const elemlist = [scope , targetpoint , guiding_arrow , targetbtn];
 const maincolor = sessionStorage.getItem("maincolor");
+
+color_dict = {
+   "mainpink" : '#e558d2',
+   "mainblue" : '#0053ed',
+   "mainred" : '#d60202',
+   "maingreen" : '#1e9e2a', 
+   "mainwhite" : '#ffffff'
+}
+
+const sunset_hour = sessionStorage.getItem("sunset_hour")
+const last_light = sessionStorage.getItem("last_light")
+
+console.log(sunset_hour)
+console.log(last_light)
 
 elemlist.forEach(elem => {
    elem.classList.add(maincolor)

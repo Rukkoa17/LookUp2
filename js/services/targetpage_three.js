@@ -33,9 +33,21 @@ scene.add(plane)
 
 //Needs for other stars
 
+// Color from settings to display it on the targeted object
+let color_for_target = color_dict[maincolor]
+
+//Handle case when no color picked in setting , then pink
+if (maincolor == null){
+   color_for_target = '#e558d2';
+}
+else{
+   color_for_target = color_dict[maincolor];
+}
+
+
 const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
       
-const targettedobject_mat = new THREE.MeshBasicMaterial({color : 0xeb49da});
+const targettedobject_mat = new THREE.MeshBasicMaterial({color : color_for_target});
 const star_mat = new THREE.MeshBasicMaterial({color : 0xffffff}); 
 
 function azalt_to_pos(az , alt){
@@ -69,7 +81,7 @@ if (objectid != null ){
    scene.add(firstobject);
    
    //Text Sprite for firstobject , also I will later on prevent this code being stated twice.
-   const texture = createTextTexture(firstobject.name , '#e558d2' , 256 , 128 ,64 , "Mansalva");
+   const texture = createTextTexture(firstobject.name , color_for_target , 256 , 128 ,64 , "Mansalva");
    const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
    const textSprite = new THREE.Sprite(spriteMaterial);
    
@@ -266,58 +278,104 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
          let todel = others_sprites_list.pop()
          others_sprites_list.pop()
          scene.remove(todel)
+
+         targetbtn.classList.remove("open")
+         targetbtn.children[0].classList.add("hidden")
+
       }
-      
+
       //Other Objects info pannels with CLICK
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse,camera)
    
-         let intersect = raycaster.intersectObjects(other_obj_mesh);
-   
-         const hitten_obj_pos = new THREE.Vector3();
-         intersect[0].object.getWorldPosition(hitten_obj_pos)      
-         target_point.style.opacity = 0.2;
-   
-         let hitten_obj_type = intersect[0].object.thetype;
-         let hitten_obj_id = intersect[0].object.name;
-         let hitten_obj_sprite = undefined;
-            
-         if (hitten_obj_id.includes(" ")){
-            hitten_obj_id = hitten_obj_id.replaceAll(" " , "_")
-         }
-   
-         let hitten_obj_az = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.azimuth;
-         let hitten_obj_alt = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.altitude;
-         let hitten_obj_coords = Math.round(hitten_obj_az * 100) / 100 + "° / " + Math.round(hitten_obj_alt * 100) / 100 + "°";
-         
-         
-         for (const i in other_obj_sprites){
-            if (other_obj_sprites[i].name.includes(" ")){
-               other_obj_sprites[i].name = other_obj_sprites[i].name.replaceAll(" " , "_");
-            }
-            if (hitten_obj_id == other_obj_sprites[i].name){
-               hitten_obj_sprite = other_obj_sprites[i]
+      let intersect = raycaster.intersectObjects(other_obj_mesh);
+
+      if (intersect.length === 0) {
+         const clickDirection = raycaster.ray.direction.clone().normalize();
+
+         let closestObj = null;
+         let closestAngle = Infinity;
+
+         for (const obj of other_obj_mesh) {
+
+            const objPos = new THREE.Vector3();
+            obj.getWorldPosition(objPos);
+
+            const objDirection = objPos
+               .sub(camera.position)
+               .normalize();
+
+            const angle = clickDirection.angleTo(objDirection);
+
+            if (angle < closestAngle) {
+               closestAngle = angle;
+               closestObj = obj;
             }
          }
+
+         //2.5° of tolerance for click around an obj
+         if (closestObj && THREE.MathUtils.radToDeg(closestAngle) < 2.5) {
+            intersect = [{ object: closestObj }];
+         }
+      }
+
+      const hitten_obj_pos = new THREE.Vector3();
+      intersect[0].object.getWorldPosition(hitten_obj_pos)      
+      target_point.style.opacity = 0.2;
+
+      let hitten_obj_type = intersect[0].object.thetype;
+      let hitten_obj_id = intersect[0].object.name;
+      let hitten_obj_sprite = undefined;
+         
+      if (hitten_obj_id.includes(" ")){
+         hitten_obj_id = hitten_obj_id.replaceAll(" " , "_")
+      }
+
+      let hitten_obj_az = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.azimuth;
+      let hitten_obj_alt = newcelestial_objects[hitten_obj_type][hitten_obj_id.toLowerCase()].infos.altitude;
+      let hitten_obj_coords = Math.round(hitten_obj_az * 100) / 100 + "° / " + Math.round(hitten_obj_alt * 100) / 100 + "°";
       
-         const texture = createTextTexture(`az/alt : ${hitten_obj_coords}` , "white" , 64 , 32 , 18 ,"Arial");
-         const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-         const textSprite = new THREE.Sprite(spriteMaterial);
-         others_sprites_list.push(textSprite);   
       
-         textSprite.scale.set(512 ,32); 
-      
-         textSprite.position.set(
-            hitten_obj_sprite.position.x, 
-            hitten_obj_sprite.position.y - 50, 
-            hitten_obj_sprite.position.z  );
-      
-         scene.add(textSprite)
+      for (const i in other_obj_sprites){
+         if (other_obj_sprites[i].name.includes(" ")){
+            other_obj_sprites[i].name = other_obj_sprites[i].name.replaceAll(" " , "_");
+         }
+         if (hitten_obj_id == other_obj_sprites[i].name){
+            hitten_obj_sprite = other_obj_sprites[i]
+         }
+      }
    
+      const texture = createTextTexture(`az/alt : ${hitten_obj_coords}` , "white" , 128 , 32 , 18 ,"Arial");
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+      const textSprite = new THREE.Sprite(spriteMaterial);
+      others_sprites_list.push(textSprite);   
+   
+      textSprite.scale.set(512 ,32); 
+   
+      textSprite.position.set(
+         hitten_obj_sprite.position.x, 
+         hitten_obj_sprite.position.y - 50, 
+         hitten_obj_sprite.position.z  );
+   
+      scene.add(textSprite)
+
+      let newobj_name = intersect[0].object.name
+      let newobj_type = intersect[0].object.thetype
+
+      targetbtn.classList.add("open")
+      targetbtn.children[0].classList.remove("hidden")
+
+      //remove in order to not add up the event listener , normally this isn't needed but in cas there it is.
+      target_obj.removeEventListener("click")
+
+      targetbtn.addEventListener("click" , () => {
+         window.location.href  = "/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
+      })
    }
 
    catch(error){
+      console.log(error)
       //Minimize error pop ups non related to the wanted objects.
    }
 
@@ -365,9 +423,9 @@ document.querySelector("#bg").addEventListener("touchend" , () => {
    prevdist = null
 })
 
-// // //Here for testing purposes
-// const control = new OrbitControls(camera , renderer.domElement)
-// control.target.set(0 , 10 , 0)
+// //Here for testing purposes
+const control = new OrbitControls(camera , renderer.domElement)
+control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {

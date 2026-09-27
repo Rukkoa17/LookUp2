@@ -16,15 +16,16 @@ main{
    pointer-events: none;
 }
 
+.hidden{
+   display: none;
+}
+
 .return-home-btn{
    position: absolute;
    top: 4vh;
    left : 2vh;
    pointer-events: fill;
    cursor: pointer;
-   filter:  
-      drop-shadow(0 0 1px var(--third-color))
-      drop-shadow(0 0 0.9px rgb(238, 180, 255));
 }
 
 #direction-comp{
@@ -48,8 +49,8 @@ main{
    background-color: none;
    border: 3px solid var(--third-color);
    filter:  
-      drop-shadow(0 0 12px var(--third-color))
-      drop-shadow(0 0 15px rgba(240, 235, 241, 0.955));
+      drop-shadow(0 0 15px var(--third-color))
+      drop-shadow(0 0 15px var(--third-color));
    border-radius: 50%;
 }
 
@@ -81,9 +82,9 @@ main{
    left: 0;
    background-color: var(--base-color);
    border-top: 2px solid var(--third-color);
-      filter:  
+   filter:  
       drop-shadow(0 0 6px var(--third-color))
-      drop-shadow(0 0 7.5px rgb(238, 180, 255));
+      drop-shadow(0 0 7.5px rgb(248, 246, 248));
    height: 30vh;
 
 }
@@ -144,4 +145,28 @@ main{
    font-size: 1.5em;
    position: absolute;
    bottom: 1.5vh;
+}
+
+#targetbtn.open{
+   pointer-events: fill;
+   cursor: pointer;
+   position: absolute;
+   display: flex;
+   align-items: center;
+   top: 87.5%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 65%;
+   height: 7.5%;
+   background-color: var(--base-color);
+   border : 2px solid var(--third-color);
+   border-radius: 10px;
+   filter: 
+      drop-shadow(0 0 6px var(--third-color))
+}
+
+
+#targetbtn h3{
+   margin: 0 auto 0 auto;
+   font-family: "Mansalva";
 }

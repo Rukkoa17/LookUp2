@@ -87,6 +87,7 @@ from pollutiontest import find_tile
 @app.route("/api/lightpollution")
 def lightpollution():
 
+    #There apparently is an Error here, I think it's due to the arguments lat & lon not being already defined , however it works well !
     lat = float(request.args.get("lat"))
     lon = float(request.args.get("lon"))
 

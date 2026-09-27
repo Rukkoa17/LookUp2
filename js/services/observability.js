@@ -18,6 +18,13 @@ window.addEventListener("glocaready", () => {
         let moon_phase_rating = moon_phase.rating;
         console.log(moon_phase)
 
+        //Day time correlated to sunset and last light to change the color of 3d sky
+        sessionStorage.setItem("sunset_hour" , moon_phase["sunset_hour"]);
+        sessionStorage.setItem("last_light" , moon_phase["last_light"])
+
+        console.log(sessionStorage.getItem("sunset_hour"))
+
+
         let lightpollution = await rate_lightpollution()
         console.log(lightpollution)
 
@@ -96,21 +103,28 @@ window.addEventListener("glocaready", () => {
         
         const response = await fetch(
             `https://api.sunrisesunset.io/json?lat=${userLocation.latitude}&lng=${userLocation.longitude}`,
-            
         )
         
         const data = await response.json();
         
+        //To display the day correctly in the 3d space
+        const sunset_hour = data.results.sunset //Darker sky / little orange ?
+        const last_light = data.results.last_light //Dark sky from there
+
         const no_moon_night = data.results.moon_always_down; //Good arg for if statement.
         const moon_illumination = data.results.moon_illumination; // Percent of the moon's disk illuminated, 0–100.
         const moon_phase_name = data.results.moon_phase;
         const moon_phase_rating = data.results.moon_phase_value; // Continuous phase value. 0 and 1 are new, 0.5 is full.
 
         const moon_Data = {
+            sunset_hour : sunset_hour,
+            last_light : last_light,            
+            
             moon_night : no_moon_night,
             moon_illumination : moon_illumination,
             moon_phase_name : moon_phase_name,
             moon_phase_rating : moon_phase_rating,
+            
             rating : 0,
         }
 
@@ -146,7 +160,6 @@ window.addEventListener("glocaready", () => {
 
         return moon_Data
         
-        
     };
     
     
@@ -156,7 +169,7 @@ window.addEventListener("glocaready", () => {
         const response = await 
         fetch(`https://lookup2-gpj8.onrender.com/api/lightpollution?lat=${userLocation.latitude}&lon=${userLocation.longitude}`)
 
-        const data = await response.jsont()
+        const data = await response.json()
 
         return data
 
