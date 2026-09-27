@@ -371,7 +371,7 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       targetbtn.children[0].classList.remove("hidden")
 
       targetbtn.onclick = () => {
-         window.location.href  = "LookUp2/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
+         window.location.href  = "/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
       }
    }
 
@@ -424,8 +424,8 @@ document.querySelector("#bg").addEventListener("touchend" , () => {
 })
 
 // // //Here for testing purposes
-// const control = new OrbitControls(camera , renderer.domElement)
-// control.target.set(0 , 10 , 0)
+const control = new OrbitControls(camera , renderer.domElement)
+control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
