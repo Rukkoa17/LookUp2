@@ -365,6 +365,9 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       let newobj_name = intersect[0].object.name
       let newobj_type = intersect[0].object.thetype
 
+      if (newobj_name.includes(" ")){
+         newobj_name = newobj_name.replaceAll(" " , "_")
+      }
       console.log(newobj_name)
 
       targetbtn.classList.add("open")
@@ -424,8 +427,8 @@ document.querySelector("#bg").addEventListener("touchend" , () => {
 })
 
 // // //Here for testing purposes
-const control = new OrbitControls(camera , renderer.domElement)
-control.target.set(0 , 10 , 0)
+// const control = new OrbitControls(camera , renderer.domElement)
+// control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
