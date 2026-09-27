@@ -96,9 +96,12 @@ def lightpollution():
         "lon" : lon
     }
 
-    area = find_tile(position)
+    results = find_tile(position)
+    area = results[0]
+    mpsas = results[1]
+    light_score = results[2]
 
-    return jsonify({"pos" : position  , "area"  : area})
+    return jsonify({"pos" : position  , "area"  : area , "mpsas" : mpsas , "light_score" : light_score})
 
 # Place at the end.
 if __name__ == "__main__":

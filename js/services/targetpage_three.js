@@ -25,14 +25,6 @@ const material = new THREE.MeshBasicMaterial({color: 0x0004 , side : THREE.BackS
 const sphere = new THREE.Mesh(geometry , material)
 scene.add(sphere)
 
-const pla_geo = new THREE.BoxGeometry(2000 , 1 , 2000)
-const pla_mat = new THREE.MeshBasicMaterial({color : 0x000020, transparent : true , opacity : 0.7})
-const plane = new THREE.Mesh(pla_geo , pla_mat)
-plane.position.setY(-10)
-scene.add(plane)
-
-//Needs for other stars
-
 // Color from settings to display it on the targeted object
 let color_for_target = color_dict[maincolor]
 
@@ -44,6 +36,14 @@ else{
    color_for_target = color_dict[maincolor];
 }
 
+//Plane to represent ground/horizon of user
+const pla_geo = new THREE.BoxGeometry(2000 , 1 , 2000)
+const pla_mat = new THREE.MeshBasicMaterial({color : color_for_target, transparent : true , opacity : 0.1})
+const plane = new THREE.Mesh(pla_geo , pla_mat)
+plane.position.setY(-10)
+scene.add(plane)
+
+//Needs for other stars
 
 const star_geo = new THREE.SphereGeometry(4 , 32 , 16);
       
