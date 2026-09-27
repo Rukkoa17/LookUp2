@@ -1,5 +1,4 @@
 
-
 #obs-headercont{
    margin-top: 22.5%;
    display: flex;
@@ -414,4 +413,23 @@
    margin-top: 1vh;
    width: 65vw;
    font-family: "Mansalva";
+}
+
+/*Acces denied pop up */
+#noacces-popup-cont.open{
+   z-index: 5;
+   position: absolute;
+   display: flex;
+   align-items: center;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 75%;
+   height: 20%;
+   background-color: var(--base-color);
+   border: 2px solid ;
+}
+
+#noacces-popup-cont h3{
+   margin: 0 auto 0 auto;
 }

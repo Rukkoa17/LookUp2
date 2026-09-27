@@ -427,8 +427,8 @@ document.querySelector("#bg").addEventListener("touchend" , () => {
 })
 
 // // //Here for testing purposes
-// const control = new OrbitControls(camera , renderer.domElement)
-// control.target.set(0 , 10 , 0)
+const control = new OrbitControls(camera , renderer.domElement)
+control.target.set(0 , 10 , 0)
 
 //Animation
 function animate () {
