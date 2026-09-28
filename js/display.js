@@ -120,3 +120,38 @@ function verification_if_ready(){
          
    }
 }
+
+//Display observability without compromising any other feature if there is an issue there
+window.addEventListener("observability_ready", () => {
+
+   const svg_score_list = document.querySelectorAll(".svg-score")
+   const score_divs = document.querySelectorAll(".score-div")
+   const total_score_text = document.querySelector("#total-score-text")
+   const detail_score_text = document.querySelector("#detail_score_text")
+
+   let weather_rating = observability["weather"].rating;
+   let moon_rating = observability["moon"].rating;
+   let light_pol_rating = observability["light_pollution"].light_score;
+
+   let total_rating = weather_rating + moon_rating + light_pol_rating
+
+   total_score_text.innerHTML = `${total_rating} / 100`
+   detail_score_text.innerHTML = detail_score_text.innerHTML = `Weather : ${weather_rating}/40       Moon : ${moon_rating}/20  Light Pollution : ${light_pol_rating}/40`;
+
+   if (total_rating <= 30){
+      svg_score_list[2].classList.remove("hidden")
+   }
+   else if (total_rating <=65){
+      svg_score_list[1].classList.remove("hidden")
+   }
+   else{
+      svg_score_list[0].classList.remove("hidden")
+
+   }
+
+   score_divs.forEach(b => b.classList.remove("hidden"))
+
+
+
+
+})

@@ -2,28 +2,35 @@
 
 // const ky that was my api key here was delete , so previous exposed version doesn't work no more.
 
-window.addEventListener("glocaready", () => {
+//Pardon me for the chains of if statements but that is what I found best in my case without looking for specific formulas. Next version this will be re worked
+let observability = {
+    "weather" : null,
+    "moon" : null,
+    "light_pollution" : null,
+}
 
+
+window.addEventListener("glocaready", () => {
     async function getconditions(){
 
     // Arbitrary rating that will probably change , but for now:
-    // Overall weather 40/100 | Moonphase : 20/100 | Light Pollution : 30 / 100 | Atmospheric conditions ..? 10/100
+    // Overall weather 40/100 | Moonphase : 20/100 | Light Pollution : 40 / 100 | Atmospheric conditions ..? 10/100
 
         let weatherstate = await rateweather();
-        let weather_rating = weatherstate.rating;
 
         let moon_phase = await ratemoonphase()
-        let moon_phase_rating = moon_phase.rating;
 
         //Day time correlated to sunset and last light to change the color of 3d sky
         sessionStorage.setItem("sunset_hour" , moon_phase["sunset_hour"]);
         sessionStorage.setItem("last_light" , moon_phase["last_light"])
 
         let lightpollution = await rate_lightpollution()
-        let light_pol_rating = lightpollution.light_score
 
-        console.log(["wea : " + weather_rating + " moon : "+ moon_phase_rating + " lightpollution : " + light_pol_rating])
-        console.log("total score : " + (weather_rating + moon_phase_rating + light_pol_rating) + " / 100")
+        observability["weather"] = weatherstate;
+        observability["moon"] = moon_phase;
+        observability["light_pollution"] = lightpollution
+
+        window.dispatchEvent(new Event("observability_ready"));    
 
     }
 
@@ -46,49 +53,71 @@ window.addEventListener("glocaready", () => {
             rating: 0
         };
 
-        //personal rating for weather in order to add this to the final one , WILL IMPROVE RADICCALY PLZ DON T HATE RN ON THE IF IF IF );
-        if (weatherData.clouds <= 7.5){
+        //personal rating for weather in order to add this to the final one , WILL IMPROVE PLZ DON T HATE RN ON THE IF IF IF );
+
+        if (weatherData.clouds <= 10){
             weatherData.rating += 20;
         }
-        else if (weatherData.clouds <= 20){
-            weatherData.rating += 15;
+        else if (weatherData.clouds <= 25){
+            weatherData.rating += 17;
         }
-        else if (weatherData.clouds <= 50){
-            weatherData.rating += 7.5;
+        else if (weatherData.clouds <= 40){
+            weatherData.rating += 14;
         }
-        else if (weatherData.clouds <= 75){ 
+        else if (weatherData.clouds <= 55){
+            weatherData.rating += 10;
+        }
+        else if (weatherData.clouds <= 70){
+            weatherData.rating += 6;
+        }
+        else if (weatherData.clouds <= 85){
             weatherData.rating += 3;
         }
-        else {
-            weatherData.rating -= 15
-        }
 
-        if (weatherData.rain >= 2){
-            weatherData.rating -= 10;
+        if (weatherData.rain == 0){
+            weatherData.rating += 10;
         }
-        else if (weatherData.rain >= 1){
-            weatherData.rating -= 7.5;
+        else if (weatherData.rain < 0.5){
+            weatherData.rating += 8;
         }
-        else {
-            weatherData.rating += 10
-        }
-
-        if (weatherData.humidity <= 40){
-            weatherData.rating += 10
-        }
-        else if (weatherData.humidity <= 60){
+        else if (weatherData.rain < 1){
             weatherData.rating += 5;
         }
+        else if (weatherData.rain < 2){
+            weatherData.rating += 2;
+        }
+
+        if (weatherData.humidity <= 60){
+            weatherData.rating += 5;
+        }
+        else if (weatherData.humidity <= 70){
+            weatherData.rating += 4;
+        }
         else if (weatherData.humidity <= 80){
-            weatherData.rating -=5;  
+            weatherData.rating += 3;
         }
-        else {
-            weatherData.rating -= 10;
+        else if (weatherData.humidity <= 90){
+            weatherData.rating += 1;
         }
 
+        if (weatherData.wind <= 2){
+            weatherData.rating += 3;
+        }
+        else if (weatherData.wind <= 5){
+            weatherData.rating += 2;
+        }
+        else if (weatherData.wind <= 8){
+            weatherData.rating += 1;
+        }
 
-        return weatherData
+        if (weatherData.visibility >= 10000){
+            weatherData.rating += 2;
+        }
+        else if (weatherData.visibility >= 7000){
+            weatherData.rating += 1;
+        }
 
+        return weatherData;
     }
 
     // Moon Phase
@@ -123,38 +152,38 @@ window.addEventListener("glocaready", () => {
 
         if (moon_Data.moon_night != false){
             moon_Data.rating = 20
-            return moon_Data
         }
 
         else if (moon_illumination <= 10){
-            moon_Data.rating += 10
+            moon_Data.rating = 20
         }
 
-        else if (moon_illumination <= 30){
-            moon_Data.rating += 7
+        else if (moon_illumination <= 25){
+            moon_Data.rating = 17
         }
 
-        else if (moon_illumination <= 50){
-            moon_Data.rating += 2
+        else if (moon_illumination <= 40){
+            moon_Data.rating = 14
         }
 
-        else if (moon_illumination <= 65){
-            moon_Data.rating -=2
+        else if (moon_illumination <= 55){
+            moon_Data.rating = 10
         }
 
-        else if (moon_illumination <= 75){
-            moon_Data.rating -= 5
+        else if (moon_illumination <= 70){
+            moon_Data.rating = 6
+        }
+
+        else if (moon_illumination <= 85){
+            moon_Data.rating = 3
         }
 
         else {
-            moon_Data.rating -= 10
+            moon_Data.rating = 0
         }
 
-
         return moon_Data
-        
     };
-    
     
     //Light Pollution 
     async function rate_lightpollution(){
@@ -168,25 +197,6 @@ window.addEventListener("glocaready", () => {
 
     }
 
-        
-
-
-
-
-
 getconditions()
 
-    // getconditions();
-
 });
-
-
-
-
-
-
-
-
-
-
-//Result

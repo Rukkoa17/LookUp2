@@ -1,3 +1,7 @@
+/* This body propriety is only for the mainpage */
+body{
+   height: 112vh;
+}
 
 #obs-headercont{
    margin-top: 22.5%;
@@ -222,23 +226,66 @@
    border-radius: 10px;
    display: flex;
    flex-direction: column;
+   padding-bottom: 3vh;
 
    box-shadow: var(--shadowbox);
 
 }
 
-#weather-cont:hover{
-   transform: scale(1.02);
-}
-
-
 .mid-title{
    align-self: center;
    margin-top: 2%;
    font-family: "Mansalva";
+   font-size: 1.5em;
    user-select: none;
-
 }
+
+#scores-cont{
+   margin-top: 3vh;
+   display: flex;
+   gap: 15%;
+}
+
+.svg-score{
+   margin-top: -2vh;
+   margin-left: 7.5vw;
+}
+
+#check-score{
+   color: rgb(74, 214, 23);
+   filter: 
+      drop-shadow(0 0 9px rgb(102, 255, 0))
+}
+
+#wave-score{
+   color: rgb(255, 215, 82);
+   filter: 
+      drop-shadow(0 0 9px rgb(255, 215, 82))
+}
+
+#cross-score{
+   color:red;
+   filter: 
+      drop-shadow(0 0 9px rgb(255, 3, 3))
+}
+
+.score-div-title{
+   margin-left: 2vw;
+}
+
+#total-score-text{
+   font-family: "Mansalva";
+   margin-top: 0.5vh;
+   font-size: 1.7em;
+   margin-left: 4vw;
+}
+
+#detail-score-cont{
+   font-size: small;
+   margin: 2vh auto 0 auto;
+}
+
+
 
 #nav-bar{
    z-index: 3;

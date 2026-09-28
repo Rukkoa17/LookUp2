@@ -62,7 +62,41 @@
       </div>
 
       <div id="weather-cont" class="mainpink"> 
-         <h4 id="weather-cont-title" class="mid-title">Observability</h4>
+         <h4 id="weather-cont-title" class="mid-title">Tonight Observability</h4>
+
+         <div id="scores-cont">
+            
+            <div id="icon-score-cont" class="score-div">
+               
+               <svg id="check-score" class="svg-score hidden"
+                  xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                  stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-check preview-icon"><path d="m19.06 12.501 2.78-2.707a.53.53 0 0 0-.294-.905l-5.166-.755a2.1 2.1 0 0 1-1.595-1.16l-2.31-4.68a.53.53 0 0 0-.95.001L9.216 6.974a2.1 2.1 0 0 1-1.597 1.16l-5.165.755a.53.53 0 0 0-.294.906l3.736 3.637a2.1 2.1 0 0 1 .611 1.879l-.88 5.139a.53.53 0 0 0 .769.56l4.617-2.428.027-.014"/><path d="m15 18 2 2 4-4"/>
+               </svg>
+               
+               <svg id="wave-score" class="svg-score hidden"
+                  xmlns="http://www.w3.org/2000/svg" width="82" height="82"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round">*
+                  <path d="M1.5 7q2.5 2 5 0C9 5 9 5 11.5 7s2.5 2 5 0 2.5-2 5 0" />
+                  <path d="M2 15.5q2.5 2 5 0c2.5-2 2.5-2 5 0s2.5 2 5 0 2.5-2 5 0" />
+               </svg>
+
+               <svg id="cross-score" class="svg-score hidden"
+                  xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+               </svg>
+
+            </div>
+
+            <div id="total-score-cont" class="score-div hidden">
+               <h5 id="total-score-text"></h5>
+            </div>
+
+         </div>
+
+         <div id="detail-score-cont" class="score-div hidden">
+            <h5 id="detail_score_text"></h5>
+
+         </div>
+
 
       </div>
 
