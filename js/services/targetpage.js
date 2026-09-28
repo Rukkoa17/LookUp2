@@ -14,25 +14,27 @@ let altdata = null;
 //This is my way to handle changing the hour every minute according to the clock not a fixed time.
 let interval = null
 
+// In order to use this variable for sky color
+let user_date = null;
+let formatter = null;
+
 function display_hour(){
-   let user_date = new Date();
-   let user_hour = user_date.getHours();
-   let user_min = user_date.getMinutes();
-   let user_sec = user_date.getSeconds();
 
-   interval = 60000 - user_sec * 1000
+   user_date = new Date()   
 
-   //Handling cases where the minutes are 01 to 09 to not display it like hr:1-9 but hr:01-09
-   if (user_min.toString().length != 2){
-      user_min = "0" + user_min
-   }
+   formatter = new Intl.DateTimeFormat(undefined, {
+      hour: "numeric",
+      minute: "2-digit"
+   });
 
-   hour_display.innerHTML = `${user_hour}:${user_min}`
+   hour_display.innerHTML = formatter.format(user_date);
 
+   clearTimeout(interval);
+
+   interval = setTimeout(display_hour, 60000 - user_date.getSeconds() * 1000);
 }
 
 display_hour()
-setInterval(display_hour ,interval)
 
 const guiding_arrow = document.querySelector("#guiding-arrow")
 
@@ -77,11 +79,14 @@ color_dict = {
    "mainwhite" : '#ffffff'
 }
 
-const sunset_hour = sessionStorage.getItem("sunset_hour")
-const last_light = sessionStorage.getItem("last_light")
+// NO time to think it myself so for next version
+// const sunset_hour = sessionStorage.getItem("sunset_hour")
+// const last_light = sessionStorage.getItem("last_light")
 
-console.log(sunset_hour)
-console.log(last_light)
+// console.log(sunset_hour)
+ 
+// console.log(formatter.format(user_date) > sunset_hour)
+
 
 elemlist.forEach(elem => {
    elem.classList.add(maincolor)

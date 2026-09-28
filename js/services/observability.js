@@ -11,26 +11,19 @@ window.addEventListener("glocaready", () => {
 
         let weatherstate = await rateweather();
         let weather_rating = weatherstate.rating;
-        console.log(weatherstate)
-
 
         let moon_phase = await ratemoonphase()
         let moon_phase_rating = moon_phase.rating;
-        console.log(moon_phase)
 
         //Day time correlated to sunset and last light to change the color of 3d sky
         sessionStorage.setItem("sunset_hour" , moon_phase["sunset_hour"]);
         sessionStorage.setItem("last_light" , moon_phase["last_light"])
 
-        console.log(sessionStorage.getItem("sunset_hour"))
-
-
         let lightpollution = await rate_lightpollution()
-        console.log(lightpollution)
+        let light_pol_rating = lightpollution.light_score
 
-        
-        // let moonphasestate = await ratemoonphase();
-        // console.log(moonphasestate)
+        console.log(["wea : " + weather_rating + " moon : "+ moon_phase_rating + " lightpollution : " + light_pol_rating])
+        console.log("total score : " + (weather_rating + moon_phase_rating + light_pol_rating) + " / 100")
 
     }
 

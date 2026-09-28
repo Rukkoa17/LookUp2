@@ -6,19 +6,19 @@ import requests
 def lightpollution_score(mpsas):
    #light pollution scale table
    if mpsas >= 21.8:
-      return 30
+      return 40
 
    elif mpsas >= 21.3:
-      return 27
+      return 35
 
    elif mpsas >= 20.8:
-      return 24
+      return 30
 
    elif mpsas >= 20.3:
-      return 21
+      return 25
 
    elif mpsas >= 19.7:
-      return 18
+      return 20
 
    elif mpsas >= 19.0:
       return 15
@@ -28,7 +28,7 @@ def lightpollution_score(mpsas):
 
    elif mpsas >= 17.0:
       return 5
-
+   
    else:
       return 0
 
