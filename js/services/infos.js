@@ -3,7 +3,7 @@ let planetstatus = false;
 let objectsstatus = false;
 
 const loading = document.querySelector("#server-status")
-loading.textContent = "Loading ..."
+loading.innerHTML = "Loading ... <br> (If server asleep , ~1min wait)"
 
 function clearloading () {
    if (planetstatus && objectsstatus){

@@ -385,46 +385,46 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 })
 
 // Pinch Zoom feature for LATER MEN......
-let prevdist = null;
+// let prevdist = null;
 
-document.querySelector("#bg").addEventListener("touchmove" , (touch) => {
+// document.querySelector("#bg").addEventListener("touchmove" , (touch) => {
    
-      if (touch.touches.length !== 2){
-            prevdist = null;
-            guiding_arrow.style.color = "red"
-            return; 
-         } 
+//       if (touch.touches.length !== 2){
+//             prevdist = null;
+//             guiding_arrow.style.color = "red"
+//             return; 
+//          } 
       
-      else{
-         guiding_arrow.style.color = "green"
+//       else{
+//          guiding_arrow.style.color = "green"
          
-         finger1 = touch.touches[0];
-         finger2 = touch.touches[1];
+//          finger1 = touch.touches[0];
+//          finger2 = touch.touches[1];
       
-         difx = finger1.clientX - finger2.clientX
-         dify = finger1.clientY - finger2.clientY
+//          difx = finger1.clientX - finger2.clientX
+//          dify = finger1.clientY - finger2.clientY
       
-         const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
+//          const distance = Math.sqrt(difx * difx + dify * dify); // Pythagore
          
-         if (prevdist !== null){
+//          if (prevdist !== null){
          
-            const diff = distance - prevdist;
+//             const diff = distance - prevdist;
       
-            camera.fov -= diff * 0.05;
-            camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
+//             camera.fov -= diff * 0.05;
+//             camera.fov = THREE.MathUtils.clamp(camera.fov, 35, 100);
       
-            camera.updateProjectionMatrix();
+//             camera.updateProjectionMatrix();
       
-         }
+//          }
       
-         prevdist = distance
-      }
+//          prevdist = distance
+//       }
       
-      })
+//       })
 
-document.querySelector("#bg").addEventListener("touchend" , () => {
-   prevdist = null
-})
+// document.querySelector("#bg").addEventListener("touchend" , () => {
+//    prevdist = null
+// })
 
 // // //Here for testing purposes
 // No more orbit controls (;
