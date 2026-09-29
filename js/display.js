@@ -6,6 +6,9 @@ const wanted_btns = document.querySelectorAll(".obs-nav-bar-wantbtn")
 const wanted_btn_visibles = document.querySelector('#obs-navbar-visibles')
 const wanted_btn_showall = document.querySelector('#obs-navbar-showall')
 
+const equip_wanted_btns = document.querySelectorAll(".obs-svg-btn")
+let equipment = "eyes"
+
 let showing = "visible" //variable parameter for what type of thing the user wants to see. (visible/all)
 let reset = 0 
 
@@ -13,61 +16,67 @@ window.addEventListener("loadingclear" , () => {
    verification_if_ready()
 })
 
-function verification_if_ready(){
-   if (planetstatus && objectsstatus ){
-      async function display_carrousel(){
-      
-      if (reset != 0){
-         nav_cont.innerHTML = '';
-         let borderdiv = document.createElement("div");
-         borderdiv.classList.add("carrousel-card")
-         let lastborderdiv = document.createElement("div");
-         lastborderdiv.classList.add("carrousel-card")
-         nav_cont.appendChild(borderdiv)
-         nav_cont.appendChild(lastborderdiv)
+async function display_carrousel(){
+
+   if (reset != 0){
+      nav_cont.innerHTML = '';
+      let borderdiv = document.createElement("div");
+      borderdiv.classList.add("carrousel-card")
+      let lastborderdiv = document.createElement("div");
+      lastborderdiv.classList.add("carrousel-card")
+      nav_cont.appendChild(borderdiv)
+      nav_cont.appendChild(lastborderdiv)
+   }
+   for (const type in celestial_objects) {
+      for (const o in celestial_objects[type]) {
+         celestial_objects[type][o].infos.visibility = get_visibility(celestial_objects[type][o])
       }
-      for (const type in celestial_objects) {
-         for (const spaceobject in celestial_objects[type]){
-            if (showing != "all") {
-               if (celestial_objects[type][spaceobject].infos.visibility != "red") {
-                  
-                  let newdiv = document.createElement("div");
-                  newdiv.classList.add("carrousel-card");
-                  let lastdiv = nav_cont.lastElementChild
-                  nav_cont.insertBefore(newdiv , lastdiv)
-                  
-                  let newimg = document.createElement("img");
-                  newimg.src = celestial_objects[type][spaceobject].img
-                  newimg.classList.add("carr-object");
-                  newimg.title = celestial_objects[type][spaceobject].name
-                  newimg.category = celestial_objects[type][spaceobject].histype;
-                  newdiv.appendChild(newimg)
-               }
-            }
-            else if (showing == "all") {
-               //tried to create a function to do thedisplay but not worked... I'm bad at this..
-                  let newdiv = document.createElement("div");
-                  newdiv.classList.add("carrousel-card");
-                  let lastdiv = nav_cont.lastElementChild
-                  nav_cont.insertBefore(newdiv , lastdiv)
-                  
-                  let newimg = document.createElement("img");
-                  newimg.src = celestial_objects[type][spaceobject].img
-                  newimg.classList.add("carr-object");
-                  newimg.title = celestial_objects[type][spaceobject].name
-                  newimg.category = celestial_objects[type][spaceobject].histype;
-                  newdiv.appendChild(newimg)
+      for (const spaceobject in celestial_objects[type]){
+         if (showing != "all") {
+            if (celestial_objects[type][spaceobject].infos.visibility == "green"){
+               
+               let newdiv = document.createElement("div");
+               newdiv.classList.add("carrousel-card");
+               let lastdiv = nav_cont.lastElementChild
+               nav_cont.insertBefore(newdiv , lastdiv)
+               
+               let newimg = document.createElement("img");
+               newimg.src = celestial_objects[type][spaceobject].img
+               newimg.classList.add("carr-object");
+               newimg.title = celestial_objects[type][spaceobject].name
+               newimg.category = celestial_objects[type][spaceobject].histype;
+               newdiv.appendChild(newimg)
             }
          }
+         else if (showing == "all") {
+            //tried to create a function to do thedisplay but not worked... I'm bad at this..
+               let newdiv = document.createElement("div");
+               newdiv.classList.add("carrousel-card");
+               let lastdiv = nav_cont.lastElementChild
+               nav_cont.insertBefore(newdiv , lastdiv)
+               
+               let newimg = document.createElement("img");
+               newimg.src = celestial_objects[type][spaceobject].img
+               newimg.classList.add("carr-object");
+               newimg.title = celestial_objects[type][spaceobject].name
+               newimg.category = celestial_objects[type][spaceobject].histype;
+               newdiv.appendChild(newimg)
+         }
       }
+   }
+   sessionStorage.setItem("celestialdatas", JSON.stringify(celestial_objects));
 
-         window.dispatchEvent(new Event("displaydone"));
-      }
+   window.dispatchEvent(new Event("displaydone"));
+}
+
+function verification_if_ready(){
+   if (planetstatus && objectsstatus ){
       display_carrousel()
 
       wanted_btns.forEach(btn => {
          btn.addEventListener("click", (clickedon)=>{
             reset = 1;
+            
             let clicked_btn_id = clickedon.target.id;
             if (clicked_btn_id.includes("all")){
                showing = "all";
@@ -89,6 +98,35 @@ function verification_if_ready(){
                })
                indextextholder.innerHTML = "" 
             }
+         })
+      })
+
+      equip_wanted_btns.forEach((btn, index) => {
+         btn.addEventListener("click", () => {
+
+            reset = 1;
+            showing = "visible";
+
+            if (index == 0) {
+               equipment = "eyes";
+            }
+            else if (index == 1) {
+               equipment = "bino";
+            }
+            else if (index == 2) {
+               equipment = "telescope";
+            }
+
+            display_carrousel();
+
+            nav_cont.children[2].scrollIntoView({
+               behavior: "smooth",
+               inline: "center",
+               block: "nearest"
+            });
+
+            indextextholder.innerHTML = "";
+
          })
       })
 
@@ -115,11 +153,11 @@ function verification_if_ready(){
             })
          })
       })
-
-      sessionStorage.setItem("celestialdatas", JSON.stringify(celestial_objects));
          
    }
 }
+
+let total_rating = 0
 
 //Display observability without compromising any other feature if there is an issue there
 window.addEventListener("observability_ready", () => {
@@ -133,10 +171,10 @@ window.addEventListener("observability_ready", () => {
    let moon_rating = observability["moon"].rating;
    let light_pol_rating = observability["light_pollution"].light_score;
 
-   let total_rating = weather_rating + moon_rating + light_pol_rating
+   total_rating = weather_rating + moon_rating + light_pol_rating
 
    total_score_text.innerHTML = `${total_rating} / 100`
-   detail_score_text.innerHTML = detail_score_text.innerHTML = `Weather : ${weather_rating}/40       Moon : ${moon_rating}/20  Light Pollution : ${light_pol_rating}/40`;
+   detail_score_text.innerHTML = detail_score_text.innerHTML = `Weather : ${weather_rating}/40 Moon : ${moon_rating}/20  Light Pollution : ${light_pol_rating}/40`;
 
    if (total_rating <= 30){
       svg_score_list[2].classList.remove("hidden")
@@ -151,7 +189,29 @@ window.addEventListener("observability_ready", () => {
 
    score_divs.forEach(b => b.classList.remove("hidden"))
 
-
-
+   if (planetstatus && objectsstatus){
+      reset = 1;
+      display_carrousel()
+   }
 
 })
+
+function get_visibility(object) {
+   if (object.histype !== "stars" && object.histype !== "nebulae") {
+      return object.infos.visibility
+   }
+
+   if (object.infos.altitude <= 0) return "red"
+
+   if (object.histype == "stars") {
+      const mag = object.infos.magnitude?.magV
+      if (typeof mag !== "number") return "yellow" 
+      const limits = { eyes: 6, bino: 9, telescope: 13 }
+      return mag <= limits[equipment] ? "green" : "yellow"
+   }
+
+   if (object.histype == "nebulae") {
+      const limits = { eyes: 80, bino: 55, telescope: 35 }
+      return total_rating >= limits[equipment] ? "green" : "yellow"
+   }
+}

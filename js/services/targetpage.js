@@ -43,16 +43,17 @@ if (2 > parameters){
 }
 
 else {
+   
    objecttype = parameters.get("objecttype")
    objectid = parameters.get("objectid")
-   objectimg = newcelestial_objects[objecttype][objectid].img
-   azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
-   altdata = newcelestial_objects[objecttype][objectid].infos.altitude
 
-   
    if (objectid.includes(" ")){
       objectid = objectid.replaceAll(" " , "_")
    }
+   
+   objectimg = newcelestial_objects[objecttype][objectid].img
+   azdata = newcelestial_objects[objecttype][objectid].infos.azimuth
+   altdata = newcelestial_objects[objecttype][objectid].infos.altitude
    
    //In order to not create many variables I chose to use the "path" of the div to select differnt parts of the panel
    info_panel.firstElementChild.firstElementChild.textContent = objectid[0].toUpperCase() + objectid.slice(1) // title with first letter Uppercase.

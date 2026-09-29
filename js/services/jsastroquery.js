@@ -14,10 +14,10 @@ window.addEventListener("glocaready" , ()=>{
             let current_dec = text[object]["dec"];
             let current_type = text[object]["type"];
             let current_magV = text[object]["magnitude V"];
-            let current_magB = text[object]["magnitude B"]
+            let current_magB = text[object]["magnitude B"];
             
             // Ok so for now I will run this function only one time (maybe later i'll put something to update it every 2/3min)
-            // But I will later on in the target mode of an object , make a way to refresh the position each second  
+            // But I will later on in the target mode of an object , make a way to refresh the position each second (next version) 
             
             const jd = new Date().getTime() / 86400000 + 2440587.5
             function ra_deg_to_az_lat(ra , dec , lat , lon , jul_date){
@@ -60,7 +60,13 @@ window.addEventListener("glocaready" , ()=>{
                let azdeg = az * 180 / Math.PI
                azdeg += 180 // Don't ask me why , just this was the solution that I found while comparing datas with Stellarium.
 
-               return [azdeg , altdeg , current_name , jd , lat , lon , jul_date]
+               let visibility = undefined;
+
+               if (altdeg <= 0){
+                  visibility = "red"
+               }
+
+               return [azdeg , altdeg , current_name , jd , lat , lon , jul_date , visibility]
 
             }
             
@@ -70,11 +76,13 @@ window.addEventListener("glocaready" , ()=>{
             celestial_objects[current_type][current_name].infos.altitude = finalpos[1];
             //For now I'm letting magV and magB (green filter and blue filter) , we'll see if I can make good use of both.
             celestial_objects[current_type][current_name].infos.magnitude = {"magV": current_magV , 
-                                                                           "magB": current_magB
-            }
+                                                                           "magB": current_magB}
+            celestial_objects[current_type][current_name].infos.visibility = finalpos[7]
+
 
          }}
       )
+      console.log(celestial_objects)
       window.dispatchEvent(new Event("otherready"));  
       objectsstatus = true
       clearloading()
@@ -84,3 +92,6 @@ window.addEventListener("glocaready" , ()=>{
       console.error("There is an issue with the backend..." , error)
    }
    })
+
+
+   
