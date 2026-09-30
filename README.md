@@ -4,7 +4,7 @@
 
 ## IMPORTANT : Test this webapp on a phone !
 
-# PS : Actually backend runs on a free Render server so it take a little min for the server to wake up.
+### PS : Actually backend runs on a free Render server so it take a little min for the server to wake up.
 
 The goal ? YOU can be helped with observing celestial objects. The phone will directly guide you to aim at the looked for object in the sky by the use of **device_orientation** !
 
