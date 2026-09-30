@@ -1,124 +1,88 @@
-# 🌌 LookUp2
+# 🌌 LookUp V2
 
-**LookUp2** is a web application dedicated to astronomy observation.
+**LookUp V2** is a web app used for astronomical observation !
 
-# IMPORTANT : Actually backend runs on a free Render server so it take a little min for the server to wake up.
+## IMPORTANT : Test this webapp on a phone !
 
-The goal ? YOU can be helped with observing celestial objects. The phone will directly guide you to aim at the
-looked for object in the sky by the use of **device_orientation** !
+# PS : Actually backend runs on a free Render server so it take a little min for the server to wake up.
 
-The project combines astronomical calculations, weather datas, light pollution datas and a 3D space to chase the space !
+The goal ? YOU can be helped with observing celestial objects. The phone will directly guide you to aim at the looked for object in the sky by the use of **device_orientation** !
 
-## Features
+To know what you can observe , Look Up takes in consideration the environement of the user and rate it on 100 to apply this to filters in order to estimate what is visibile or not (This is far from perfect , just an **estimation**)
 
-* Geolocation
-* Weather-based conditions
-* Moon phase and illumination information
-* Light pollution in the sky estimation
-* Celestial object visibility
-* Observation mode for naked eye
-* Observation mode for binoculars
-* Observation mode for telescopes
-* Interactive sky navigation
-* Phone orientation 
-* 3D representation of the sky with Three.js
+## Ratings :
+- The weather 40 / 100
+- Light pollution 40 / 100
+- Moon phase 20 / 100
 
-## How it works
+## Important features :
+- 3d space , moving your phone IRL move the cam to look out for celestial objects !
+- Environement conditions are took in consideration to estimated what is visible for the user.
+- Navigation bar to write what object the user wants to look out for.
+- Settings tab with : Changing the color of the web app | Sending an email suggestion directly to me. 
 
-LookUp2 combine several sources of informations to estimate if an object is theoretically observable.
+## Technologies / Datas that were used : 
+In order to make this features possible , this are the technologies that I used and for a majority learned :
 
-The current overall observation score is based on three main factors:
+- HTML / CSS / JS
+- Three.JS (for the 3d space)
+- Web3forms (send me an suggestion with an email)
+- Astronomy API
+- SIMBAD astroquery (astronomical database)
+- Openweather
+- djlorenz Light Pollution map 
 
-* **Weather:** 40 points
-* **Moon:** 20 points
-* **Light pollution:** 40 points
+## How did I do it :
+A vast majority of my progression is documented on my Stardance page regarding this project if you want to check it out :  https://stardance.hackclub.com/projects/43568
 
-The application also checks the characteristics of each celestial object.
+Else in a few weeks I will have posted a youtube video that documents the whole journey on my channel ASTRY ! ( https://www.youtube.com/@ASTR-m2h )
 
-For example, stars are filtered according to their apparent **magnitude** depending on the selected equipment.
+In order to summerize my adventure =>
 
-The application display the objects that match the current conditions in your environement !
+   I started this project around mid/end of July , firstly I spent quite a long time on the mainpage structure because I didn't use any template so this was my first focus.
 
-## Technologies
+   Then with the beginning of August I discoverd the event that is "Stardance" , this challenge motivated me to get seriously to work in order to finish it for the deadline.
 
-### Frontend
+   1 week is the time I pretty much needed in order to being able to acquire the astronomical datas of deep space object. Before this project I already had done a first Look Up version that only had the planet of our solar system available , with that the planets part was already done. So I looked how could I acquiere the position of all the objects of a predefined catalogue and stumble accross "Astroquery Simbad".
 
-* HTML
-* CSS
-* JavaScript
-* Three.js
+   With all those datas I then lerned what was needed with Three.js in order to display what was needed for a representation of the user surroundings.
 
-### Backend
+   The final phase was focused on the observability part , so I worked on acquiering the weather / moon phase / light pollutions datas and then rating them.
 
-* Python
-* Flask
-* REST APIs
+## What to try ?
 
-### Other technologies
+I advise you to try this things in order to not miss out on some little features ! (; 
 
-* Git / GitHub
-* Render
-* npm
+- Change the color of the web app in the settings tab.
 
-## APIs and data sources
+- Write the name of a planet or star in the "Looking for" bar then double click on it and look up for it.
 
-LookUp2 uses data sources, including:
+- Aim at the targetted object for a more precise scope to appear and also an info tab if your aiming close enough.
 
-* **SIMBAD** — astronomical object information
-* **OpenWeather** — weather data
-* **SunriseSunset.io** — Sun and Moon information
-* **DJ Lorenz Light Pollution Atlas** — light pollution data
+- Try clicking on a different object than the one targetted and then target this one
 
-API keys used by the backend with Render.
+- Click on the compass at the bottom of the homepage to enter in the 3d space without any targetted object 
 
-## Running the project
+## Will come :
+- Improvement of esthetic of the page overall
+- More precision in the observability part 
+- Zooming feature for the 3d space
+- Day / Night feature for the 3d space 
+- MORE objects in the catalogue
+- Changing the size of the object in the sky according to their angular size !
 
-### Backend
+## AI use :
+AI was used in order for me to help myself with finding what to use and brainstorming. 
 
-```bash
-python app.py
-```
+For instance when I was thinking how to know if the user is aiming toward the targetted object , I began by thinking of a way to know it by drawing the situation on paint. After some time I figured something out , the issue ? I didn't had a clue what mathematical tool could help my achieve that , so I asked gpt to tell me if that was possible and the equivalent in Three.JS to achieve it.
 
-(Need of private variables)
+Also I used it for debbuging and helping me deal with couples of things that I haven't ever done in my life and weren't a big deal of the project but still needed. The backend is the part that I am talking about , gpt helpeed my set it up. Also it helped my with the query for simbad because I wasn't able to find what I needed in the documentation even after trying with it being pretty large.
 
-## Online version
+### Credits : 
+For displaying images of the celestial objects , I mainly used "Wikicommons"
 
-The project is available on GitHub:
+----------------------------------------------------------------------------------------------------
 
-https://github.com/Rukkoa17/LookUp2
-
-## Current limitations
-
-LookUp2 is still at his "beta".
-
-Some astronomical calculations and visibility estimations are REALLY simplified, especially when determining if objects such as nebulae are realistically observable.
-
-Phone orientation and 3D sky positioning can also depend on the device and browser being used.
-
-The project should therefore be considered an **observation helper** rather than a replacement for professional  software.
-
-## Future improvements
-
-Possible future developments include:
-
-* More accurate visibility calculations
-* Better angular-size representation of celestial objects
-* More detailed Moon and sky calculations
-* Improved phone orientation tracking
-* More celestial objects
-* Better observation forecasts
-* Telescope control
-* More realistic 3D sky rendering
-* Improved mobile interface
-
-## Author
-
-Created by **Rukkoa17** as a personal astronomy and web development project.
-
-The project is also a way to explore web development, APIs, astronomy, 3D graphics and programming through a real world application.
-
----
-
-Thanks for checking out LookUp2!
+Anyways thanks for checking out LookUp2!
 
 ⭐ ASTRY (this project will result in a youtube video on my channel ASTRY) ⭐ 
