@@ -38,7 +38,7 @@ window.addEventListener("glocaready", () => {
     async function rateweather(){
 
         const response = await fetch(
-            `https://lookup2-gpj8.onrender.com/api/weather?lat=${userLocation.latitude}&lon=${userLocation.longitude}`
+            `https://lookup2-1d9v.vercel.app/api/weather?lat=${userLocation.latitude}&lon=${userLocation.longitude}`
         );
 
         const data = await response.json();
@@ -189,7 +189,7 @@ window.addEventListener("glocaready", () => {
     async function rate_lightpollution(){
 
         const response = await 
-        fetch(`https://lookup2-gpj8.onrender.com/api/lightpollution?lat=${userLocation.latitude}&lon=${userLocation.longitude}`)
+        fetch(`https://lookup2-1d9v.vercel.app/api/lightpollution?lat=${userLocation.latitude}&lon=${userLocation.longitude}`)
 
         const data = await response.json()
 
