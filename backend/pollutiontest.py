@@ -79,22 +79,19 @@ def find_tile(current_pos):
       return None
 
    # Now with the tile_x and tile_y we can get the needed dat.gz file from assets/lightpol_maps
-   BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+   CACHE_DIR = os.path.join("/tmp", "lightpol_maps")
+   os.makedirs(CACHE_DIR, exist_ok=True)
 
-   filepath = os.path.abspath(os.path.join(
-      BASE_DIR,
-      "..",
-      "assets",
-      "lightpol_maps",
-      f"binary_tile_{tile_x}_{tile_y}.dat"
-   ))
+   filename = f"binary_tile_{tile_x}_{tile_y}.dat"
+   filepath = os.path.join(CACHE_DIR, filename)
+
 
    if not os.path.exists(filepath):
 
       url = (
          f"https://djlorenz.github.io/astronomy/"
          f"binary_tiles/2025/"
-         f"binary_tile_{tile_x}_{tile_y}.dat.gz"
+         f"binary_tile_{filename}.dat.gz"
       )
 
       try:
@@ -104,6 +101,8 @@ def find_tile(current_pos):
             return None
 
          data = gzip.decompress(response.content)
+
+         os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
          with open(filepath, "wb") as file:
             file.write(data)
