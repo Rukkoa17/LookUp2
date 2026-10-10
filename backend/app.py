@@ -97,6 +97,14 @@ def lightpollution():
     }
 
     results = find_tile(position)
+
+    if results is None:
+        return jsonify({
+            "error": "Unable to retrieve light pollution tile",
+            "lat": lat,
+            "lon": lon
+        }), 502
+
     area = results[0]
     mpsas = results[1]
     light_score = results[2]

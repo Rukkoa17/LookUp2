@@ -98,6 +98,7 @@ def find_tile(current_pos):
          response = requests.get(url, timeout=60)
 
          if response.status_code != 200:
+            print("Light pollution HTTP error:", response.status_code, url)
             return None
 
          data = gzip.decompress(response.content)
@@ -107,7 +108,8 @@ def find_tile(current_pos):
          with open(filepath, "wb") as file:
             file.write(data)
 
-      except (requests.RequestException, gzip.BadGzipFile):
+      except (requests.RequestException, gzip.BadGzipFile, OSError) as e:
+         print("Light pollution download error:", repr(e))
          return None
 
    ix = round(120 * (lon_from_date_line - 5 * (tile_x - 1) + 1/240))
