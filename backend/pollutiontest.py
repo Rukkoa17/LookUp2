@@ -82,7 +82,7 @@ def find_tile(current_pos):
    CACHE_DIR = os.path.join("/tmp", "lightpol_maps")
    os.makedirs(CACHE_DIR, exist_ok=True)
 
-   filename = f"binary_tile_{tile_x}_{tile_y}.dat"
+   filename = f"binary_tile_{tile_x}_{tile_y}.dat.gz"
    filepath = os.path.join(CACHE_DIR, filename)
 
 
@@ -91,7 +91,7 @@ def find_tile(current_pos):
       url = (
          f"https://github.com/djlorenz/djlorenz.github.io/raw/refs/heads/master/astronomy/"
          f"binary_tiles/2025/"
-         f"binary_tile_{filename}.dat.gz"
+         f"{filename}"
       )
 
       try:
