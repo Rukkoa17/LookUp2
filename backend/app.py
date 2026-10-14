@@ -88,8 +88,8 @@ from pollutiontest import find_tile
 def lightpollution():
 
     #There apparently is an Error here, I think it's due to the arguments lat & lon not being already defined , however it works well !
-    lat = float(request.args.get("lat"))
-    lon = float(request.args.get("lon"))
+    lat = request.args.get("lat")
+    lon = request.args.get("lon")
 
     position = {
         "lat" : lat,
