@@ -89,7 +89,7 @@ def find_tile(current_pos):
    if not os.path.exists(filepath):
 
       url = (
-         f"https://djlorenz.github.io/astronomy/"
+         f"https://github.com/djlorenz/djlorenz.github.io/raw/refs/heads/master/astronomy/"
          f"binary_tiles/2025/"
          f"binary_tile_{filename}.dat.gz"
       )
