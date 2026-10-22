@@ -47,7 +47,8 @@
          </nav>
       </nav>
 
-      <h2 id="server-status"></h2>
+      <!-- Loading animation , credit to : Martin van Driel -->
+      <div id="server-status"></div>
 
       <nav id="obs-nav" class="eyes">
          <!--Mutltiples .js files does the filling here by getting the celestials objects then creating for them a div with an img.-->
@@ -62,7 +63,7 @@
       </div>
 
       <div id="weather-cont" class="mainpink"> 
-         <h4 id="weather-cont-title" class="mid-title">Tonight Observability</h4>
+         <h4 id="weather-cont-title" class="mid-title">Current Observability</h4>
 
          <div id="scores-cont">
             
@@ -124,22 +125,22 @@
 
       <div id="settings-panel" class=" hide"> <!--Adding class with onclick function of settings svg-->
 
-         <hr id="settings-top-border" class="mainpink hidden">
+         <hr id="settings-top-border" class="mainpink hiddenset">
 
-         <h4 id="settings-title" class="mid-title hidden">Settings</h4>
+         <h4 id="settings-title" class="mid-title hiddenset">Settings</h4>
 
-         <hr id="settings-hr" class="hidden">
+         <hr id="settings-hr" class="hiddenset">
 
-         <h5 id="color-caption" class="caption hidden">Main color :</h5>
-         <div id="check-boxes-cont" class="hidden">
-            <input type="checkbox" id="pink" class="color-box mainpink selected hidden">
-            <input type="checkbox" id="blue" class="color-box mainblue hidden">
-            <input type="checkbox" id="red" class="color-box mainred hidden">
-            <input type="checkbox" id="green" class="color-box maingreen hidden">
-            <input type="checkbox" id="choice-box" class="color-box mainwhite hidden">
+         <h5 id="color-caption" class="caption hiddenset">Main color :</h5>
+         <div id="check-boxes-cont" class="hiddenset">
+            <input type="checkbox" id="pink" class="color-box mainpink selected hiddenset">
+            <input type="checkbox" id="blue" class="color-box mainblue hiddenset">
+            <input type="checkbox" id="red" class="color-box mainred hiddenset">
+            <input type="checkbox" id="green" class="color-box maingreen hiddenset">
+            <input type="checkbox" id="choice-box" class="color-box mainwhite hiddenset">
          </div>
 
-         <h5 id="color-caption" class="caption hidden">Send me a suggestion :</h5>
+         <h5 id="color-caption" class="caption hiddenset">Send me a suggestion :</h5>
          <form id="email_form" action="https://api.web3forms.com/submit" method="POST">
             <input type="hidden" name="access_key" value="d1e96681-8b34-417e-bed9-2221c2162cf8">
             <input class="email-infos" type="text" maxlength="40" placeholder="Username" name="name" required>
@@ -160,7 +161,6 @@
 
    </main>
    
-   <script type="text/javascript" src="./js/loading.js" defer></script>
    <script type="text/javascript" src="./js/services/infos.js" defer></script>
    <script type="text/javascript" src="./js/services/observability.js" defer></script>
    <script type="text/javascript" src="./js/services/datas.js" defer></script> <!--Load up datas-->

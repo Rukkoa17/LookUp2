@@ -174,7 +174,7 @@ window.addEventListener("observability_ready", () => {
    total_rating = weather_rating + moon_rating + light_pol_rating
 
    total_score_text.innerHTML = `${total_rating} / 100`
-   detail_score_text.innerHTML = detail_score_text.innerHTML = `Weather : ${weather_rating}/40 Moon : ${moon_rating}/20  Light Pollution : ${light_pol_rating}/40`;
+   detail_score_text.innerHTML = detail_score_text.innerHTML = `Weather : ${weather_rating}/40 | Moon : ${moon_rating}/20 | Light Pollution : ${light_pol_rating}/40`;
 
    if (total_rating <= 30){
       svg_score_list[2].classList.remove("hidden")

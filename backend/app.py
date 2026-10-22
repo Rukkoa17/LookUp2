@@ -58,7 +58,7 @@ def astro():
         }
     )
 
-    return jsonify(response.json())
+    return jsonify(response.json()), response.status_code
 
 
 
@@ -68,7 +68,7 @@ def weather():
     weather_key = os.getenv("WEATHER_API_KEY")
 
     if not weather_key:
-        return jsonify({"error : Weather API key is missing"}) , 500
+        return jsonify({"error": "Weather API key is missing"}) , 500
 
     if weather_key :
         weather_key = weather_key.strip()
@@ -88,8 +88,6 @@ from pollutiontest import find_tile
 def lightpollution():
 
     #There apparently is an Error here, I think it's due to the arguments lat & lon not being already defined , however it works well !
-    
-    print(request.args.get("lon"))
     
     lat = float(request.args.get("lat"))
     lon = float(request.args.get("lon"))

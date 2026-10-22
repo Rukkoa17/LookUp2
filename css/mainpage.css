@@ -108,7 +108,7 @@ body{
    margin-bottom: -20vh;
    display: block;
    width: 100%;
-   font-size: medium;
+   font-size: 1.8em;
    text-align: center;
 }
 
@@ -277,13 +277,13 @@ body{
 #total-score-text{
    font-family: "Mansalva";
    margin-top: 0.5vh;
-   font-size: 1.7em;
+   font-size: 1.8em;
    margin-left: 4vw;
 }
 
 #detail-score-cont{
-   font-size: small;
-   margin: 2vh auto 0 auto;
+   font-size: 0.9em;
+   margin: 1vh auto 0 auto;
 }
 
 

@@ -2,9 +2,9 @@
 
 ## IMPORTANT : Test this webapp on a phone !
 
-### PS : Actually backend runs on a free server so it can take a little min for the server to wake up.
+### Backend runs on a free Vercel server
 
-**LookUp V2** is a web app used for astronomical observation !
+**LookUp V2** is a web app used for astronomical observation ! => https://rukkoa17.github.io/LookUp2/
 
 The goal ? YOU can be helped with observing celestial objects. The phone will directly guide you to aim at the looked for object in the sky by the use of **device_orientation** !
 

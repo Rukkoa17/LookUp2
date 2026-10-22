@@ -132,7 +132,7 @@ window.addEventListener("displaydone" , ()=>{
 const coming_popup = document.querySelector("#coming-popup-cont");
 
 //Settings Tab section
-const hiddensettings = document.querySelectorAll(".hidden")
+const hiddensettings = document.querySelectorAll(".hiddenset")
 const settings_panel = document.querySelector("#settings-panel")
 
 function settings_tab(btnname){
@@ -142,6 +142,7 @@ function settings_tab(btnname){
          settings_panel.classList.add("open")
          hiddensettings.forEach(hidden_elem => {
             hidden_elem.classList.remove("hidden")
+         document.body.style.overflowY = "hidden"
          })
          coming_popup.classList.remove("open")
       }  
@@ -153,6 +154,7 @@ function settings_tab(btnname){
 
    else{
       settings_panel.classList.remove("open")
+      document.body.style.overflowY = "auto"
       hiddensettings.forEach(hidden_elem => {
          hidden_elem.classList.add("hidden")
       })

@@ -82,7 +82,6 @@ window.addEventListener("glocaready" , ()=>{
 
          }}
       )
-      console.log(celestial_objects)
       window.dispatchEvent(new Event("otherready"));  
       objectsstatus = true
       clearloading()
