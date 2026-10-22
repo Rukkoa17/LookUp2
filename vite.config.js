@@ -1,5 +1,9 @@
 
-module.exports = {
+const { defineConfig } = require("vite");
+
+module.exports = defineConfig({
+  base: process.env.GITHUB_ACTIONS ? "/LookUp2/" : "/",
+
   server: {
     proxy: {
       "/api": {
@@ -8,4 +12,4 @@ module.exports = {
       }
     }
   }
-};
+});
