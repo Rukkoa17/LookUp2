@@ -277,12 +277,12 @@ body{
 #total-score-text{
    font-family: "Mansalva";
    margin-top: 0.5vh;
-   font-size: 1.8em;
+   font-size: 1.5em;
    margin-left: 4vw;
 }
 
 #detail-score-cont{
-   font-size: 0.9em;
+   font-size: 0.75em;
    margin: 1vh auto 0 auto;
 }
 

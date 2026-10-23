@@ -373,8 +373,13 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
       targetbtn.classList.add("open")
       targetbtn.children[0].classList.remove("hidden")
 
+      const basePath =
+         window.location.hostname === "rukkoa17.github.io"
+            ? "/LookUp2"
+            : "";
+
       targetbtn.onclick = () => {
-         window.location.href  = "/LookUp2/html/eyesobs.html?objecttype=" + newobj_type + "&objectid=" + newobj_name.toLowerCase()
+         window.location.href  = `${basePath}/html/eyesobs.html?objecttype=` + newobj_type + "&objectid=" + newobj_name.toLowerCase()
       }
    }
 
