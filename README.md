@@ -4,7 +4,9 @@
 
 ### Backend runs on a free Vercel server
 
-**LookUp V2** is a web app used for astronomical observation ! => https://rukkoa17.github.io/LookUp2/
+**LookUp V2** is a web app used for astronomical observation by making a use of the captors in your phone ! => https://lookup2-1d9v.vercel.app
+
+![LookUp2 demo](./readmegif.gif)
 
 The goal ? YOU can be helped with observing celestial objects. The phone will directly guide you to aim at the looked for object in the sky by the use of **device_orientation** !
 
@@ -78,7 +80,64 @@ For instance when I was thinking how to know if the user is aiming toward the ta
 
 Also I used it for debbuging and helping me deal with couples of things that I haven't ever done in my life and weren't a big deal of the project but still needed. The backend is the part that I am talking about , gpt helpeed my set it up. Also it helped my with the query for simbad because I wasn't able to find what I needed in the documentation even after trying with it being pretty large.
 
-### Credits : 
+## Running locally
+
+### Requirements
+- Node.js 22 and npm
+- Python 3
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Rukkoa17/LookUp2.git
+cd LookUp2
+npm install
+```
+
+### 2. Set up the backend
+
+```bash
+cd backend
+py -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Create a .env file inside the `backend` directory and add your API keys:
+
+```env
+ASTROAPI_KEY=your_astronomy_api_key
+WEATHER_API_KEY=your_openweather_api_key
+```
+
+Replace the placeholder values with your own API keys , ever commit your .env file pls.
+
+### 3. Start the backend
+
+From the `backend` directory, run:
+
+```bash
+python app.py
+```
+
+The backend should start on port 5000.
+
+### 4. Start the frontend
+
+Open a second terminal in the project root and run:
+
+```bash
+npm run dev
+```
+
+Open the local URL with Vite
+
+Keep both the frontend and backend running while using the application. The Vite server , `/api` requests to the local Flask backend.
+
+## WARNING
+Due to the way I use the parameters of URLs for requests regarding for example the position of objects related to te position of the user with his lat/lon. My Vercel logs can provide the requests that have been made the last hour making me able to see thoses parameters (I run the free plan only). NONE OF THIS INFORMATIONS will be checked by me nor saved !!!
+
+## Credits : 
 For displaying images of the celestial objects , I mainly used "Wikicommons"
 
 ----------------------------------------------------------------------------------------------------
