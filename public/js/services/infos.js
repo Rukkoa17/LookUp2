@@ -2,6 +2,13 @@
 let planetstatus = false;
 let objectsstatus = false;
 
+const popup_pc = document.querySelector('#pc-popup')
+
+if (!window.DeviceOrientationEvent) {
+   console.log("Error : Device doesn't support 'DeviceOrientation'.");
+   popup_pc.classList.add("open");
+}
+
 const loading = document.querySelector("#server-status")
 loading.innerHTML = "Loading ..."
 

@@ -480,26 +480,23 @@ body{
    margin: 0 auto 0 auto;
 }
 
-.pc-popup{
-   display: none;
+#pc-popup.open{
+   display: block;
+   position: absolute;
+
+   top:50%;
+   left:50%;
+   transform: translate(-50% , -50%);
+
+   width: 80vw;
+   height: 40vh;
+
+   background-color: var(--base-color);
+   border : 1px solid white;
+
+   text-align: center;
 }
 
-
-@media (min-width : 769px) {
-
-   #pc-popup{
-      display: block;
-      position: absolute;
-
-      top:50%;
-      left:50%;
-      transform: translate(-50% , -50%);
-
-      width: 80vw;
-      height: 40vh;
-
-      background-color: var(--base-color);
-
-      text-align: center;
-   }
+#pc-popup.open h5{
+   margin-top: 15vh;
 }
