@@ -43,11 +43,8 @@ if (isIOSPermission) {
             noacces_popup.classList.add("open")
         }
 
-        loading.innerHTML = "Touch Again !";
-        document.body.addEventListener("click", function askLocation() {
-            loading.innerHTML = "Loading ...";
-            glocation();
-        }, { once: true });
+        loading.innerHTML = "Loading ...";
+        glocation();
 
     }, { once: true });
 
@@ -65,7 +62,7 @@ else {
       ) {
          orientationReceived = true;
          window.removeEventListener(
-               "deviceorientation",
+               "deviceorieglntation",
                checkOrientation
          );
       }
