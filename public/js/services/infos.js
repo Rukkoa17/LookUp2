@@ -43,8 +43,11 @@ if (isIOSPermission) {
             noacces_popup.classList.add("open")
         }
 
-        loading.innerHTML = "Loading ...";
-        glocation();
+        loading.innerHTML = "Touch Again !";
+        document.body.addEventListener("click", function askLocation() {
+            loading.innerHTML = "Loading ...";
+            glocation();
+        }, { once: true });
 
     }, { once: true });
 
