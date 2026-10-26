@@ -21,7 +21,7 @@ const isIOSPermission = typeof DeviceOrientationEvent?.requestPermission === "fu
 
 if (isIOSPermission) {
 
-    loading.innerHTML = "Touche l'écran pour commencer";
+    loading.innerHTML = "Touch to start !";
 
     document.body.addEventListener("click", async function askOrientation() {
 
@@ -135,7 +135,6 @@ function glocation(){
 
    });
 };
-   //
 
 if (!isIOSPermission) {
    glocation();
