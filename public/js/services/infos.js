@@ -81,7 +81,6 @@ else {
          popup_pc.children[0].classList.remove("hidden")
          popup_pc.children[1].classList.remove("hidden")
          sessionStorage.setItem("hascaptors" , hascaptors);
-         console.log(hascaptors)
       }
    }, 2000);
 }

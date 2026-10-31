@@ -71,7 +71,10 @@ window.addEventListener("displaydone" , ()=>{
       btn.addEventListener("click", ()=> {
 
          if (btn.classList.contains("carr-object-selected")){
-            open("./html/eyesobs.html?objecttype=" + btn.category + "&objectid=" + btn.title.toLowerCase() )
+            window.location.href = "./html/eyesobs.html?objecttype=" 
+               + btn.category 
+               + "&objectid=" 
+               + btn.title.toLowerCase();
             return;
          }
 
