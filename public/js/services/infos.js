@@ -2,6 +2,9 @@
 let planetstatus = false;
 let objectsstatus = false;
 
+//Variable that will be on sessionStorage to switch into desktop version of webapp if no phone.
+let hascaptors = true;
+
 const popup_pc = document.querySelector('#pc-popup')
 
 // This part is there to check if the device of the user is equipped with the needed captors for the webapp.
@@ -72,9 +75,13 @@ else {
 
    setTimeout(() => {
       if (!orientationReceived) {
+         hascaptors = false;
          console.log("No orientation data received");
          popup_pc?.classList.add("open");
          popup_pc.children[0].classList.remove("hidden")
+         popup_pc.children[1].classList.remove("hidden")
+         sessionStorage.setItem("hascaptors" , hascaptors);
+         console.log(hascaptors)
       }
    }, 2000);
 }

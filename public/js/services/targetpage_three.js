@@ -12,12 +12,25 @@ const renderer = new THREE.WebGLRenderer({
    canvas: document.querySelector("#bg"),
 });
 
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth , window.innerHeight);
+//GPT because didn't have time needed to go and ship..
 
-window.addEventListener('resize', () => {
-   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+const stage = document.querySelector("#app-cont");
+
+function resizeRenderer() {
+
+   const width = stage.clientWidth;
+   const height = stage.clientHeight;
+
+   renderer.setPixelRatio(window.devicePixelRatio);
+   renderer.setSize(width, height, false);
+
+   camera.aspect = width / height;
+   camera.updateProjectionMatrix();
+}
+
+window.addEventListener('resize', resizeRenderer);
+
+resizeRenderer();
 
 //----3DObjects
 const geometry = new THREE.SphereGeometry(1000 , 32 , 16 ) // hehe , sphere
@@ -431,8 +444,98 @@ document.querySelector("#bg").addEventListener("click" , (e) => {
 //    prevdist = null
 // })
 
-// // //Here for testing purposes
-// No more orbit controls (;
+// No more orbit controls (; => UPDATE , STILL ORBIT CONTROLS FOR PC USERS !! (And other adjustements)
+const hascaptors = sessionStorage.getItem("hascaptors")
+console.log(hascaptors)
+if (hascaptors == "false"){
+   const control = new OrbitControls(camera , renderer.domElement)
+   control.target.set(0 , 10 , 0)
+
+   //Set the camera to look infront as no captors involved here.
+   qua_camera.setFromAxisAngle(
+      new THREE.Vector3(1, 0, 0),
+         0    
+   )
+
+   //Making all the features of movement that are possible with the needeed captors still pretty usable on desktop !
+   let dragging = false;
+
+   document.querySelector("#bg").addEventListener("mousedown" , () => {
+      dragging = true;
+   })
+
+   document.querySelector("#bg").addEventListener("mousemove" , () => {
+      if(dragging){
+         const camera_direction_mouse = new THREE.Vector3()
+         camera.getWorldDirection(camera_direction_mouse)
+      
+            let compass = Math.atan2(camera_direction_mouse.x, -camera_direction_mouse.z);
+            compass = THREE.MathUtils.radToDeg(compass);
+   
+            if (compass < 0) compass += 360
+   
+            const num_comp = document.querySelector("#number-comp")
+            num_comp.innerHTML = `${compass.toFixed(1)}°`; //toFixed() is a trick I didn't knew , fix number of decimals.
+   
+            //Test to rotate the compass now that I have something okay with number values.
+            const direction_comp = document.getElementById("direction-comp")
+            direction_comp.style.transform = `rotate(${compass.toFixed(1)}deg)`;
+
+            if (objectid != null){
+               const star_direction = new THREE.Vector3()
+               star_direction.subVectors(target_obj.position , camera.position).normalize()
+               
+               const cam_direction = new THREE.Vector3()
+               camera.getWorldDirection(cam_direction)
+               
+               const cross = new THREE.Vector3(); //Chatgpt helped with this , the goal here is to know if the helping arrow needs to be on the left or the right / top bottom.
+               cross.crossVectors(cam_direction, star_direction);
+               
+               const locstardirection = star_direction.clone().applyQuaternion(camera.quaternion.clone().invert());
+               //invert() to get to good left & right logic.
+               
+               const anglerad = Math.atan2(
+                  locstardirection.x,
+                  locstardirection.y
+               );
+               
+               const angledeg = THREE.MathUtils.radToDeg(anglerad);
+               
+               const guiding_arrow = document.querySelector("#guiding-arrow");
+               
+               guiding_arrow.style.transform = `rotate(${angledeg}deg) translateY(-130px)`
+               
+               //Opening the object panel if phone aimed at the object.
+               //Tasks realted with the fact of the scope being near the target.
+               
+               const anglestardir_rad = camera_direction_mouse.angleTo(star_direction)
+               const anglestardir_deg = THREE.MathUtils.radToDeg(anglestardir_rad)
+               
+               const targetpoint_angle = 5
+               const max_anglediff = 2 //Zone radius for the scope hitting the object or not.   
+               
+               if (anglestardir_deg <= targetpoint_angle){
+                  target_point.style.opacity = 1;
+                  guiding_arrow.style.opacity = 0;
+                  if (anglestardir_deg <= max_anglediff){
+                     info_panel.classList.add("open")
+                  }
+               }
+               else {
+                  target_point.style.opacity = 0;
+                  guiding_arrow.style.opacity = 1;
+               }
+            }
+
+      }
+   })
+
+   document.querySelector("#bg").addEventListener("mouseup" , () => {
+      dragging = false
+   })   
+
+
+}
 
 //Animation
 function animate () {

@@ -16,8 +16,8 @@
 </head>
 
 <body>
-
-   <main>
+   <!-- Making use of app-cont for pc version display -->
+   <main id="app-cont"> 
       <header id="main-headercont" class="header-cont"> 
          <h1 id ="main-header" >Look Up</h1> <!--Change with the "Look Up" Drawing-->
          <!--img ; Single Logo that pops with animation when scroll down-->
@@ -101,24 +101,25 @@
 
       </div>
 
-      </main>
-
+      
       <nav id="nav-bar" class="mainpink">
-
+         
          <svg class="nav-bar-svg-btn nav-btn-selected"  onclick="settings_tab('home')"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-
+         
          <svg class="nav-bar-svg-btn" onclick="window.location.href='./html/eyesobs.html'"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass preview-icon"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg>
          
          <svg class="nav-bar-svg-btn" onclick="settings_tab('coming')"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-question-mark-icon lucide-badge-question-mark"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-
+         
          <svg class="nav-bar-svg-btn" onclick= "settings_tab('set')"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cog-icon lucide-cog"><path d="M11 10.27 7 3.34"/><path d="m11 13.73-4 6.93"/><path d="M12 22v-2"/><path d="M12 2v2"/><path d="M14 12h8"/><path d="m17 20.66-1-1.73"/><path d="m17 3.34-1 1.73"/><path d="M2 12h2"/><path d="m20.66 17-1.73-1"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m3.34 7 1.73 1"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="8"/></svg>
-
+         
       </nav>
-
+      
+   </main>
+      
       <div id="coming-popup-cont" class="hidden">
          <h3>New features will come !</h3>
       </div>
@@ -158,8 +159,8 @@
       <!-- Pop up for pc user to test this site on phone -->
       <div id="pc-popup" class="">
          <h5 class="hidden">Test this site on phone please. <br> The current device doesn't have the captors needed for "DeviceOrientation"</h5>
+         <btn id="pc-popup-btn" class="hidden">Keep going without phone orientation</btn>   
       </div>
-
 
    </main>
    

@@ -23,6 +23,16 @@ body::-webkit-scrollbar {
    display: none;      
 }
 
+#app-cont{
+   width: 100%;
+   max-width: 500px;
+   min-height: 100vh;
+   margin: 0 auto;
+   background-color: #000;
+   position: relative;
+   overflow-x: hidden;
+}
+
 #main-header{
    position: absolute;
    top: 2vh;

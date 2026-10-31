@@ -209,3 +209,12 @@ if (actualmaincolor != null){
       }
    })
 }
+
+//Hide pc pop up 
+const pcpopup_btn = document.querySelector("#pc-popup-btn")
+
+pcpopup_btn.addEventListener("click" , () => {
+   popup_pc?.classList.remove("open");
+   popup_pc.children[0].classList.add("hidden")
+   popup_pc.children[1].classList.add("hidden")
+})

@@ -1,18 +1,40 @@
-canvas{
-   position : fixed;
-   display: flex;
+
+#app-cont{
+   position: fixed;
+
+   width: min(100%, 500px);
+   height: 100vh;
+   height: 100dvh;
+
    top: 0;
-   left : 0;
-   overflow-y: hidden;
+   left: 50%;
+   transform: translateX(-50%);
+
+   overflow: hidden;
+   background: var(--base-color);
 }
 
-main{
+canvas {
    position: absolute;
-   height: 100vh;
-   width: 100vw;
+   inset: 0;
+
+   width: 100%;
+   height: 100%;
+
+   display: block;
+}
+
+main {
+   position: absolute;
+   inset: 0;
+
+   width: 100%;
+   height: 100%;
+
    display: flex;
    justify-content: center;
    align-items: center;
+
    pointer-events: none;
 }
 
@@ -62,8 +84,8 @@ main{
    left:50%;
    transform:translate(-50%, -50%);
    border-radius: 50%;
-   height: 3vh;
-   width: 6vw;
+   height: 30px;
+   width: 30px;
    border : 1.5px dashed var(--third-color);
    filter:
       drop-shadow(0 0 6px var(--third-color))
@@ -133,8 +155,8 @@ main{
 
 #guiding-arrow{
    position:absolute;
-   top:46.85vh;
-   left:44vw;
+   top:46.85%;
+   left:44%;
    color: var(--third-color);
    /* This transform is what permits the "orbiting" , playing with the transform origin staying at the center (three js script)*/
    transform: rotate(0deg) translateY(); 
